@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import "react-day-picker/dist/style.css";
 import { Route, Routes } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
@@ -15,13 +16,37 @@ import Payment from './Components/Pages/Dashboard/MyBookings/Payment';
 import Profile from './Components/Pages/Dashboard/Profile/Profile';
 import Appointment from "./Components/Pages/Home/Appointment/Appointment/Appointment";
 import Home from './Components/Pages/Home/Home';
+import Header from "./Components/Share/Header";
 import Navbar from "./Components/Share/Navbar";
 import NotFound from './Components/Share/NotFound';
 
 function App() {
+   const [isScrolled, setIsScrolled] = useState(false);
+
+   useEffect(() => {
+     const handleScroll = () => {
+       const scrollTop =
+         window.pageYOffset || document.documentElement.scrollTop;
+       setIsScrolled(scrollTop > 0);
+     };
+
+     window.addEventListener('scroll', handleScroll);
+
+     return () => {
+       window.removeEventListener('scroll', handleScroll);
+     };
+   }, []);
   return (
     <div>
-      <div className="fixed top-0 z-50 bg-white w-full shadow-md">
+      <div className="duration-500">
+      
+        <Header />
+      </div>
+      <div
+        className={`fixed  bg-white w-full shadow-md ${
+          isScrolled ? ' fixed top-0 z-50 duration-1000' : ''
+        }`}
+      >
         <Navbar />
       </div>
       <Routes>
