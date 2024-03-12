@@ -1,43 +1,31 @@
 import { format } from "date-fns";
-import React, { useEffect, useState } from "react";
-import { useAuthState } from "react-firebase-hooks/auth";
+import React from "react";
 import { toast } from "react-toastify";
-import auth from "../../../../../firebase.init";
 
 const BookingModal = ({ counseling, selectDate, setCounseling, refetch }) => {
-  const [authUser] = useAuthState(auth);
-  const email = authUser?.email;
   const date = format(selectDate, "PP");
   const { name, slots } = counseling;
-  const [ship, setShip] = useState([]);
-  useEffect(() => {
-    fetch(`http://localhost:5000/user/${email}`)
-      .then((res) => res.json())
-      .then((data) => setShip(data));
-  }, [email]);
-
-  // console.log(ship[0]);
+  // const [user] = User();
 
   const handleBooking = (event) => {
     event.preventDefault();
     const form = event.target;
     const slot = form.slot.value;
-    const description = form.description.value;
+    const problem = form.problem.value;
     const phone = form.phone.value;
 
-    // console.log(slot, description, phone);
     const booking = {
-      terminalName: name,
-      date,
+      appointmentDate: date,
       slot,
-      description,
-      phone: phone || ship[0]?.phone,
-      name: ship[0]?.name,
-      img: ship[0]?.img,
-      email,
-      shipCode: ship[0]?.shipCode,
+      teacherName: name,
+      // studentName: user?.name,
+      // studentID: user?.iId,
+      // studentsEmail: user?.email,
+      // email: counseling?.email,
+      // phone: phone || user?.phone,
+      // studentImg: user?.image,
+      problem,
     };
-    // console.log(booking);
 
     fetch("http://localhost:5000/bookings", {
       method: "POST",
@@ -50,9 +38,7 @@ const BookingModal = ({ counseling, selectDate, setCounseling, refetch }) => {
       .then((data) => {
         if (data?.acknowledged) {
           setCounseling(null);
-          toast.success(
-            `${ship[0]?.name} ship Booking Confirmed Slots ${slot}`
-          );
+          toast.success("Booking Confirmed");
           refetch();
         }
       });
@@ -61,11 +47,11 @@ const BookingModal = ({ counseling, selectDate, setCounseling, refetch }) => {
   return (
     <>
       <input type="checkbox" id="booking-modal" className="modal-toggle" />
-      <div className="modal text-black">
+      <div className="modal">
         <div className="modal-box relative">
           <label
             htmlFor="booking-modal"
-            className="btn btn-sm btn-primary btn-circle absolute right-2 top-2"
+            className="btn btn-sm btn-circle absolute right-2 top-2"
           >
             ✕
           </label>
@@ -89,9 +75,9 @@ const BookingModal = ({ counseling, selectDate, setCounseling, refetch }) => {
             </select>
 
             <textarea
-              name="description"
+              name="problem"
               type="Text"
-              placeholder="Your Description"
+              placeholder="Your Problems"
               className="input input-bordered input-primary pt-1 h-20 w-full  mt-2"
             />
             <input
@@ -101,11 +87,7 @@ const BookingModal = ({ counseling, selectDate, setCounseling, refetch }) => {
               className="input input-bordered input-primary w-full  mt-2"
             />
 
-            <input
-              className="w-full mt-5 btn btn-primary"
-              type="submit"
-              value="Submit"
-            />
+            <input className="w-full mt-5 btn " type="submit" value="Submit" />
           </form>
         </div>
       </div>

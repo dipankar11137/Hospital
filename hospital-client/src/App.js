@@ -14,7 +14,6 @@ import Dashboard from './Components/Pages/Dashboard/Dashboard';
 import MyBookings from './Components/Pages/Dashboard/MyBookings/MyBookings';
 import Payment from './Components/Pages/Dashboard/MyBookings/Payment';
 import Profile from './Components/Pages/Dashboard/Profile/Profile';
-import Appointment from "./Components/Pages/Home/Appointment/Appointment/Appointment";
 import Home from './Components/Pages/Home/Home';
 import Header from "./Components/Share/Header";
 import Navbar from "./Components/Share/Navbar";
@@ -51,7 +50,7 @@ function App() {
       </div>
       <Routes>
         <Route path="/" element={<Home />}></Route>
-        <Route path="/appointment" element={<Appointment />}></Route>
+        {/* <Route path="/appointment" element={<Appointment />}></Route> */}
         <Route path="/createAccount" element={<CreateAccount />}></Route>
         <Route path="/payment/:id" element={<Payment />} />
 
@@ -70,7 +69,7 @@ function App() {
           <Route index element={<Home />} />
           <Route path="booking" element={<Bookings />} />
           <Route path="myBooking" element={<MyBookings />} />
-          <Route path="appointment" element={<Appointment />} />
+          {/* <Route path="appointment" element={<Appointment />} /> */}
           <Route path="manageContact" element={<ManageContacts />} />
           <Route path="profile" element={<Profile />} />
           <Route path="contact" element={<Contact />} />

@@ -1,41 +1,50 @@
-import React, { useState } from "react";
-import { DayPicker } from "react-day-picker";
+import React from 'react';
+import { DayPicker } from 'react-day-picker';
+import 'react-day-picker/dist/style.css';
 
 const AppointmentBanner = ({ selectDate, setSelectDate }) => {
-  const [open,setOpen]=useState(false)
+  const today = new Date();
+  const disabledDates = {
+    before: today,
+  };
+
   return (
-    <div>
-      <div className="flex justify-end">
-        <h1 className="text-black text-center text-2xl mt-20 mr-16 font-bold ">
-          <button onClick={() => setOpen(prevState => !prevState)}>
-            Click 
-          </button>{' '}
-          Select Your Date
-        </h1>
-      </div>
-      {open && (
-        <div className="hero mt-8 ">
-          <div className="hero-content flex-col lg:flex-row-reverse">
-            <div
-              style={{
-                boxShadow: '5px 5px 10px blue',
-                height: '200px',
-                width: '200px',
+    <header>
+      <div className="hero mt-16 ">
+        <div className="hero-content flex-col lg:flex-row-reverse gap-x-4">
+          <div className="w-[700px] overflow-hidden ">{/* <Notices /> */}</div>
+          <img
+            src="https://www.peerlesshospital.com/images/international-patient-home.webp"
+            alt="doctor"
+            className="max-w-sm rounded-lg shadow-2xl"
+          />
+          <div className="mr-20 font-bold">
+            {/* Pick This day */}
+            <DayPicker
+              mode="single"
+              selected={selectDate}
+              onSelect={setSelectDate}
+              disabledDays={disabledDates}
+              className="bg-white rounded-lg shadow p-2 "
+              inputProps={{ className: 'w-full rounded-lg ' }}
+              classNames={{
+                container: 'relative',
+                overlay: 'fixed inset-0 bg-black opacity-50',
+                month: 'text-center font-semibold  ',
+                weekdays: 'flex justify-center border-b ',
+                weekdaysRow: 'text-xs',
+                weekday: ' py-0',
+                body: ' text-center',
+                day: 'w-6 h-6 rounded-full flex items-center justify-center cursor-pointer transition-colors duration-200',
+                today: 'bg-blue-500 text-white',
+                selected: 'bg-blue-200',
+                disabled: 'text-gray-400 cursor-not-allowed',
               }}
-              className="mr-10 p-0 bg-white text-black rounded-2xl"
-            >
-              {/* Pick This day */}
-              <DayPicker
-                className="text-[10px] font-semibold p-0"
-                mode="single"
-                selected={selectDate}
-                onSelect={setSelectDate}
-              />
-            </div>
+            />
           </div>
         </div>
-      )}
-    </div>
+      </div>
+    </header>
   );
 };
 
