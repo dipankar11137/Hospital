@@ -24,9 +24,9 @@ const Banner = () => {
       <Swiper
         spaceBetween={30}
         centeredSlides={true}
-        // autoplay={
-        //   autoplay ? { delay: 10000, disableOnInteraction: false } : false
-        // }
+        autoplay={
+          autoplay ? { delay: 3000, disableOnInteraction: false } : false
+        }
         pagination={{
           clickable: true,
         }}
@@ -77,8 +77,9 @@ const Banner = () => {
                 A Legacy of Healing, Hope <br /> and Health
               </h2>
               <p className="text-sm">
-                At the heart of our legacy lies a commitment to your well-<br/>being,
-                spanning three decades of exceptional healthcare.
+                At the heart of our legacy lies a commitment to your well-
+                <br />
+                being, spanning three decades of exceptional healthcare.
               </p>
               <button className="btn btn-sm btn-primary mt-3">Know More</button>
             </div>
@@ -93,8 +94,21 @@ const Banner = () => {
               backgroundSize: 'cover',
               width: '100%',
             }}
-            className="h-[400px] md:h-[500px]"
-          ></div>
+            className="h-[400px] md:h-[500px] flex items-center"
+          >
+            {' '}
+            <div className=" ml-32 text-start">
+              <h1>30 Years of Healing and Wellness</h1>
+              <h2 className="text-4xl font-semibold">
+                A Legacy of Healing, Hope <br /> and Health
+              </h2>
+              <p className="text-sm">
+                At the heart of our legacy lies a commitment to your well-<br/>being,
+                spanning three decades of exceptional healthcare.
+              </p>
+              <button className="btn btn-sm btn-primary mt-3">Know More</button>
+            </div>
+          </div>
         </SwiperSlide>
       </Swiper>
     </>
