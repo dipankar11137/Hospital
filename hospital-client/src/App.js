@@ -38,7 +38,7 @@ function App() {
    }, []);
   return (
     <div>
-      <div className="duration-500">
+      <div className="duration-1000">
       
         <Header />
       </div>
