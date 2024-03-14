@@ -23,7 +23,7 @@ const SImpleProcess = () => {
                 src="https://www.peerlesshospital.com/images/appointment-1.webp"
                 alt=""
               />
-              <h1 className="absolute z-50 bg-yellow-500 -top-3 left-[145px] px-3 py-1 rounded-full font-semibold text-white text-xl">
+              <h1 className="absolute z-30 bg-yellow-500 -top-3 left-[145px] px-3 py-1 rounded-full font-semibold text-white text-xl">
                 1
               </h1>
             </div>
@@ -41,7 +41,7 @@ const SImpleProcess = () => {
                 src="https://www.peerlesshospital.com/images/tekeconsult-1.webp"
                 alt=""
               />
-              <h1 className="absolute z-50 bg-yellow-500 -top-3 left-[145px] px-3 py-1 rounded-full font-semibold text-white text-xl">
+              <h1 className="absolute z-30 bg-yellow-500 -top-3 left-[145px] px-3 py-1 rounded-full font-semibold text-white text-xl">
                 2
               </h1>
             </div>
@@ -61,7 +61,7 @@ const SImpleProcess = () => {
                 src="https://www.peerlesshospital.com/images/payment-1.webp"
                 alt=""
               />
-              <h1 className="absolute z-50 bg-yellow-500 -top-3 left-[145px] px-3 py-1 rounded-full font-semibold text-white text-xl">
+              <h1 className="absolute z-30 bg-yellow-500 -top-3 left-[145px] px-3 py-1 rounded-full font-semibold text-white text-xl">
                 3
               </h1>
             </div>
@@ -79,7 +79,7 @@ const SImpleProcess = () => {
                 src="https://www.peerlesshospital.com/images/reports-1.webp"
                 alt=""
               />
-              <h1 className="absolute z-50 bg-yellow-500 -top-3 left-[145px] px-3 py-1 rounded-full font-semibold text-white text-xl">
+              <h1 className="absolute z-30 bg-yellow-500 -top-3 left-[145px] px-3 py-1 rounded-full font-semibold text-white text-xl">
                 4
               </h1>
             </div>

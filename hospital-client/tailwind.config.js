@@ -6,6 +6,7 @@ module.exports = {
       fontFamily: {
         serif: ['Georgia', 'Cambria', 'Times New Roman', 'Times', 'serif'],
         robot: ['Cambria', 'Roboto', 'Arial', 'sans-serif'],
+        meStyle: ['Open Sans', 'sans-serif'],
       },
     },
   },
