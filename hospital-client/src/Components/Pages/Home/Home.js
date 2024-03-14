@@ -1,6 +1,7 @@
 import React from "react";
 import Footer from "../../Share/Footer";
 import Banner from "./Banner/Banner";
+import Consultants from "./Consultants/Consultants";
 import Facilities from "./Facilities/Facilities";
 import Notice from "./Notice/Notice";
 import SImpleProcess from "./SImpleProcess/SImpleProcess";
@@ -15,7 +16,8 @@ const Home = () => {
       <SImpleProcess />
       <Welcome />
       <WhyChoseUs />
-      <Facilities/>
+      <Facilities />
+      <Consultants/>
     {/* <Appointment/> */}
       <Footer/>
     </div>
