@@ -1,5 +1,4 @@
 import React from "react";
-import Appointment from "./Appointment/Appointment/Appointment";
 import Banner from "./Banner/Banner";
 import Notice from "./Notice/Notice";
 import SImpleProcess from "./SImpleProcess/SImpleProcess";
@@ -10,7 +9,7 @@ const Home = () => {
       <Banner />
       <Notice />
       <SImpleProcess/>
-    <Appointment/>
+    {/* <Appointment/> */}
       
     </div>
   );

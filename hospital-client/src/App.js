@@ -36,7 +36,7 @@ function App() {
      };
    }, []);
   return (
-    <div>
+    <div className="font-robot">
       <div className="duration-1000">
       
         <Header />

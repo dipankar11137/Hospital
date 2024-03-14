@@ -2,7 +2,12 @@
 module.exports = {
   content: ['./src/**/*.{html,js}'],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        serif: ['Georgia', 'Cambria', 'Times New Roman', 'Times', 'serif'],
+        robot: ['Cambria', 'Roboto', 'Arial', 'sans-serif'],
+      },
+    },
   },
   daisyui: {
     themes: [
