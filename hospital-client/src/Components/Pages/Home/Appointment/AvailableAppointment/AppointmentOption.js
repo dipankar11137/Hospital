@@ -1,8 +1,13 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
 const AppointmentOption = ({ option, setCounseling, day }) => {
+  const navigator=useNavigate()
   const { name, slots } = option;
   const modifyDay = day.toLowerCase();
+  const handleDetails = id => {
+    navigator(`/doctorDetails/${id}`);
+  };
   return (
     <div className=" h-[350px] z-10 rounded-b-md border-[1px] border-primary hover:border-orange-600 cursor-pointer bg-base-100 shadow-xl hover:shadow-2xl">
       <div className="">
@@ -10,6 +15,7 @@ const AppointmentOption = ({ option, setCounseling, day }) => {
           <div className="bg-white mb-4 overflow-hidden">
             {option?.img ? (
               <img
+                onClick={() => handleDetails(option._id)}
                 className="w-full h-44 transition-transform duration-300 transform hover:scale-150"
                 src={option.img}
                 alt=""

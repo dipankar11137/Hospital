@@ -6,11 +6,11 @@ const Header = () => {
     <div className="bg-primary">
       <div className="flex justify-between px-20 text-white  items-center">
         <div className="flex gap-3">
-          <h1 className='flex items-center gap-2'>
-            <FaPhoneAlt />
+          <h1 className="flex items-center gap-2">
+            <FaPhoneAlt className="rounded-full ring ring-primary ring-offset-base-100 ring-offset-[1px] p-[1px]" />
             +8801725798558
           </h1>
-          <h1 className='flex items-center gap-2'>
+          <h1 className="flex items-center gap-2">
             <FaRegEnvelope />
             hospital@gmail.com
           </h1>

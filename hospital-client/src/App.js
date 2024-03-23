@@ -19,6 +19,7 @@ import MyBookings from './Components/Pages/Dashboard/MyBookings/MyBookings';
 import Payment from './Components/Pages/Dashboard/MyBookings/Payment';
 import Profile from './Components/Pages/Dashboard/Profile/Profile';
 import Appointment from "./Components/Pages/Home/Appointment/Appointment/Appointment";
+import DoctorDetails from "./Components/Pages/Home/DoctorDetails/DoctorDetails";
 import Home from './Components/Pages/Home/Home';
 import Header from "./Components/Share/Header";
 import Navbar from "./Components/Share/Navbar";
@@ -74,7 +75,7 @@ function App() {
             </RequireAuth>
           }
         />
-        {/* <Route path="/doctorDetails/:id" element={<DoctorDetails />} /> */}
+        <Route path="/doctorDetails/:id" element={<DoctorDetails/>} />
         <Route path="/login" element={<Login />}></Route>
         <Route path="/*" element={<NotFound />}></Route>
 

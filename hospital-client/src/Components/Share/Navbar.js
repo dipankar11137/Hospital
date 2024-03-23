@@ -1,7 +1,6 @@
 import { signOut } from "firebase/auth";
 import React, { useEffect, useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { FaHome } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
 import auth from "../../firebase.init";
 
@@ -26,41 +25,22 @@ const Navbar = () => {
 
   const menuItems = (
     <>
-      <li className=" hover:text-orange-600  text-xl">
-        <Link to="/">
-          <FaHome className="text-slate-400" />
-        </Link>
-      </li>
       <li className=" hover:text-orange-600">
-        <Link to="/blogs">Find A Doctor</Link>
+        <Link to="/about">About</Link>
       </li>
-      {user && (
-        <li className=" hover:text-orange-600">
-          <Link to="/myOrders">Department</Link>
-        </li>
-      )}
-      <li className=" hover:text-orange-600">
-        <Link to="/showAllReview">About</Link>
-      </li>
-
-      {user && (
-        <li className=" hover:text-orange-600">
-          <Link to="/dashboard">Dashboard</Link>
-        </li>
-      )}
-
       <li className=" hover:text-orange-600">
         <Link to="/appointment">Book A Appointment</Link>
       </li>
-      {/* <li className=" font-bold">
-        {user ? (
-          <button className=" font-bold" onClick={logout}>
-            Sign Out
-          </button>
-        ) : (
-          <Link to="/login">Login</Link>
-        )}
-      </li> */}
+      {user && (
+        <>
+          <li className=" hover:text-orange-600">
+            <Link to="/myBooking">My Booking</Link>
+          </li>
+          <li className=" hover:text-orange-600">
+            <Link to="/dashboard">Dashboard</Link>
+          </li>
+        </>
+      )}
     </>
   );
   return (

@@ -29,7 +29,7 @@ const MyBookings = () => {
     }
   };
   return (
-    <div>
+    <div className='mx-10'>
       <div className="px-1">
         <h1 className="text-3xl font-semibold text-center py-5 pr-20">
           My Booking
