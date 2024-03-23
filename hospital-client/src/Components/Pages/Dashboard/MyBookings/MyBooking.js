@@ -8,24 +8,31 @@ const MyBooking = ({ booking, index, handleDelete }) => {
   const handlePayment = id => {
     navigate(`/payment/${id}`);
   };
+  console.log(booking)
   return (
-    <tr className="text-center">
-      <th className="bg-slate-800">{index}</th>
-      <td className="bg-slate-800 border-r-2">{name}</td>
-      <td className="bg-slate-800 border-r-2">{shipCode}</td>
-      <td className="bg-slate-800 border-r-2">{terminalName}</td>
-      <td className="bg-slate-800 border-r-2">{date}</td>
-      <td className="bg-slate-800 border-r-2">{slot}</td>
-      {/* <td className="bg-slate-800 border-r-2">{phone}</td>
-      <td className="bg-slate-800 border-r-2">{description}</td> */}
-      <td className="bg-slate-800 border-r-2">
-        {booking?.payment ? (
+    <tr className="text-center text-slate-800">
+      <th className="bg-slate-300">{index}</th>
+      <td className="bg-slate-300 border-r-2">
+        <div className="flex items-center">
+          <img className="w-14 h-14 rounded-md" src={booking?.img} alt="" />
+          <h1 className="font-semibold ml-3">{booking?.doctorName}</h1>
+        </div>
+      </td>
+      <td className="bg-slate-300 border-r-2">{booking?.department}</td>
+      <td className="bg-slate-300 border-r-2">{booking?.appointmentDate}</td>
+      <td className="bg-slate-300 border-r-2">{booking?.slot}</td>
+      {/* <td className="bg-slate-300 border-r-2">{phone}</td>
+      <td className="bg-slate-300 border-r-2">{description}</td> */}
+      <td className="bg-slate-300 border-r-2">
+        {booking.payment ? (
           <div className="flex justify-center">
-            {' '}
             <h1 className="text-2xl font-semibold mr-4">Paid</h1>{' '}
             {/* The button to open modal */}
-            <label htmlFor="my_modal_6" className="mt-1 text-2xl">
-              <FaChevronDown />
+            <label
+              htmlFor="my_modal_6"
+              className="mt-1 text-2xl flex items-center"
+            >
+              <FaChevronDown className="text-lg cursor-pointer" />
             </label>
             {/* Put this part before </body> tag */}
             <input type="checkbox" id="my_modal_6" className="modal-toggle" />
@@ -33,7 +40,7 @@ const MyBooking = ({ booking, index, handleDelete }) => {
               <div className="modal-box bg-slate-900">
                 <div>
                   <img
-                    src="https://media.newyorker.com/photos/643d8574d73b3d81aa0e371d/master/w_2560%2Cc_limit/Kennedy_Cargo_Sailboats.gif"
+                    src="https://t4.ftcdn.net/jpg/05/05/39/07/360_F_505390776_8ilykzGiVSpIjUqdEXFhDY1ACRJZPDRD.jpg"
                     alt=""
                   />
                 </div>
@@ -54,7 +61,10 @@ const MyBooking = ({ booking, index, handleDelete }) => {
           </button>
         )}
       </td>
-      <td className="bg-slate-800 ">
+      <td className="bg-slate-300  border-r-2">
+        {booking.accept?<h1 className='text-lg text-green-800 font-semibold'>Accepted</h1>:<h1 className='text-lg text-orange-700 font-semibold'>Pay First</h1>}
+      </td>
+      <td className="bg-slate-300 ">
         <button
           onClick={() => handleDelete(_id)}
           className="bg-orange-600 px-3 py-1 rounded-md uppercase text-white font-semibold hover:bg-orange-500"

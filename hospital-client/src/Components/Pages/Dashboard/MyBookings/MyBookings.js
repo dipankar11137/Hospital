@@ -38,16 +38,14 @@ const MyBookings = () => {
           <table className="table  w-full text-white">
             <thead>
               <tr className="text-3xl bg-slate-900 text-center">
-                <th className="bg-slate-700 text-xl"></th>
-                <th className="bg-slate-700 text-xl">Ship Name</th>
-                <th className="bg-slate-700 text-xl">Ship Code</th>
-                <th className="bg-slate-700 text-xl">Terminal</th>
-                <th className="bg-slate-700 text-xl">Date</th>
-                <th className="bg-slate-700 text-xl">Slot</th>
-                <th className="bg-slate-700 text-xl">Payment</th>
-                {/* <th className="bg-slate-700 text-xl">Phone</th>
-                <th className="bg-slate-700 text-xl">Description</th> */}
-                <th className="bg-slate-700 text-xl">Remove</th>
+                <th className="bg-slate-400 text-xl "></th>
+                <th className="bg-slate-400 text-xl border-r-2">Doctor Name</th>
+                <th className="bg-slate-400 text-xl border-r-2">Department</th>
+                <th className="bg-slate-400 text-xl border-r-2">Date</th>
+                <th className="bg-slate-400 text-xl border-r-2">Slot</th>
+                <th className="bg-slate-400 text-xl border-r-2">Payment</th>
+                <th className="bg-slate-400 text-xl border-r-2">Status</th>
+                <th className="bg-slate-400 text-xl">Remove</th>
               </tr>
             </thead>
             <tbody>

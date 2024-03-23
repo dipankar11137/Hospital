@@ -2,36 +2,45 @@ import React from "react";
 
 const AppointmentOption = ({ option, setCounseling, day }) => {
   const { name, slots } = option;
+  const modifyDay = day.toLowerCase();
   return (
-    <div className="card  bg-base-100 shadow-xl">
-      <div className="card-body">
-        <div className="avatar">
-          <div
-            style={{ marginTop: '-100px' }}
-            className="  mb-4 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2"
-          >
-            {option?.user?.image ? (
-              <img src={option?.user?.image} alt="" />
+    <div className=" h-[350px] z-10 rounded-b-md border-[1px] border-primary hover:border-orange-600 cursor-pointer bg-base-100 shadow-xl hover:shadow-2xl">
+      <div className="">
+        <div className="mt-0">
+          <div className="bg-white mb-4 overflow-hidden">
+            {option?.img ? (
+              <img
+                className="w-full h-44 transition-transform duration-300 transform hover:scale-150"
+                src={option.img}
+                alt=""
+              />
             ) : (
               <img
-                src="https://apicms.thestar.com.my/uploads/images/2022/05/15/1585587.jpg"
+                className="w-full h-44"
+                src="https://images.assetsdelivery.com/compings_v2/indomercy/indomercy1501/indomercy150100019.jpg"
                 alt=""
               />
             )}
           </div>
         </div>
 
-        <div>
-          <h2 className="card-title font-bold">{name}</h2>
-          <p className="text-[10px] my-1 font-semibold">MBBS FCPS USA</p>
+        <div className="pt-3 pl-2">
+          <h2 className="card-title font-bold -mt-4">{name}</h2>
+          <p className="text-[10px] my-1 font-semibold text-slate-800">
+            {option?.department}
+          </p>
+          <p className="text-[10px] my-1 font-normal">{option?.degree}</p>
         </div>
 
-        {day === option?.day ||
-        day === option?.day1 ||
-        day === option?.day2 ||
-        day === option?.day3 ? (
+        {(modifyDay === 'friday') & option?.friday ||
+        (modifyDay === 'saturday') & option?.saturday ||
+        (modifyDay === 'sunday') & option?.sunday ||
+        (modifyDay === 'monday') & option?.monday ||
+        (modifyDay === 'tuesday') & option?.tuesday ||
+        (modifyDay === 'wednesday') & option?.wednesday ||
+        (modifyDay === 'thursday') & option?.thursday ? (
           <>
-            <h1 className="text-center text-sm font-bold">
+            <h1 className="text-center text-sm text-indigo-800 font-bold">
               This Day is Off day
             </h1>
             <h1 className="text-red-500 text-sm font-bold text-center">
@@ -54,14 +63,16 @@ const AppointmentOption = ({ option, setCounseling, day }) => {
           </>
         )}
 
-        <div className="card-actions justify-center -mb-5">
+        <div className="card-actions justify-center -mb-4 mt-2">
           <label
             disabled={
-              slots.length === 0 ||
-              day === option?.day ||
-              day === option?.day1 ||
-              day === option?.day2 ||
-              day === option?.day3
+              (modifyDay === 'friday') & option?.friday ||
+              (modifyDay === 'saturday') & option?.saturday ||
+              (modifyDay === 'sunday') & option?.sunday ||
+              (modifyDay === 'monday') & option?.monday ||
+              (modifyDay === 'tuesday') & option?.tuesday ||
+              (modifyDay === 'wednesday') & option?.wednesday ||
+              (modifyDay === 'thursday') & option?.thursday
             }
             onClick={() => setCounseling(option)}
             htmlFor="booking-modal"

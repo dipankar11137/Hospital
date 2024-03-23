@@ -46,17 +46,17 @@ const Payment = () => {
     navigation('/myBooking');
   };
   return (
-    <div className="bg-slate-900 h-screen">
+    <div className="bg-slate-900 pt-10">
       <div className="flex justify-center pt-10 pb-20 ">
         <div>
-          <div className="bg-pink-700 w-[500px] h-[650px]">
+          <div className="bg-pink-700 w-[400px] h-[550px]">
             <img
               className="pt-2"
               src="https://raw.githubusercontent.com/Shipu/bkash-example/master/bkash_payment_logo.png"
               alt=""
             />
-            <div className="mx-[50px] w-[400] h-[150px] shadow-black shadow-md mt-5 text-white text-xl pt-8 pl-4">
-              <h1>Merchant : CARGOBOOKING.COM</h1>
+            <div className="mx-[50px] w-[400] h-[100px] shadow-black shadow-md mt-5 text-white text-lg pt-2 pl-4">
+              <h1>Merchant : Hospital</h1>
               <h1>Invoice No : A234rDefE</h1>
               <h1>Amount : 2550 BDT</h1>
             </div>
@@ -70,7 +70,7 @@ const Payment = () => {
                   type="number"
                 />
                 {numberButton && (
-                  <div className="flex justify-between mx-[150px] mt-3">
+                  <div className="flex justify-between mx-[100px] mt-3">
                     <button
                       onClick={handleNumber}
                       className="bg-slate-700 px-3 py-2 rounded-lg hover:bg-slate-800"
@@ -95,7 +95,7 @@ const Payment = () => {
                     type="password"
                   />
                   {passwordButton && (
-                    <div className="flex justify-between mx-[150px] mt-3">
+                    <div className="flex justify-between mx-[100px] mt-3">
                       <button
                         onClick={handlePasswordButton}
                         className="bg-slate-700 px-3 py-2 rounded-lg hover:bg-slate-800"
@@ -124,7 +124,7 @@ const Payment = () => {
                     />
                   </div>
 
-                  <div className="flex justify-between mx-[150px] mt-3">
+                  <div className="flex justify-between mx-[100px] mt-3">
                     <button
                       onClick={handleVCode}
                       className="bg-slate-700 px-3 py-2 rounded-lg hover:bg-slate-800"

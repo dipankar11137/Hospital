@@ -7,28 +7,27 @@ const Booking = ({
   handleAccept,
   handleDelivery,
 }) => {
-  const { _id, name, shipCode, terminalName, date, slot, phone, description } =
-    booking;
+ 
 
   return (
     <tr className="text-center">
-      <th className="bg-slate-800">{index}</th>
-      <td className="bg-slate-800 ">{name}</td>
-      <td className="bg-slate-800 ">{shipCode}</td>
-      <td className="bg-slate-800 ">{terminalName}</td>
-      <td className="bg-slate-800 ">{date}</td>
-      <td className="bg-slate-800 ">{slot}</td>
-      <td className="bg-slate-800 ">{phone}</td>
-      <td className="bg-slate-800 ">{description}</td>
-      <td className="bg-slate-800 ">
+      <th className="">{index}</th>
+      <td className=" ">{booking?.doctorName}</td>
+      <td className=" ">{booking?.department}</td>
+      <td className=" ">{booking?.patientName}</td>
+      <td className=" ">{booking?.email}</td>
+      <td className=" ">{booking?.phone}</td>
+      <td className=" ">{booking?.appointmentDate}</td>
+      <td className=" ">{booking?.slot}</td>
+      <td className=" ">
         {booking?.payment ? (
           <>
             {booking?.accept ? (
-              <h1 className="text-2xl text-green-300 font-bold">Accept</h1>
+              <h1 className="text-2xl text-green-600 font-bold">Accept</h1>
             ) : (
               <button
-                onClick={() => handleAccept(_id)}
-                className="bg-lime-600 px-3 py-1 rounded-md uppercase text-white font-semibold hover:bg-lime-700"
+                onClick={() => handleAccept(booking?._id)}
+                className="bg-lime-700 px-3 py-1 rounded-md uppercase  font-semibold hover:bg-lime-700"
               >
                 Accept
               </button>
@@ -38,15 +37,15 @@ const Booking = ({
           <h1 className="text-xl font-semibold">Unpaid</h1>
         )}
       </td>
-      <td className="bg-slate-800 ">
+      <td className=" ">
         {booking?.payment ? (
           <>
             {booking?.accept ? (
               <button
-                onClick={() => handleDelivery(_id)}
-                className="btn btn-sm btn-primary  rounded-md uppercase text-white font-semibold "
+                onClick={() => handleDelivery(booking?._id)}
+                className="text-primary  rounded-md uppercase font-semibold "
               >
-                Done
+               Conform
               </button>
             ) : (
               <h1 className="text-xl text-orange-400 font-semibold">
@@ -56,8 +55,8 @@ const Booking = ({
           </>
         ) : (
           <button
-            onClick={() => handleDelete(_id)}
-            className="btn btn-sm rounded-md uppercase text-white font-semibold  "
+            onClick={() => handleDelete(booking?._id)}
+            className="btn btn-xs rounded-md uppercase text-white font-semibold  "
           >
             Remove
           </button>

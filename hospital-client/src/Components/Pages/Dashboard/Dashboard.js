@@ -1,44 +1,29 @@
-import { signOut } from "firebase/auth";
-import React, { useEffect, useState } from "react";
-import { useAuthState } from "react-firebase-hooks/auth";
-import { BsFillTelephoneFill } from "react-icons/bs";
+
+
+import React, { useEffect, useState } from 'react';
+import { useAuthState } from 'react-firebase-hooks/auth';
+import { FaUserMd, FaUserPlus } from 'react-icons/fa';
+
 import {
-  FaEdit,
-  FaHome,
-  FaPeopleArrows,
-  FaSignOutAlt,
-  FaUserAlt,
-} from "react-icons/fa";
-import { IoIosContacts } from 'react-icons/io';
-import { TbBrandBooking } from 'react-icons/tb';
-import { Link, Outlet } from 'react-router-dom';
-import cargo from '../../../Images/Cargo logo/cargo1.png';
+  MdDashboard
+} from 'react-icons/md';
+import { Link, Outlet, useLocation } from 'react-router-dom';
 import auth from '../../../firebase.init';
-import '../../CSS/DashboardStyle.css';
 
 const Dashboard = () => {
   const [user] = useAuthState(auth);
-  const [authUser] = useAuthState(auth);
-  const [users, setUsers] = useState([]);
+   const { pathname } = useLocation();
 
-  useEffect(() => {
-    fetch(`http://localhost:5000/user/${authUser?.email}`)
-      .then(res => res.json())
-      .then(data => setUsers(data));
-  }, [users, authUser?.email]);
+  const [open, setOpen] = useState(false);
+  const [selectedButton, setSelectedButton] = useState('Button 10');
+   
 
-  const handleToggle = () => {
-    const navigation = document.querySelector('.navigation');
-    navigation.classList.toggle('active');
-  };
-
-  const handleSignOut = () => {
-    signOut(auth);
-  };
-
+    useEffect(() => {
+      window.scrollTo(0, 0);
+    }, [pathname]);
   return (
-    <div className="bg-slate-900 text-white">
-      <div>
+    <div className="bg-white pt-16">
+      <div className="">
         <div className="drawer drawer-mobile">
           <input
             id="dashboard-sidebar"
@@ -49,88 +34,139 @@ const Dashboard = () => {
             <Outlet></Outlet>
           </div>
           <div className="drawer-side navigation ">
-            <label for="dashboard-sidebar" className="drawer-overlay "></label>
-            <ul className="  ">
-              <li style={{ marginLeft: '-12px', marginBottom: '100px' }}>
-                <Link to="/" className="aLink flex justify-center">
-                  <img
-                    className="h-20 w-20 rounded-full"
-                    src={users[0]?.img || cargo}
-                    alt=""
-                  />
-                </Link>
-              </li>
-              {/* start */}
-              <li>
-                <Link className="aLink" to="/">
-                  <span className="icon  ">
-                    <FaHome className="text-4xl mt-3 ml-2" />
-                  </span>
-                  <span className="title hover:animate-pulse font-bold ">
-                    Home
-                  </span>
-                </Link>
-              </li>
-              <li>
-                <Link className="aLink" to="/appointment">
-                  <span className="icon">
-                    <FaPeopleArrows className="text-4xl mt-3 ml-2" />
-                  </span>
-                  <span className="title">Booking</span>
-                </Link>
-              </li>
-              {user.email === 'abc@def.com' && (
-                <li>
-                  <Link className="aLink" to="/booking">
-                    <span className="icon">
-                      <FaEdit className="text-4xl mt-3 ml-2" />
-                    </span>
-                    <span className="title">Manage Booking</span>
-                  </Link>
-                </li>
-              )}
-              <li>
-                <Link className="aLink" to="/myBooking">
-                  <span className="icon">
-                    <TbBrandBooking className="text-4xl mt-3 ml-2" />
-                  </span>
-                  <span className="title">My Booking</span>
-                </Link>
-              </li>
-              <li className="mt-28">
-                <Link className="aLink" to="/manageContact">
-                  <span className="icon">
-                    <IoIosContacts className="text-4xl mt-3 ml-2" />
-                  </span>
-                  <span className="title">Manage Contact</span>
-                </Link>
-              </li>
-              <li className="">
-                <Link className="aLink" to="/contact">
-                  <span className="icon">
-                    <BsFillTelephoneFill className="text-4xl mt-3 ml-2" />
-                  </span>
-                  <span className="title">Contact</span>
-                </Link>
-              </li>
-              <li className="">
-                <Link className="aLink" to="/profile">
-                  <span className="icon">
-                    <FaUserAlt className="text-4xl mt-3 ml-2" />
-                  </span>
-                  <span className="title">Profile</span>
-                </Link>
-              </li>
-              <li>
-                <Link onClick={handleSignOut} className="aLink ">
-                  <span className="icon">
-                    <FaSignOutAlt className="text-4xl mt-3 ml-2" />
-                  </span>
-                  <span className="title">Sign Out</span>
-                </Link>
-              </li>
-            </ul>
-            <div onClick={handleToggle} className="toggle"></div>
+            <label
+              htmlFor="dashboard-sidebar"
+              className="drawer-overlay "
+            ></label>
+            <section className="flex ">
+              <div
+                className={` ${
+                  open ? 'w-60' : 'w-20 '
+                } bg-primary h-screen p-5 text-white pt-8 relative duration-300`}
+              >
+                <img
+                  src="https://cdn.pixabay.com/photo/2012/04/11/17/14/left-28998_1280.png"
+                  className={`absolute cursor-pointer -right-3 top-9 w-7
+             border-2 rounded-full  ${!open && 'rotate-180'}`}
+                  onClick={() => setOpen(!open)}
+                  alt=""
+                />
+                <div className="flex gap-x-4 items-center">
+                  <div onClick={() => setSelectedButton('Button 10')}>
+                    {' '}
+                    <Link to={'/dashboard'}>
+                      {' '}
+                      <img
+                        src="https://www.svgrepo.com/download/7869/settings.svg"
+                        className={`cursor-pointer duration-500 rounded-full ${
+                          open && 'rotate-[360deg] h-20  '
+                        }`}
+                        alt=""
+                      />
+                    </Link>
+                  </div>
+                </div>
+
+                <div className="mt-4 flex flex-col gap-4 relative">
+                  {/* Dashboard */}
+                  <div
+                    onClick={() => setSelectedButton('Button 10')}
+                    className={
+                      selectedButton === 'Button 10'
+                        ? 'bg-white text-black w-[215px] rounded-lg'
+                        : ''
+                    }
+                  >
+                    {' '}
+                    <Link
+                      to="/dashboard"
+                      className={`  group flex items-center text-xl w-[215px] gap-3.5 font-medium p-2 hover:bg-indigo-400 rounded-md`}
+                    >
+                      <div>
+                        {React.createElement(MdDashboard, {
+                          size: '20',
+                        })}
+                      </div>
+                      <h2
+                        style={{
+                          transitionDelay: `${0 + 3}00ms`,
+                        }}
+                        className={`whitespace-pre duration-500  ${
+                          !open && 'opacity-0 translate-x-28 overflow-hidden '
+                        }`}
+                      >
+                        Manage Booking
+                      </h2>
+                    </Link>
+                  </div>
+
+                  {/* add doctor */}
+                  <div
+                    onClick={() => setSelectedButton('Button 5')}
+                    className={
+                      selectedButton === 'Button 5'
+                        ? 'bg-white text-black w-[215px] rounded-lg'
+                        : ''
+                    }
+                  >
+                    {' '}
+                    <Link
+                      to="/dashboard/addDoctor"
+                      className={`  group flex items-center text-xl w-[215px] gap-3.5 font-medium p-2  hover:bg-indigo-400 rounded-md`}
+                    >
+                      <div>
+                        {React.createElement(FaUserPlus, {
+                          size: '24',
+                        })}
+                      </div>
+                      <h2
+                        style={{
+                          transitionDelay: `${0 + 3}00ms`,
+                        }}
+                        className={`whitespace-pre duration-500 ${
+                          !open && 'opacity-0 translate-x-28 overflow-hidden '
+                        }`}
+                      >
+                        Add Doctor
+                      </h2>
+                    </Link>
+                  </div>
+
+                  {/* Manage Porduct */}
+                  <div
+                    onClick={() => setSelectedButton('Button 6')}
+                    className={
+                      selectedButton === 'Button 6'
+                        ? 'bg-white w-[215px] text-black rounded-lg '
+                        : ''
+                    }
+                  >
+                    {' '}
+                    <Link
+                      to="/dashboard/manageDoctor"
+                      className={`  group flex items-center text-xl w-[215px]  gap-3.5 font-medium p-2 hover:bg-indigo-400 rounded-md`}
+                    >
+                      <div>
+                        {React.createElement(FaUserMd, {
+                          size: '20',
+                        })}
+                      </div>
+                      <h2
+                        style={{
+                          transitionDelay: `${0 + 3}00ms`,
+                        }}
+                        className={`whitespace-pre duration-500 ${
+                          !open &&
+                          'opacity-0 translate-x-28 overflow-hidden w-[215px]'
+                        }`}
+                      >
+                        Manage Doctor
+                      </h2>
+                    </Link>
+                  </div>
+                </div>
+              </div>
+            </section>
           </div>
         </div>
       </div>

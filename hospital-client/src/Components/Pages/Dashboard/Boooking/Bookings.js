@@ -75,30 +75,30 @@ const Bookings = () => {
       {/* <div className="flex justify-center p-2">
         <input
           onChange={e => setDate(e.target.value)}
-          className="text-black w-[300px] p-2 rounded-lg text-xl font-semibold"
+          className="text-black w-[300px] p-2 rounded-lg text-xl text-orange-700 font-semibold"
           type="date"
           name=""
           id=""
         />
       </div> */}
       <div className="overflow-x-auto">
-        <table className="table  w-full text-white">
+        <table className="table  w-full text-slate-900 border-2">
           <thead>
             <tr className="text-3xl bg-slate-900 text-center">
-              <th className="bg-slate-700 text-xl"></th>
-              <th className="bg-slate-700 text-xl">Ship Name</th>
-              <th className="bg-slate-700 text-xl">Ship Code</th>
-              <th className="bg-slate-700 text-xl">Terminal</th>
-              <th className="bg-slate-700 text-xl">Date</th>
-              <th className="bg-slate-700 text-xl">Slot</th>
-              <th className="bg-slate-700 text-xl">Phone</th>
-              <th className="bg-slate-700 text-xl">Description</th>
-              <th className="bg-slate-700 text-xl">Status</th>
-              <th className="bg-slate-700 text-xl">Delivery</th>
+              <th className="bg-slate-300 text-xl text-orange-700"></th>
+              <th className="bg-slate-300 text-xl text-orange-700">Doctor Name</th>
+              <th className="bg-slate-300 text-xl text-orange-700">Department</th>
+              <th className="bg-slate-300 text-xl text-orange-700">Patient name</th>
+              <th className="bg-slate-300 text-xl text-orange-700">Email</th>
+              <th className="bg-slate-300 text-xl text-orange-700">Phone</th>
+              <th className="bg-slate-300 text-xl text-orange-700">Date</th>
+              <th className="bg-slate-300 text-xl text-orange-700">Slot</th>
+              <th className="bg-slate-300 text-xl text-orange-700">Status</th>
+              <th className="bg-slate-300 text-xl text-orange-700">Remove</th>
             </tr>
           </thead>
           <tbody>
-            {bookings.map((booking, index) => (
+            {bookings.slice().reverse().map((booking, index) => (
               <Booking
                 key={booking._id}
                 booking={booking}
