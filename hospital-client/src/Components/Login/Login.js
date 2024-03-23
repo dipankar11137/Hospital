@@ -7,9 +7,8 @@ import { useForm } from "react-hook-form";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import auth from "../../firebase.init";
 // import axios from "axios";
+import lock from '../../Images/Login/lock.jpg';
 import Loading from "../Share/Loading";
-import login from "../../Images/Login/login.jpg";
-import { toast } from "react-toastify";
 
 const Login = () => {
   const [signInWithGoogle, gUser, gLoading, gError] = useSignInWithGoogle(auth);
@@ -50,32 +49,32 @@ const Login = () => {
   return (
     <div
       style={{
-        backgroundImage: `url("https://www.exfreight.com/wp-content/uploads/2021/07/iStock-1208766085.jpg")`,
-        backgroundPosition: "center",
-        backgroundSize: "cover",
-        backgroundRepeat: "no-repeat",
-        width: "100%",
-        height: "100vp",
+        backgroundImage: `url("https://cdn.wallpapersafari.com/31/82/cyBn5z.jpg")`,
+        backgroundPosition: 'center',
+        backgroundSize: 'cover',
+        backgroundRepeat: 'no-repeat',
+        width: '100%',
+        height: '100vp',
       }}
-      className="flex justify-center h-screen bg-slate-700"
+      className="flex justify-center pb-10 bg-slate-700"
     >
-      <div className="mt-32  ">
+      <div className="mt-20  ">
         <div
           style={{
-            backgroundImage: `url("https://media.istockphoto.com/id/1269937835/vector/gold-lock-icon-isolated-on-black-background-padlock-sign-security-safety-protection-privacy.jpg?s=170667a&w=0&k=20&c=DS8gHfWE2jAChALb7q7UhHDYBRSLYky2e-1sADMZ1b8=")`,
-            backgroundPosition: "center",
-            backgroundSize: "cover",
-            backgroundRepeat: "no-repeat",
-            width: "100%",
-            boxShadow: "2px ",
-            zIndex: "2",
+            backgroundImage: `url(${lock})`,
+            backgroundPosition: 'center',
+            backgroundSize: 'cover',
+            backgroundRepeat: 'no-repeat',
+            width: '100%',
+            boxShadow: '2px ',
+            zIndex: '2',
           }}
-          className="card w-96 shadow-2xl bg-violet-50"
+          className="card w-72 shadow-2xl bg-violet-50"
         >
           <div className="card-body text-white">
-            <div className="flex justify-center">
+            <div className="flex justify-center ">
               <img
-                className="w-28 h-28 "
+                className="w-16 h-16 "
                 src="https://cdn.pixabay.com/animation/2022/12/20/03/45/03-45-09-865_512.gif"
                 alt=""
               />
@@ -87,28 +86,28 @@ const Login = () => {
                   <span className="label-text text-white">Email</span>
                 </label>
                 <input
-                  style={{ width: "400px" }}
+                  style={{ width: '350px' }}
                   type="email"
                   placeholder="Your Email"
-                  className="input input-bordered bg-white  w-96 "
-                  {...register("email", {
+                  className="input input-bordered bg-white  w-80 "
+                  {...register('email', {
                     required: {
                       value: true,
-                      message: "Email is Required",
+                      message: 'Email is Required',
                     },
                     pattern: {
                       value: /[a-z0-9]+@[a-z]+\.[a-z]{2,3}/,
-                      message: "Provide a valid Email",
+                      message: 'Provide a valid Email',
                     },
                   })}
                 />
                 <label className="label">
-                  {errors.email?.type === "required" && (
+                  {errors.email?.type === 'required' && (
                     <span className="label-text-alt text-red-500">
                       {errors.email.message}
                     </span>
                   )}
-                  {errors.email?.type === "pattern" && (
+                  {errors.email?.type === 'pattern' && (
                     <span className="label-text-alt text-red-500">
                       {errors.email.message}
                     </span>
@@ -123,24 +122,24 @@ const Login = () => {
                   type="password"
                   placeholder="Password"
                   className="input input-bordered text-black font-bold bg-white w-full "
-                  {...register("password", {
+                  {...register('password', {
                     required: {
                       value: true,
-                      message: "Password is Required",
+                      message: 'Password is Required',
                     },
                     minLength: {
                       value: 6,
-                      message: "Must be 6 characters or longer",
+                      message: 'Must be 6 characters or longer',
                     },
                   })}
                 />
                 <label className="label">
-                  {errors.password?.type === "required" && (
+                  {errors.password?.type === 'required' && (
                     <span className="label-text-alt text-red-500">
                       {errors.password.message}
                     </span>
                   )}
-                  {errors.password?.type === "minLength" && (
+                  {errors.password?.type === 'minLength' && (
                     <span className="label-text-alt text-red-500">
                       {errors.password.message}
                     </span>
@@ -150,7 +149,7 @@ const Login = () => {
 
               {signInError}
               <input
-                className="btn btn-orange-500 w-full text-white"
+                className="btn btn-primary w-full text-white"
                 type="submit"
                 value="Login"
               />
