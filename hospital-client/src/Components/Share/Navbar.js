@@ -37,10 +37,16 @@ const Navbar = () => {
             <Link to="/myBooking">My Booking</Link>
           </li>
           <li className=" hover:text-orange-600">
-            <Link to="/dashboard">Dashboard</Link>
+            <Link to="/blood">Blood Donner</Link>
+          </li>
+          <li className=" hover:text-orange-600">
+            <Link to="/contact">Contact</Link>
           </li>
         </>
       )}
+    {user?.email==='abc@def.com'&&  <li className=" hover:text-orange-600">
+        <Link to="/dashboard">Dashboard</Link>
+      </li>}
     </>
   );
   return (
@@ -72,10 +78,10 @@ const Navbar = () => {
         </div>
         <Link
           to="/"
-          className="btn btn-ghost normal-case font-bold lg:text-3xl  sm:text-sm text-amber-500"
+          className="btn btn-ghost normal-case font-bold lg:text-3xl  sm:text-sm text-indigo-500"
         >
           <img className="h-12 mr-2" src="" alt="" />
-          Logo/name
+          Alok Hospital
         </Link>
       </div>
       <div className="navbar-center hidden lg:flex lg:pr-36 ml-40">
