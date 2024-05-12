@@ -8,6 +8,7 @@ import CreateAccount from "./Components/Login/CreateAccount";
 import Login from "./Components/Login/Login";
 import RequireAuth from "./Components/Login/RequireAUth";
 import About from "./Components/Pages/About/About";
+import BloodDonner from "./Components/Pages/Blood Donner/BloodDonner";
 import AddDoctor from "./Components/Pages/Dashboard/AddDoctor/AddDoctor";
 import Bookings from "./Components/Pages/Dashboard/Boooking/Bookings";
 import Contact from "./Components/Pages/Dashboard/Contact.js/Contact";
@@ -64,6 +65,14 @@ function App() {
           element={
             <RequireAuth>
               <MyBookings />
+            </RequireAuth>
+          }
+        />
+        <Route
+          path="/blood"
+          element={
+            <RequireAuth>
+              <BloodDonner />
             </RequireAuth>
           }
         />
