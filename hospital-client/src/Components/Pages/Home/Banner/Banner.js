@@ -10,7 +10,10 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import './Banner.css';
 
 const Banner = () => {
-    const [autoplay, setAutoplay] = useState(true);
+  const [autoplay, setAutoplay] = useState(true);
+  const handleCall = () => {
+    window.location.href = 'tel:+1234567890';
+  };
 
     const handleMouseEnter = () => {
       setAutoplay(false);
@@ -24,9 +27,9 @@ const Banner = () => {
       <Swiper
         spaceBetween={30}
         centeredSlides={true}
-        autoplay={
-          autoplay ? { delay: 3000, disableOnInteraction: false } : false
-        }
+        // autoplay={
+        //   autoplay ? { delay: 3000, disableOnInteraction: false } : false
+        // }
         pagination={{
           clickable: true,
         }}
@@ -56,7 +59,17 @@ const Banner = () => {
               <p className="text-sm">
                 Investing in skill and experience for a better tomorrow.
               </p>
-              <button className="btn btn-sm btn-primary mt-3">Know More</button>
+              <div>
+                <button className="btn btn-sm btn-primary mt-3">
+                  Know More
+                </button>
+                <button
+                  onClick={handleCall}
+                  className="bg-red-600 hover:bg-red-700 text-white font-bold py-1 px-4 rounded-xl mt-2 ml-5"
+                >
+                  Call Now
+                </button>
+              </div>
             </div>
           </div>
         </SwiperSlide>
@@ -81,7 +94,17 @@ const Banner = () => {
                 <br />
                 being, spanning three decades of exceptional healthcare.
               </p>
-              <button className="btn btn-sm btn-primary mt-3">Know More</button>
+              <div>
+                <button className="btn btn-sm btn-primary mt-3">
+                  Know More
+                </button>
+                <button
+                  onClick={handleCall}
+                  className="bg-red-600 hover:bg-red-700 text-white font-bold py-1 px-4 rounded-xl mt-2 ml-5"
+                >
+                  Call Now
+                </button>
+              </div>
             </div>
           </div>
         </SwiperSlide>
@@ -103,10 +126,21 @@ const Banner = () => {
                 A Legacy of Healing, Hope <br /> and Health
               </h2>
               <p className="text-sm">
-                At the heart of our legacy lies a commitment to your well-<br/>being,
-                spanning three decades of exceptional healthcare.
+                At the heart of our legacy lies a commitment to your well-
+                <br />
+                being, spanning three decades of exceptional healthcare.
               </p>
-              <button className="btn btn-sm btn-primary mt-3">Know More</button>
+              <div>
+                <button className="btn btn-sm btn-primary mt-3">
+                  Know More
+                </button>
+                <button
+                  onClick={handleCall}
+                  className="bg-red-600 hover:bg-red-700 text-white font-bold py-1 px-4 rounded-xl mt-2 ml-5"
+                >
+                  Call Now
+                </button>
+              </div>
             </div>
           </div>
         </SwiperSlide>
