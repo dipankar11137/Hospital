@@ -37,10 +37,10 @@ const MyBooking = ({ booking, index, handleDelete }) => {
             {/* Put this part before </body> tag */}
             <input type="checkbox" id="my_modal_6" className="modal-toggle" />
             <div className="modal">
-              <div className="modal-box bg-slate-900">
+              <div className="modal-box bg-white">
                 <div>
                   <img
-                    src="https://t4.ftcdn.net/jpg/05/05/39/07/360_F_505390776_8ilykzGiVSpIjUqdEXFhDY1ACRJZPDRD.jpg"
+                    src="https://img.freepik.com/free-vector/thank-you-placard-concept-illustration_114360-13436.jpg"
                     alt=""
                   />
                 </div>
@@ -62,7 +62,11 @@ const MyBooking = ({ booking, index, handleDelete }) => {
         )}
       </td>
       <td className="bg-slate-300  border-r-2">
-        {booking.accept?<h1 className='text-lg text-green-800 font-semibold'>Accepted</h1>:<h1 className='text-lg text-orange-700 font-semibold'>Pay First</h1>}
+        {booking.accept ? (
+          <h1 className="text-lg text-green-800 font-semibold">Accepted</h1>
+        ) : (
+          <h1 className="text-lg text-orange-700 font-semibold">Pay First</h1>
+        )}
       </td>
       <td className="bg-slate-300 ">
         <button

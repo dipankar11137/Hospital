@@ -1,11 +1,12 @@
 import React from 'react';
+import Footer from '../../Share/Footer';
 
 const BloodDonner = () => {
    const handleCall = () => {
      window.location.href = 'tel:+1234567890'; 
    };
   return (
-    <div className="pt-20 pb-20">
+    <div className="pt-20 ">
       <div className="grid grid-cols-4 mx-5 mb-10">
         <div className="text-center text-xl bg-indigo-700 p-14 text-white">
           <h1 className="text-3xl font-semibold">A (+ve)</h1>
@@ -98,6 +99,7 @@ const BloodDonner = () => {
           </button>
         </div>
       </div>
+      <Footer/>
     </div>
   );
 };

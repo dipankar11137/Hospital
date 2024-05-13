@@ -9,9 +9,9 @@ import Login from "./Components/Login/Login";
 import RequireAuth from "./Components/Login/RequireAUth";
 import About from "./Components/Pages/About/About";
 import BloodDonner from "./Components/Pages/Blood Donner/BloodDonner";
+import Contact from "./Components/Pages/Contact/Contact";
 import AddDoctor from "./Components/Pages/Dashboard/AddDoctor/AddDoctor";
 import Bookings from "./Components/Pages/Dashboard/Boooking/Bookings";
-import Contact from "./Components/Pages/Dashboard/Contact.js/Contact";
 import ManageContacts from './Components/Pages/Dashboard/Contact.js/Manage Contact/ManageContacts';
 import Dashboard from './Components/Pages/Dashboard/Dashboard';
 import EditDoctor from "./Components/Pages/Dashboard/ManageDoctor/EditDoctor";
@@ -57,6 +57,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />}></Route>
         <Route path="/about" element={<About />}></Route>
+        <Route path="/contact" element={<Contact />}></Route>
         <Route path="/createAccount" element={<CreateAccount />}></Route>
         <Route path="/payment/:id" element={<Payment />} />
 
@@ -104,7 +105,7 @@ function App() {
           <Route path="editDoctor/:id" element={<EditDoctor />} />
           <Route path="manageContact" element={<ManageContacts />} />
           <Route path="profile" element={<Profile />} />
-          <Route path="contact" element={<Contact />} />
+          {/* <Route path="contact" element={<Contact />} /> */}
         </Route>
         {/* Dashboard End */}
       </Routes>

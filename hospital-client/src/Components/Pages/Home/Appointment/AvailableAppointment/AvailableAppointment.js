@@ -57,9 +57,9 @@ useEffect(() => {
 
   return (
     <div>
-      <section className="mt-6 mx-40 pb-20">
+      <section className="mt-6  pb-20">
         {/* {today <= date ? <h1>Right</h1> : <h1>Wrong</h1>} */}
-        <div className="bg-primary bg-gradient-to-r from-accent to-primary p-5 rounded-xl shadow-2xl -mt-60">
+        <div className="bg-primary bg-gradient-to-r from-accent to-primary p-5 rounded-xl shadow-2xl -mt-60 mx-40">
           <div className="">
             {result ? (
               <p className="text-3xl  text-center mt-5 text-slate-50 font-bold mb-6">
@@ -96,24 +96,24 @@ useEffect(() => {
               </select>
             </div>
             <div>
-            <select
-              // onChange={e => setName(e.target.value)}
-              name="department"
-              className="select select-bordered select-info w-80 "
-            >
-              <option value="">Doctor Name</option>
-              {appointmentOptions.map((option, i) => (
-                <option value={option.name} key={i}>
-                  {option.name}
-                </option>
-              ))}
-            </select>
-          </div>
+              <select
+                // onChange={e => setName(e.target.value)}
+                name="department"
+                className="select select-bordered select-info w-80 "
+              >
+                <option value="">Doctor Name</option>
+                {appointmentOptions.map((option, i) => (
+                  <option value={option.name} key={i}>
+                    {option.name}
+                  </option>
+                ))}
+              </select>
+            </div>
           </div>
         </div>
 
         {result && (
-          <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-x-6 gap-y-36 mt-32">
+          <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-x-6 gap-y-36 mt-32 mx-24">
             {appointmentOptions.map(option => (
               <AppointmentOption
                 key={option._id}

@@ -27,9 +27,9 @@ const Banner = () => {
       <Swiper
         spaceBetween={30}
         centeredSlides={true}
-        // autoplay={
-        //   autoplay ? { delay: 3000, disableOnInteraction: false } : false
-        // }
+        autoplay={
+          autoplay ? { delay: 5000, disableOnInteraction: false } : false
+        }
         pagination={{
           clickable: true,
         }}

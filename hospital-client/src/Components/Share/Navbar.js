@@ -69,28 +69,30 @@ const Navbar = () => {
               />
             </svg>
           </label>
-          <ul
-            tabIndex="0"
-            className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52 text-black "
-          >
-            {menuItems}
-          </ul>
         </div>
         <Link
           to="/"
-          className="btn btn-ghost normal-case font-bold lg:text-3xl  sm:text-sm text-indigo-500"
+          className="btn btn-ghost  font-bold lg:text-3xl  sm:text-sm text-indigo-700 font-serif  uppercase"
         >
           <img className="h-12 mr-2" src="" alt="" />
           Alok Hospital
         </Link>
       </div>
-      <div className="navbar-center hidden lg:flex lg:pr-36 ml-40">
+      {/* <div className="navbar-center hidden lg:flex lg:pr-36 ml-40 text-indigo-900">
         <ul className="menu menu-horizontal p-0 font-semibold">{menuItems}</ul>
-      </div>
+      </div> */}
       {/* Image */}
       <div className="navbar-end">
+        <div className="navbar-center hidden lg:flex  mr-5 text-indigo-900">
+          <ul className="menu menu-horizontal p-0 font-semibold">
+            {menuItems}
+          </ul>
+        </div>
         {user ? (
-          <button className=" font-semibold mr-10 text-orange-600" onClick={logout}>
+          <button
+            className=" font-semibold mr-10 text-red-600"
+            onClick={logout}
+          >
             Sign Out
           </button>
         ) : (

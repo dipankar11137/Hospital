@@ -9,14 +9,14 @@ const AppointmentOption = ({ option, setCounseling, day }) => {
     navigator(`/doctorDetails/${id}`);
   };
   return (
-    <div className=" h-[350px] z-10 rounded-b-md border-[1px] border-primary hover:border-orange-600 cursor-pointer bg-base-100 shadow-xl hover:shadow-2xl">
+    <div className=" h-[425px] z-10 rounded-b-md border-[1px] border-primary hover:border-orange-600 cursor-pointer bg-base-100 shadow-xl hover:shadow-2xl">
       <div className="">
         <div className="mt-0">
           <div className="bg-white mb-4 overflow-hidden">
             {option?.img ? (
               <img
                 onClick={() => handleDetails(option._id)}
-                className="w-full h-44 transition-transform duration-300 transform hover:scale-150"
+                className="w-full h-56 transition-transform duration-300 transform hover:scale-150"
                 src={option.img}
                 alt=""
               />
