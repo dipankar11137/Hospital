@@ -41,62 +41,139 @@ const [loading,setLoading]=useState(false)
  
    };
 
+    const onSubmit = async data => {
+      setLoading(true);
+      try {
+        const image2 = data.image[0];
+        const image1 = data.image1[0];
 
-  const onSubmit = data => {
-      setLoading(true)
-     
-      const image = data.image[0];
+        const formData = new FormData();
+        formData.append('image', image1);
 
-      const formData = new FormData();
-      formData.append('image', image);
-      const url = `https://api.imgbb.com/1/upload?expiration=600&key=${imageHostKey}`;
-      fetch(url, {
-        method: 'POST',
-        body: formData,
-      })
-        .then(res => res.json())
-        .then(imageData => {
-          const image = imageData.data.url;
-          const slots = [];
-          for (let i = 1; i <= value; i++) {
-            slots.push(data[`slot${i}`]);
-          }
-          const changeUrl = {
-            name: data.name,
-            degree: data.degree,
-            email: data.email,
-            phone: data.phone,
-            description:data.description,
-            img: image,
-            department,
-            saturday,
-            sunday,
-            monday,
-            tuesday,
-            wednesday,
-            thursday,
-            friday,
-            slots,
-          };
-          // console.log(changeUrl);
+        const url = `https://api.imgbb.com/1/upload?expiration=600&key=${imageHostKey}`;
+        const response1 = await fetch(url, {
+          method: 'POST',
+          body: formData,
+        });
 
-          fetch(`http://localhost:5000/appointments`, {
+        const imageData1 = await response1.json();
+        const img1 = imageData1.data.url;
+
+        formData.delete('image'); // Remove the previous image
+        formData.append('image', image2);
+
+        const response2 = await fetch(url, {
+          method: 'POST',
+          body: formData,
+        });
+
+        const imageData2 = await response2.json();
+        const img2 = imageData2.data.url;
+
+        const slots = [];
+        for (let i = 1; i <= value; i++) {
+          slots.push(data[`slot${i}`]);
+        }
+        const changeUrl = {
+          name: data.name,
+          degree: data.degree,
+          email: data.email,
+          phone: data.phone,
+          description: data.description,
+          img: img1,
+          imgVerify: img2,
+          department,
+          saturday,
+          sunday,
+          monday,
+          tuesday,
+          wednesday,
+          thursday,
+          friday,
+          slots,
+        };
+
+        console.log(changeUrl);
+
+        const serverResponse = await fetch(
+          'http://localhost:5000/appointments',
+          {
             method: 'POST',
             headers: {
-              'content-type': 'application/json',
+              'Content-Type': 'application/json',
             },
             body: JSON.stringify(changeUrl),
-          })
-            .then(res => res.json())
-            .then(data => {
-              setLoading(false)
-              toast.success('Successfully Add This ');
-              reset();
-            });
-        });
+          }
+        );
+
+        const serverData = await serverResponse.json();
+        setLoading(false);
+        setLoading(false);
+        toast.success('Successfully Add This ');
+       reset();
+
+      } catch (error) {
+        // Handle error
+        // console.error('Error uploading images:', error);
+      }
     };
+  
+
+  // const onSubmit = data => {
+  //     setLoading(true)
+     
+  //     const image = data.image[0];
+
+  //     const formData = new FormData();
+  //     formData.append('image', image);
+  //     const url = `https://api.imgbb.com/1/upload?expiration=600&key=${imageHostKey}`;
+  //     fetch(url, {
+  //       method: 'POST',
+  //       body: formData,
+  //     })
+  //       .then(res => res.json())
+  //       .then(imageData => {
+  //         const image = imageData.data.url;
+  //         const slots = [];
+  //         for (let i = 1; i <= value; i++) {
+  //           slots.push(data[`slot${i}`]);
+  //         }
+  //         const changeUrl = {
+  //           name: data.name,
+  //           degree: data.degree,
+  //           email: data.email,
+  //           phone: data.phone,
+  //           description:data.description,
+  //           img: image,
+  //           department,
+  //           saturday,
+  //           sunday,
+  //           monday,
+  //           tuesday,
+  //           wednesday,
+  //           thursday,
+  //           friday,
+  //           slots,
+  //         };
+  //         // console.log(changeUrl);
+
+  //         fetch(`http://localhost:5000/appointments`, {
+  //           method: 'POST',
+  //           headers: {
+  //             'content-type': 'application/json',
+  //           },
+  //           body: JSON.stringify(changeUrl),
+  //         })
+  //           .then(res => res.json())
+  //           .then(data => {
+  //             setLoading(false)
+  //             toast.success('Successfully Add This ');
+  //             reset();
+  //           });
+  //       });
+  //   };
   return (
-    <div className='mx-5'>
+    <div className="mx-5">
       <h1 className="text-4xl my-1 text-center font-semibold text-primary">
         Add Doctor
       </h1>
@@ -325,7 +402,7 @@ const [loading,setLoading]=useState(false)
                   Thursday
                 </h1>
               </div>
-              <div className="flex items-center gap-3 mb-12">
+              <div className="flex items-center gap-3 mb-2">
                 <input
                   type="checkbox"
                   checked={friday}
@@ -340,13 +417,13 @@ const [loading,setLoading]=useState(false)
               <div>
                 {/* image */}
                 <label className="label">
-                  <span className="label-text text-xl font-semibold ">
+                  <span className="label-text  font-semibold py-0">
                     Input Doctor Image{' '}
                   </span>
                 </label>
                 <input
                   type="file"
-                  className="input input-bordered text-black lg:w-72 sm:w-full max-w-xs pt-1    hover:shadow-xl shadow-inner h-[40px]"
+                  className="input input-bordered text-black lg:w-72 sm:w-full max-w-xs pt-1 mt-0   hover:shadow-xl shadow-inner h-[40px]"
                   {...register('image', {
                     required: {
                       value: true,
@@ -359,6 +436,33 @@ const [loading,setLoading]=useState(false)
                   {errors.image?.type === 'required' && (
                     <span className="label-text-alt text-red-500">
                       {errors?.image?.message}
+                    </span>
+                  )}
+                </label>
+              </div>
+              {/* img */}
+              <div>
+                {/* image */}
+                <label className="label">
+                  <span className="label-text font-semibold ">
+                    Input Doctor Verify Image{' '}
+                  </span>
+                </label>
+                <input
+                  type="file"
+                  className="input input-bordered text-black lg:w-72 sm:w-full max-w-xs pt-1    hover:shadow-xl shadow-inner h-[40px]"
+                  {...register('image1', {
+                    required: {
+                      value: true,
+                      message: 'Image is Required',
+                    },
+                  })}
+                />
+
+                <label className="label">
+                  {errors.image1?.type === 'required' && (
+                    <span className="label-text-alt text-red-500">
+                      {errors?.image1?.message}
                     </span>
                   )}
                 </label>
@@ -399,11 +503,22 @@ const [loading,setLoading]=useState(false)
               Loading ...
             </h1>
           ) : (
-            <input
-              className="btn btn-primary mt-5 w-full  text-white"
-              type="submit"
-              value="ADD"
-            />
+            <>
+              {department ? (
+                <input
+                  className="btn btn-primary mt-5 w-full  text-white"
+                  type="submit"
+                  value="ADD"
+                />
+              ) : (
+                    <input
+                      disabled
+                  className="btn btn-primary mt-5 w-full  text-white"
+                  type="submit"
+                  value="ADD"
+                />
+              )}
+            </>
           )}
         </form>
       </div>

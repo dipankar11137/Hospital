@@ -11,7 +11,7 @@ const MyBookings = () => {
     fetch(`http://localhost:5000/myBookings/${users?.email}`)
       .then(res => res.json())
       .then(data => setBooking(data));
-  }, [bookings]);
+  }, [bookings, users?.email]);
 
   const handleDelete = id => {
     const proceed = window.confirm('Are You Sure ?');

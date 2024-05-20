@@ -1,27 +1,24 @@
 import { signOut } from "firebase/auth";
 import React, { useEffect, useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { Link, useNavigate } from "react-router-dom";
+import { IoNotifications } from 'react-icons/io5';
+import { Link } from "react-router-dom";
 import auth from "../../firebase.init";
 
 const Navbar = () => {
   const [user] = useAuthState(auth);
   const email = user?.email;
-  const navigate = useNavigate();
   const [booking, setBooking] = useState([]);
   const logout = () => {
     signOut(auth);
   };
 
   useEffect(() => {
-    fetch(`https://boxberry.onrender.com/carBooking/${email}`)
-      .then((res) => res.json())
-      .then((data) => setBooking(data));
-  }, [booking]);
+    fetch(`http://localhost:5000/myBookings/${email}`)
+      .then(res => res.json())
+      .then(data => setBooking(data));
+  }, [booking, email]);
 
-  const handleBook = () => {
-    navigate("/myOrders");
-  };
 
   const menuItems = (
     <>
@@ -42,11 +39,21 @@ const Navbar = () => {
           <li className=" hover:text-orange-600">
             <Link to="/contact">Contact</Link>
           </li>
+          <li className=" hover:text-orange-600 indicator">
+            <Link to="/myBooking">
+              <span className="indicator-item badge badge-sm  bg-red-500 text-white mt-1 mr-3 px-[4px] ">
+                {booking?.length}
+              </span>
+              <IoNotifications className="text-xl " />
+            </Link>
+          </li>
         </>
       )}
-    {user?.email==='abc@def.com'&&  <li className=" hover:text-orange-600">
-        <Link to="/dashboard">Dashboard</Link>
-      </li>}
+      {user?.email === 'abc@def.com' && (
+        <li className=" hover:text-orange-600">
+          <Link to="/dashboard">Dashboard</Link>
+        </li>
+      )}
     </>
   );
   return (
@@ -83,17 +90,17 @@ const Navbar = () => {
       </div> */}
       {/* Image */}
       <div className="navbar-end">
-        <div className="navbar-center hidden lg:flex  mr-5 text-indigo-900">
+        <div className="navbar-center hidden lg:flex  mr-3 text-indigo-900">
           <ul className="menu menu-horizontal p-0 font-semibold">
             {menuItems}
           </ul>
         </div>
         {user ? (
           <button
-            className=" font-semibold mr-10 text-red-600"
+            className=" font-semibold mr-8 text-red-600"
             onClick={logout}
           >
-            Sign Out
+            SignOut
           </button>
         ) : (
           <ul className="mr-5">

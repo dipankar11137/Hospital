@@ -48,10 +48,21 @@ const DoctorDetails = () => {
             </h1>
           </div>
         </div>
-        <div className="col-span-9 bg-cyan-700 text-slate-100 px-2 pt-3 ">
+        <div className="col-span-7 bg-cyan-700 text-slate-100 px-2 pt-3 ">
           <h1 className="text-3xl font-semibold ">About : </h1>
           <hr />
           <p>{doctor?.description}</p>
+        </div>
+        <div className="col-span-2 bg-cyan-700 text-slate-100 px-2 pt-3 ">
+          <h1 className="text-3xl font-semibold ">Verify : </h1>
+          <hr />
+          <div>
+            <img
+              className="w-48 h-48 mt-8 bg-white p-[1px]"
+              src={doctor?.imgVerify}
+              alt={doctor?.name}
+            />
+          </div>
         </div>
       </div>
 

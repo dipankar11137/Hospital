@@ -60,15 +60,8 @@ const Banner = () => {
                 Investing in skill and experience for a better tomorrow.
               </p>
               <div>
-                <button className="btn btn-sm btn-primary mt-3">
-                  Know More
-                </button>
-                <button
-                  onClick={handleCall}
-                  className="bg-red-600 hover:bg-red-700 text-white font-bold py-1 px-4 rounded-xl mt-2 ml-5"
-                >
-                  Call Now
-                </button>
+              
+               
               </div>
             </div>
           </div>
@@ -95,15 +88,8 @@ const Banner = () => {
                 being, spanning three decades of exceptional healthcare.
               </p>
               <div>
-                <button className="btn btn-sm btn-primary mt-3">
-                  Know More
-                </button>
-                <button
-                  onClick={handleCall}
-                  className="bg-red-600 hover:bg-red-700 text-white font-bold py-1 px-4 rounded-xl mt-2 ml-5"
-                >
-                  Call Now
-                </button>
+             
+                
               </div>
             </div>
           </div>
@@ -131,15 +117,8 @@ const Banner = () => {
                 being, spanning three decades of exceptional healthcare.
               </p>
               <div>
-                <button className="btn btn-sm btn-primary mt-3">
-                  Know More
-                </button>
-                <button
-                  onClick={handleCall}
-                  className="bg-red-600 hover:bg-red-700 text-white font-bold py-1 px-4 rounded-xl mt-2 ml-5"
-                >
-                  Call Now
-                </button>
+             
+               
               </div>
             </div>
           </div>

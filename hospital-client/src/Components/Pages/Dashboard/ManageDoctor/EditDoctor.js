@@ -81,6 +81,7 @@ useEffect(() => {
       degree: data.degree || doctor.degree,
       description: data.description || doctor.description,
       img: data.img || doctor.img,
+      imgVerify: data.imgVerify || doctor.imgVerify,
       department: department || doctor.department,
       slots:doctor.slots||slots
     };
@@ -219,11 +220,10 @@ useEffect(() => {
                   onChange={e => setSaturday(e.target.checked)}
                   className="checkbox checkbox-secondary checkbox-sm"
                 />
-               
-                  <h1 className="text-xl  font-semibold text-indigo-900">
-                    Saturday
-                  </h1>
-            
+
+                <h1 className="text-xl  font-semibold text-indigo-900">
+                  Saturday
+                </h1>
               </div>
               <div className="flex items-center gap-3">
                 <input
@@ -301,22 +301,29 @@ useEffect(() => {
                 </label>
                 <input
                   type="text"
+                  placeholder={doctor?.img ? doctor?.img : 'Enter Doctor Email'}
+                  className="input input-bordered text-black lg:w-72 sm:w-full max-w-xs  hover:shadow-xl shadow-inner h-[40px]"
+                  {...register('img', {})}
+                />
+              </div>
+              {/* img verify */}
+              <div>
+                {/* image */}
+                <label className="label">
+                  <span className="label-text text-xl font-semibold ">
+                    Doctor Verify{' '}
+                  </span>
+                </label>
+                <input
+                  type="text"
                   placeholder={
-                    doctor?.img ? doctor?.img : 'Enter Doctor Email'
+                    doctor?.imgVerify
+                      ? doctor?.imgVerify
+                      : 'Enter Doctor Verify '
                   }
                   className="input input-bordered text-black lg:w-72 sm:w-full max-w-xs  hover:shadow-xl shadow-inner h-[40px]"
-                  {...register('img', {
-                   
-                  })}
+                  {...register('imgVerify', {})}
                 />
-
-                <label className="label">
-                  {errors.image?.type === 'required' && (
-                    <span className="label-text-alt text-red-500">
-                      {errors?.image?.message}
-                    </span>
-                  )}
-                </label>
               </div>
             </div>
             {/* slots */}
@@ -357,7 +364,7 @@ useEffect(() => {
             <input
               className="btn btn-primary mt-5 w-full  text-white"
               type="submit"
-              value="ADD"
+              value="Update"
             />
           )}
         </form>
