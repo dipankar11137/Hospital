@@ -1,8 +1,7 @@
-const express = require("express");
-const cors = require("cors");
-var jwt = require("jsonwebtoken");
-const { MongoClient, ServerApiVersion, ObjectId } = require("mongodb");
-require("dotenv").config();
+const express = require('express');
+const cors = require('cors');
+const { MongoClient, ServerApiVersion, ObjectId } = require('mongodb');
+require('dotenv').config();
 
 const app = express();
 const port = process.env.PORT || 5000;
@@ -13,8 +12,10 @@ app.use(express.json());
 
 const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.evn2ej1.mongodb.net/?retryWrites=true&w=majority`;
 
-// const uri =
-//   'mongodb+srv://anik153318:cTnmCIexL69hiuvj@cluster0.disxflw.mongodb.net/?retryWrites=true&w=majority';
+
+
+
+
 
 const client = new MongoClient(uri, {
   useNewUrlParser: true,
@@ -26,16 +27,14 @@ async function run() {
   try {
     await client.connect();
 
-    const userCollection = client.db('cargoBooking').collection('user');
+    const userCollection = client.db('hospital2').collection('user');
     const appointmentCollection = client
-      .db('cargoBooking')
+      .db('hospital2')
       .collection('appointments');
 
-    // const appointmentCollection = client
-    //   .db("cargoBooking")
-    //   .collection("appointments");
-    const bookingCollection = client.db('cargoBooking').collection('bookings');
-    const contactCollection = client.db('cargoBooking').collection('contacts');
+    const bookingCollection = client.db('hospital2').collection('bookings');
+    const updateCollection = client.db('hospital2').collection('update');
+    const contactCollection = client.db('hospital2').collection('contacts');
 
     // // // // // // // // // // // //
 
@@ -80,19 +79,23 @@ async function run() {
     // // //  *********  appointments  ********//
 
     // // get appointments to query multiple collection  and them marge data
-
     app.get('/appointments', async (req, res) => {
-      const date = req.query.date;
-      const query = {};
+      const { date, department } = req.query;
+      const query = {}; // Your initial query conditions
+
+      if (department) {
+        query.department = department; // Add department filter to the query
+      }
+
       const options = await appointmentCollection.find(query).toArray();
-      const bookingQuery = { date: date };
+      const bookingQuery = { appointmentDate: date };
       const alreadyBooked = await bookingCollection
         .find(bookingQuery)
         .toArray();
-      //
+
       options.forEach(option => {
         const optionBooked = alreadyBooked.filter(
-          book => book.terminalName === option.name
+          book => book.doctorName === option.name
         );
         const bookedSlots = optionBooked.map(book => book.slot);
         const remainingSlots = option.slots.filter(
@@ -100,13 +103,73 @@ async function run() {
         );
         option.slots = remainingSlots;
       });
+
       res.send(options);
     });
 
     // Post appointments
-    app.post('/appointments', async (req, res) => {
+    app.post('/appointments2', async (req, res) => {
       const appointmentsBook = req.body;
       const result = await appointmentCollection.insertOne(appointmentsBook);
+      res.send(result);
+    });
+    // get doctor
+    app.get('/doctor', async (req, res) => {
+      const query = {};
+      const cursor = appointmentCollection.find(query);
+      const users = await cursor.toArray();
+      res.send(users);
+    });
+    // get doctor by id
+    app.get('/doctor/:id', async (req, res) => {
+      const id = req.params.id;
+      const query = { _id: ObjectId(id) };
+      const result = await appointmentCollection.findOne(query);
+      res.send(result);
+    });
+    // update doctor
+    app.put('/updateDoctor/:id', async (req, res) => {
+      const productId = req.params.id;
+      const updateDoctor = req.body;
+
+      const filter = { _id: ObjectId(productId) }; // Assuming you're using MongoDB ObjectId
+      const options = { upsert: true };
+
+      const updatedDoc = {
+        $set: updateDoctor,
+      };
+
+      try {
+        const result = await appointmentCollection.updateOne(
+          filter,
+          updatedDoc,
+          options
+        );
+        res.json({
+          success: true,
+          message: 'DOctor updated successfully',
+          data: result,
+        });
+      } catch (error) {
+        console.error('Error updating DOctor:', error);
+        res
+          .status(500)
+          .json({ success: false, message: 'Internal server error' });
+      }
+    });
+    //  Booking filter by department
+    app.get('/doctorDepartment/:department', async (req, res) => {
+      const department = req.params.department;
+      const query = { department };
+      const cursor = appointmentCollection.find(query);
+      const result = await cursor.toArray();
+      res.send(result);
+    });
+    // Delete one contact
+    app.delete('/doctorDelete/:id', async (req, res) => {
+      const id = req.params.id;
+      const query = { _id: ObjectId(id) };
+      const result = await appointmentCollection.deleteOne(query);
       res.send(result);
     });
     // post Booking/ terminal
@@ -202,16 +265,54 @@ async function run() {
       const result = await contactCollection.deleteOne(query);
       res.send(result);
     });
+
+    // get update
+   app.get('/update', async (req, res) => {
+     const query = {};
+     const cursor = updateCollection.find(query);
+     const users = await cursor.toArray();
+     res.send(users);
+   });
+    // update update
+ const { ObjectId } = require('mongodb');
+
+ app.put('/updateDescription/:id', async (req, res) => {
+   const productId = req.params.id;
+   const updateDescription = req.body; // e.g., { description: "new value" }
+
+   const filter = { _id: new ObjectId(productId) };
+   const options = { upsert: false };
+
+   const updatedDoc = {
+     $set: updateDescription,
+   };
+
+   try {
+     const result = await updateCollection.updateOne(
+       filter,
+       updatedDoc,
+       options
+     );
+     res.json({
+       success: true,
+       message: 'Description updated successfully',
+       data: result,
+     });
+   } catch (error) {
+     console.error('Error updating description:', error);
+     res.status(500).json({ success: false, message: 'Internal server error' });
+   }
+ });
   } finally {
   }
 }
 
 run().catch(console.dir);
 
-app.get("/", (req, res) => {
-  res.send("Running Cargo Booking ");
+app.get('/', (req, res) => {
+  res.send('Running Hospital ');
 });
 
 app.listen(port, () => {
-  console.log("Cargo Booking  server is running ");
+  console.log('Hospital  server is running ');
 });
