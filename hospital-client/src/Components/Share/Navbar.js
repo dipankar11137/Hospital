@@ -1,5 +1,5 @@
 import { signOut } from "firebase/auth";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { IoNotifications } from 'react-icons/io5';
 import { Link } from "react-router-dom";
@@ -82,13 +82,10 @@ const Navbar = () => {
           className="btn btn-ghost  font-bold lg:text-3xl  sm:text-sm text-indigo-700 font-serif  uppercase"
         >
           <img className="h-12 mr-2" src="" alt="" />
-          Alok Hospital
+          Smart Healthcare
         </Link>
       </div>
-      {/* <div className="navbar-center hidden lg:flex lg:pr-36 ml-40 text-indigo-900">
-        <ul className="menu menu-horizontal p-0 font-semibold">{menuItems}</ul>
-      </div> */}
-      {/* Image */}
+
       <div className="navbar-end">
         <div className="navbar-center hidden lg:flex  mr-3 text-indigo-900">
           <ul className="menu menu-horizontal p-0 font-semibold">
@@ -96,16 +93,13 @@ const Navbar = () => {
           </ul>
         </div>
         {user ? (
-          <button
-            className=" font-semibold mr-8 text-red-600"
-            onClick={logout}
-          >
+          <button className=" font-semibold mr-8 text-red-600" onClick={logout}>
             SignOut
           </button>
         ) : (
-          <ul className="mr-5">
+          <ul className="mr-5 font-semibold text-indigo-900">
             <li>
-              <Link to="/login">Login</Link>
+              <Link  to="/login">Login</Link>
             </li>
           </ul>
         )}

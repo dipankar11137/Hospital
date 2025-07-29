@@ -96,7 +96,7 @@ const [loading,setLoading]=useState(false)
         console.log(changeUrl);
 
         const serverResponse = await fetch(
-          'http://localhost:5000/appointments',
+          'http://localhost:5000/appointments2',
           {
             method: 'POST',
             headers: {

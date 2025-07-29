@@ -6,8 +6,7 @@ const WhyChoseUs = () => {
     <div
       className=""
       style={{
-        backgroundImage:
-          "url('https://i.graphicmama.com/blog/wp-content/uploads/2021/05/11092543/Minimalistic-Hospital-Reception-Interior-Vector-Background.png')",
+        backgroundImage: "url('https://i.ibb.co/GcVN1qk/alok-photo-1.jpg')",
         backgroundSize: 'cover',
         backgroundAttachment: 'fixed',
       }}

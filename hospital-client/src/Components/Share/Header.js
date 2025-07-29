@@ -1,4 +1,3 @@
-import React from 'react';
 import { FaPhoneAlt, FaRegEnvelope } from 'react-icons/fa';
 
 const Header = () => {
@@ -12,7 +11,7 @@ const Header = () => {
           </h1>
           <h1 className="flex items-center gap-2">
             <FaRegEnvelope />
-            hospital@gmail.com
+            smarthealthcare@gmail.com
           </h1>
         </div>
         <div className="flex gap-3 items-center">

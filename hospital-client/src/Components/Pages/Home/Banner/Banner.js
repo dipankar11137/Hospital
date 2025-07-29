@@ -1,10 +1,11 @@
 
-import React, { useState } from 'react';
+import { useState } from 'react';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import { Autoplay, Navigation, Pagination } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
+
 
 
 import './Banner.css';
@@ -42,13 +43,13 @@ const Banner = () => {
         <SwiperSlide>
           <div
             style={{
-              backgroundImage: `url('https://www.peerlesshospital.com/CMS/uploads/Banner/1706437897-desk.webp')`,
+              backgroundImage: `url('https://i.ibb.co/XVH86RB/alok-photo-5.jpg')`,
               // backgroundImage: `url(${banner1})`,
               backgroundRepeat: 'no-repeat',
               backgroundSize: 'cover',
               width: '100%',
             }}
-            className="h-[400px] md:h-[500px] flex items-center "
+            className="h-[400px] md:h-[500px] flex items-center"
           >
             <div className=" ml-32 text-start">
               <h1>Transforming to Futuristic Healthcare</h1>
@@ -59,17 +60,14 @@ const Banner = () => {
               <p className="text-sm">
                 Investing in skill and experience for a better tomorrow.
               </p>
-              <div>
-              
-               
-              </div>
+              <div></div>
             </div>
           </div>
         </SwiperSlide>
         <SwiperSlide>
           <div
             style={{
-              backgroundImage: `url('https://www.peerlesshospital.com/CMS/uploads/Banner/1706437897-desk.webp')`,
+              backgroundImage: `url('https://i.ibb.co/DkF8gbN/alok-photo-2.jpg')`,
               // backgroundImage: `url(${banner1})`,
               backgroundRepeat: 'no-repeat',
               backgroundSize: 'cover',
@@ -87,17 +85,14 @@ const Banner = () => {
                 <br />
                 being, spanning three decades of exceptional healthcare.
               </p>
-              <div>
-             
-                
-              </div>
+              <div></div>
             </div>
           </div>
         </SwiperSlide>
         <SwiperSlide>
           <div
             style={{
-              backgroundImage: `url('https://www.peerlesshospital.com/CMS/uploads/Banner/1706438100-desk.webp')`,
+              backgroundImage: `url('https://i.ibb.co/cbmyH21/alok-photo-4.jpg')`,
               // backgroundImage: `url(${banner1})`,
               backgroundRepeat: 'no-repeat',
               backgroundSize: 'cover',
@@ -116,10 +111,7 @@ const Banner = () => {
                 <br />
                 being, spanning three decades of exceptional healthcare.
               </p>
-              <div>
-             
-               
-              </div>
+              <div></div>
             </div>
           </div>
         </SwiperSlide>

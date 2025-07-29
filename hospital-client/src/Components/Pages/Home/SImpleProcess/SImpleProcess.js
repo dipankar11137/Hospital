@@ -91,10 +91,10 @@ const SImpleProcess = () => {
             </p>
           </div>
         </div>
-        <div>
+        <div className="h-72 ">
           <img
-            className="shadow-inner"
-            src="https://i.guim.co.uk/img/media/65f5c7ce6fc84523e4573e97ad3a63978af4a828/549_471_2376_1426/master/2376.jpg?width=465&dpr=1&s=none"
+            className="shadow-inner h-72 -mt-6"
+            src="https://i.ibb.co/2cLmCj9/alok-photo-6.jpg"
             alt=""
           />
         </div>

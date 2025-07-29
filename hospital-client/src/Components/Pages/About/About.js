@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { FaHandPointDown } from 'react-icons/fa';
 import { useLocation } from 'react-router-dom';
 import Footer from '../../Share/Footer';
@@ -75,7 +75,7 @@ const About = () => {
           of your specific healthcare organization.
         </p>
       </div>
-      <div className="mx-20 mt-10 mb-20">
+      <div className="mx-20 mt-10">
         <h1 className="text-4xl  mb-3 text-indigo-600 font-semibold flex items-center gap-10">
           Testimonials
           <FaHandPointDown className="text-sky-600 animate-bounce" />
