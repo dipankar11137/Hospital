@@ -12,6 +12,7 @@ import BloodDonner from "./Components/Pages/Blood Donner/BloodDonner";
 import Contact from "./Components/Pages/Contact/Contact";
 import AddDoctor from "./Components/Pages/Dashboard/AddDoctor/AddDoctor";
 import Bookings from "./Components/Pages/Dashboard/Boooking/Bookings";
+import ContactUs from "./Components/Pages/Dashboard/Contact Us/ContactUs";
 import ManageContacts from './Components/Pages/Dashboard/Contact.js/Manage Contact/ManageContacts';
 import Dashboard from './Components/Pages/Dashboard/Dashboard';
 import EditDoctor from "./Components/Pages/Dashboard/ManageDoctor/EditDoctor";
@@ -21,6 +22,7 @@ import Payment from './Components/Pages/Dashboard/MyBookings/Payment';
 import Profile from './Components/Pages/Dashboard/Profile/Profile';
 import UpdateAbout from "./Components/Pages/Dashboard/Update About/UpdateAbout";
 import Update from "./Components/Pages/Dashboard/Update/Update";
+import Users from "./Components/Pages/Dashboard/User/Users";
 import Appointment from "./Components/Pages/Home/Appointment/Appointment/Appointment";
 import DoctorDetails from "./Components/Pages/Home/DoctorDetails/DoctorDetails";
 import Home from './Components/Pages/Home/Home';
@@ -109,6 +111,8 @@ function App() {
           <Route path="profile" element={<Profile />} />
           <Route path="update" element={<Update />} />
           <Route path="updateAbout" element={<UpdateAbout />} />
+          <Route path="contactUs" element={<ContactUs />} />
+          <Route path="user" element={<Users />} />
           {/* <Route path="contact" element={<Contact />} /> */}
         </Route>
         {/* Dashboard End */}

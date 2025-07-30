@@ -3,9 +3,11 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 import { FaUserMd, FaUserPlus } from 'react-icons/fa';
 import { FcAbout } from 'react-icons/fc';
 import { GrUpdate } from 'react-icons/gr';
+import { IoIosPeople } from 'react-icons/io';
 
 import {
-  MdDashboard
+  MdDashboard,
+  MdOutlineWifiCalling
 } from 'react-icons/md';
 import { Link, Outlet, useLocation } from 'react-router-dom';
 import auth from '../../../firebase.init';
@@ -228,22 +230,22 @@ const Dashboard = () => {
                       </h2>
                     </Link>
                   </div>
-                  {/* Manage Porduct */}
+                  {/* Manage Contact */}
                   <div
-                    onClick={() => setSelectedButton('Button 6')}
+                    onClick={() => setSelectedButton('contact')}
                     className={
-                      selectedButton === 'Button 6'
+                      selectedButton === 'contact'
                         ? 'bg-white w-[215px] text-black rounded-lg '
                         : ''
                     }
                   >
                     {' '}
                     <Link
-                      to="/dashboard/manageDoctor"
+                      to="/dashboard/contactUs"
                       className={`  group flex items-center text-xl w-[215px]  gap-3.5 font-medium p-2 hover:bg-indigo-400 rounded-md`}
                     >
                       <div>
-                        {React.createElement(FaUserMd, {
+                        {React.createElement(MdOutlineWifiCalling, {
                           size: '20',
                         })}
                       </div>
@@ -256,7 +258,39 @@ const Dashboard = () => {
                           'opacity-0 translate-x-28 overflow-hidden w-[215px]'
                         }`}
                       >
-                        Manage Doctor
+                        Manage Contact
+                      </h2>
+                    </Link>
+                  </div>
+                  {/* Manage user */}
+                  <div
+                    onClick={() => setSelectedButton('user')}
+                    className={
+                      selectedButton === 'user'
+                        ? 'bg-white w-[215px] text-black rounded-lg '
+                        : ''
+                    }
+                  >
+                    {' '}
+                    <Link
+                      to="/dashboard/user"
+                      className={`  group flex items-center text-xl w-[215px]  gap-3.5 font-medium p-2 hover:bg-indigo-400 rounded-md`}
+                    >
+                      <div>
+                        {React.createElement(IoIosPeople, {
+                          size: '20',
+                        })}
+                      </div>
+                      <h2
+                        style={{
+                          transitionDelay: `${0 + 3}00ms`,
+                        }}
+                        className={`whitespace-pre duration-500 ${
+                          !open &&
+                          'opacity-0 translate-x-28 overflow-hidden w-[215px]'
+                        }`}
+                      >
+                        Manage User
                       </h2>
                     </Link>
                   </div>

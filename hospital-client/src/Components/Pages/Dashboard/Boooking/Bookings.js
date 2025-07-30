@@ -243,7 +243,8 @@ const Bookings = () => {
                           </span>
                         ) : (
                           <span className="text-green-600 font-semibold">
-                            {b.nextDate} <samp className='text-red-600'>Days Later</samp>
+                            {b.nextDate}{' '}
+                            <samp className="text-red-600">Days Later</samp>
                           </span>
                         )}
                       </div>
@@ -300,6 +301,14 @@ const Bookings = () => {
                   </td>
                 </tr>
               ))}
+
+            {filteredBookings.length === 0 && (
+              <tr>
+                <td colSpan="12" className="text-center py-6 text-gray-500">
+                  No Appointment found.
+                </td>
+              </tr>
+            )}
           </tbody>
         </table>
       </div>
