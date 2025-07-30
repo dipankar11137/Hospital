@@ -35,6 +35,7 @@ async function run() {
     const bookingCollection = client.db('hospital2').collection('bookings');
     const updateCollection = client.db('hospital2').collection('update');
     const contactCollection = client.db('hospital2').collection('contacts');
+    const aboutCollection = client.db('hospital2').collection('about');
 
     // // // // // // // // // // // //
 
@@ -267,42 +268,87 @@ async function run() {
     });
 
     // get update
-   app.get('/update', async (req, res) => {
-     const query = {};
-     const cursor = updateCollection.find(query);
-     const users = await cursor.toArray();
-     res.send(users);
-   });
+    app.get('/update', async (req, res) => {
+      const query = {};
+      const cursor = updateCollection.find(query);
+      const users = await cursor.toArray();
+      res.send(users);
+    });
     // update update
- const { ObjectId } = require('mongodb');
+    const { ObjectId } = require('mongodb');
 
- app.put('/updateDescription/:id', async (req, res) => {
+    app.put('/updateDescription/:id', async (req, res) => {
+      const productId = req.params.id;
+      const updateDescription = req.body; // e.g., { description: "new value" }
+
+      const filter = { _id: new ObjectId(productId) };
+      const options = { upsert: false };
+
+      const updatedDoc = {
+        $set: updateDescription,
+      };
+
+      try {
+        const result = await updateCollection.updateOne(
+          filter,
+          updatedDoc,
+          options
+        );
+        res.json({
+          success: true,
+          message: 'Description updated successfully',
+          data: result,
+        });
+      } catch (error) {
+        console.error('Error updating description:', error);
+        res
+          .status(500)
+          .json({ success: false, message: 'Internal server error' });
+      }
+    });
+
+    // About
+    // get about
+
+    app.get('/about', async (req, res) => {
+      const query = {};
+      const cursor = aboutCollection.find(query);
+      const users = await cursor.toArray();
+      res.send(users);
+    });
+// update about
+ app.put('/updateAbout/:id', async (req, res) => {
    const productId = req.params.id;
-   const updateDescription = req.body; // e.g., { description: "new value" }
-
-   const filter = { _id: new ObjectId(productId) };
-   const options = { upsert: false };
-
-   const updatedDoc = {
-     $set: updateDescription,
-   };
+   const updateAbout = req.body;
 
    try {
-     const result = await updateCollection.updateOne(
+     const filter = { _id: new ObjectId(productId) };
+     const options = { upsert: false }; // Don't create new if not found
+
+     const updatedDoc = {
+       $set: updateAbout,
+     };
+
+     const result = await aboutCollection.updateOne(
        filter,
        updatedDoc,
        options
      );
+
      res.json({
        success: true,
-       message: 'Description updated successfully',
-       data: result,
+       message: 'About section updated successfully',
+       modifiedCount: result.modifiedCount,
      });
    } catch (error) {
-     console.error('Error updating description:', error);
+     console.error('Error updating About:', error);
      res.status(500).json({ success: false, message: 'Internal server error' });
    }
  });
+
+
+
+
   } finally {
   }
 }
