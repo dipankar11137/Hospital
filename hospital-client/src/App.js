@@ -19,6 +19,7 @@ import ManageDoctors from "./Components/Pages/Dashboard/ManageDoctor/ManageDocto
 import MyBookings from './Components/Pages/Dashboard/MyBookings/MyBookings';
 import Payment from './Components/Pages/Dashboard/MyBookings/Payment';
 import Profile from './Components/Pages/Dashboard/Profile/Profile';
+import UpdateAbout from "./Components/Pages/Dashboard/Update About/UpdateAbout";
 import Update from "./Components/Pages/Dashboard/Update/Update";
 import Appointment from "./Components/Pages/Home/Appointment/Appointment/Appointment";
 import DoctorDetails from "./Components/Pages/Home/DoctorDetails/DoctorDetails";
@@ -107,6 +108,7 @@ function App() {
           <Route path="manageContact" element={<ManageContacts />} />
           <Route path="profile" element={<Profile />} />
           <Route path="update" element={<Update />} />
+          <Route path="updateAbout" element={<UpdateAbout />} />
           {/* <Route path="contact" element={<Contact />} /> */}
         </Route>
         {/* Dashboard End */}

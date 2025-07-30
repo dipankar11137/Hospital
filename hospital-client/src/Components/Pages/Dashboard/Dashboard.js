@@ -1,8 +1,7 @@
-
-
 import React, { useEffect, useState } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { FaUserMd, FaUserPlus } from 'react-icons/fa';
+import { FcAbout } from 'react-icons/fc';
 import { GrUpdate } from 'react-icons/gr';
 
 import {
@@ -197,22 +196,22 @@ const Dashboard = () => {
                       </h2>
                     </Link>
                   </div>
-                  {/* Manage Porduct */}
+                  {/* Manage about */}
                   <div
-                    onClick={() => setSelectedButton('Button 6')}
+                    onClick={() => setSelectedButton('about')}
                     className={
-                      selectedButton === 'Button 6'
+                      selectedButton === 'about'
                         ? 'bg-white w-[215px] text-black rounded-lg '
                         : ''
                     }
                   >
                     {' '}
                     <Link
-                      to="/dashboard/manageDoctor"
+                      to="/dashboard/updateAbout"
                       className={`  group flex items-center text-xl w-[215px]  gap-3.5 font-medium p-2 hover:bg-indigo-400 rounded-md`}
                     >
                       <div>
-                        {React.createElement(FaUserMd, {
+                        {React.createElement(FcAbout, {
                           size: '20',
                         })}
                       </div>
@@ -225,7 +224,7 @@ const Dashboard = () => {
                           'opacity-0 translate-x-28 overflow-hidden w-[215px]'
                         }`}
                       >
-                        Manage Doctor
+                        About
                       </h2>
                     </Link>
                   </div>
