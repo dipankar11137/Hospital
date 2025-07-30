@@ -220,7 +220,25 @@ async function run() {
       );
       res.send(result);
     });
-    //  update accept buy
+    //  update next date 
+    app.put('/nextDate/:id', async (req, res) => {
+      const id = req.params.id;
+      const updateNextDate = req.body;
+      const query = { _id: ObjectId(id) };
+      const options = { upsert: true };
+      const updateDoc = {
+        $set: {
+          nextDate: updateNextDate.nextDate,
+        },
+      };
+      const result = await bookingCollection.updateOne(
+        query,
+        updateDoc,
+        options
+      );
+      res.send(result);
+    });
+    //  update complete buy
     app.put('/bookingComplete/:id', async (req, res) => {
       const id = req.params.id;
       const updateComplete = req.body;
