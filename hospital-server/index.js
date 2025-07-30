@@ -220,7 +220,25 @@ async function run() {
       );
       res.send(result);
     });
-    //  update payment buy
+    //  update accept buy
+    app.put('/bookingComplete/:id', async (req, res) => {
+      const id = req.params.id;
+      const updateComplete = req.body;
+      const query = { _id: ObjectId(id) };
+      const options = { upsert: true };
+      const updateDoc = {
+        $set: {
+          complete: updateComplete.complete,
+        },
+      };
+      const result = await bookingCollection.updateOne(
+        query,
+        updateDoc,
+        options
+      );
+      res.send(result);
+    });
+    //  update complete buy
     app.put('/bookingAccept/:id', async (req, res) => {
       const id = req.params.id;
       const updateAccept = req.body;
