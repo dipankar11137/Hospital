@@ -1,4 +1,3 @@
-import React from 'react';
 import { FaMinus, FaUtensilSpoon } from 'react-icons/fa';
 const Welcome = () => {
   return (
@@ -13,7 +12,10 @@ const Welcome = () => {
           <h1 className="text-3xl font-semibold text-indigo-900 text-start">
             16+ Years of Experience in Serving Mankind
           </h1>
-          <button className="btn btn-sm mt-3 btn-info">Read More</button>
+          <a href="http://localhost:3000/about"
+            target="_blank"
+            rel="noreferrer"
+            className="btn btn-sm mt-3 btn-info">Read More</a>
         </div>
         <div className='col-span-7 font-meStyle text-lg -mt-7'>
           <p>
