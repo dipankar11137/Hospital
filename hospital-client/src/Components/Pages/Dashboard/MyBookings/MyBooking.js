@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { FaChevronDown } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
 const MyBooking = ({ booking, index, handleDelete }) => {
@@ -21,6 +21,10 @@ const MyBooking = ({ booking, index, handleDelete }) => {
       <td className="bg-slate-300 border-r-2">{booking?.department}</td>
       <td className="bg-slate-300 border-r-2">{booking?.appointmentDate}</td>
       <td className="bg-slate-300 border-r-2">{booking?.slot}</td>
+      <td className="bg-slate-300 border-r-2">
+        {booking?.nextDate} Days Later
+      </td>
+
       {/* <td className="bg-slate-300 border-r-2">{phone}</td>
       <td className="bg-slate-300 border-r-2">{description}</td> */}
       <td className="bg-slate-300 border-r-2">
@@ -68,6 +72,14 @@ const MyBooking = ({ booking, index, handleDelete }) => {
           <h1 className="text-lg text-orange-700 font-semibold">Pay First</h1>
         )}
       </td>
+      <td className="bg-slate-300  border-r-2">
+        {booking.complete ? (
+          <h1 className="text-lg text-green-800 font-semibold">Complete</h1>
+        ) : (
+          <h1 className="text-lg text-orange-700 font-semibold">Processing</h1>
+        )}
+      </td>
+     
       <td className="bg-slate-300 ">
         <button
           onClick={() => handleDelete(_id)}

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { toast } from 'react-toastify';
 import auth from '../../../../firebase.init';
@@ -43,8 +43,10 @@ const MyBookings = () => {
                 <th className="bg-slate-400 text-xl border-r-2">Department</th>
                 <th className="bg-slate-400 text-xl border-r-2">Date</th>
                 <th className="bg-slate-400 text-xl border-r-2">Slot</th>
+                <th className="bg-slate-400 text-xl border-r-2">Next Meet</th>
                 <th className="bg-slate-400 text-xl border-r-2">Payment</th>
                 <th className="bg-slate-400 text-xl border-r-2">Status</th>
+                <th className="bg-slate-400 text-xl border-r-2">Complete</th>
                 <th className="bg-slate-400 text-xl">Remove</th>
               </tr>
             </thead>

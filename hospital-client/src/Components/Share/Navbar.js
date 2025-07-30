@@ -9,9 +9,16 @@ const Navbar = () => {
   const [user] = useAuthState(auth);
   const email = user?.email;
   const [booking, setBooking] = useState([]);
+  const [users, setUsers] = useState([]);
   const logout = () => {
     signOut(auth);
   };
+
+  useEffect(() => {
+    fetch(`http://localhost:5000/user/${email}`)
+      .then(res => res.json())
+      .then(data => setUsers(data[0]));
+  }, [email]);
 
   useEffect(() => {
     fetch(`http://localhost:5000/myBookings/${email}`)
@@ -19,7 +26,7 @@ const Navbar = () => {
       .then(data => setBooking(data));
   }, [booking, email]);
 
-
+// console.log(users);
   const menuItems = (
     <>
       <li className=" hover:text-orange-600">
@@ -30,30 +37,41 @@ const Navbar = () => {
       </li>
       {user && (
         <>
-          <li className=" hover:text-orange-600">
-            <Link to="/myBooking">My Booking</Link>
-          </li>
+          {!users?.admin && (
+            <li className=" hover:text-orange-600">
+              <Link to="/myBooking">My Booking</Link>
+            </li>
+          )}
+
           <li className=" hover:text-orange-600">
             <Link to="/blood">Blood Donner</Link>
           </li>
           <li className=" hover:text-orange-600">
             <Link to="/contact">Contact</Link>
           </li>
-          <li className=" hover:text-orange-600 indicator">
-            <Link to="/myBooking">
-              <span className="indicator-item badge badge-sm  bg-red-500 text-white mt-1 mr-3 px-[4px] ">
-                {booking?.length}
-              </span>
-              <IoNotifications className="text-xl " />
-            </Link>
-          </li>
+          {!users?.admin && (
+            <li className=" hover:text-orange-600 indicator">
+              <Link to="/myBooking">
+                <span className="indicator-item badge badge-sm  bg-red-500 text-white mt-1 mr-3 px-[4px] ">
+                  {booking?.length}
+                </span>
+                <IoNotifications className="text-xl " />
+              </Link>
+            </li>
+          )}
         </>
       )}
-      {user?.email === 'abc@def.com' && (
-        <li className=" hover:text-orange-600">
+
+      {(user?.email === 'abc@def.com' || users?.admin) && (
+        <li className="hover:text-orange-600">
           <Link to="/dashboard">Dashboard</Link>
         </li>
       )}
+      {/* {user?.email === 'abc@def.com' || users?.admin && (
+        <li className=" hover:text-orange-600">
+          <Link to="/dashboard">Dashboard</Link>
+        </li>
+      )} */}
     </>
   );
   return (

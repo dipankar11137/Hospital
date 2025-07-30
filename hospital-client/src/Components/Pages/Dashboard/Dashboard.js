@@ -19,7 +19,7 @@ const Dashboard = () => {
   const [open, setOpen] = useState(false);
   const [selectedButton, setSelectedButton] = useState('Button 10');
    
-
+// console.log(user.email);
     useEffect(() => {
       window.scrollTo(0, 0);
     }, [pathname]);
@@ -263,37 +263,39 @@ const Dashboard = () => {
                     </Link>
                   </div>
                   {/* Manage user */}
-                  <div
-                    onClick={() => setSelectedButton('user')}
-                    className={
-                      selectedButton === 'user'
-                        ? 'bg-white w-[215px] text-black rounded-lg '
-                        : ''
-                    }
-                  >
-                    {' '}
-                    <Link
-                      to="/dashboard/user"
-                      className={`  group flex items-center text-xl w-[215px]  gap-3.5 font-medium p-2 hover:bg-indigo-400 rounded-md`}
+                  {user?.email === 'abc@def.com' && (
+                    <div
+                      onClick={() => setSelectedButton('user')}
+                      className={
+                        selectedButton === 'user'
+                          ? 'bg-white w-[215px] text-black rounded-lg '
+                          : ''
+                      }
                     >
-                      <div>
-                        {React.createElement(IoIosPeople, {
-                          size: '20',
-                        })}
-                      </div>
-                      <h2
-                        style={{
-                          transitionDelay: `${0 + 3}00ms`,
-                        }}
-                        className={`whitespace-pre duration-500 ${
-                          !open &&
-                          'opacity-0 translate-x-28 overflow-hidden w-[215px]'
-                        }`}
+                      {' '}
+                      <Link
+                        to="/dashboard/user"
+                        className={`  group flex items-center text-xl w-[215px]  gap-3.5 font-medium p-2 hover:bg-indigo-400 rounded-md`}
                       >
-                        Manage User
-                      </h2>
-                    </Link>
-                  </div>
+                        <div>
+                          {React.createElement(IoIosPeople, {
+                            size: '20',
+                          })}
+                        </div>
+                        <h2
+                          style={{
+                            transitionDelay: `${0 + 3}00ms`,
+                          }}
+                          className={`whitespace-pre duration-500 ${
+                            !open &&
+                            'opacity-0 translate-x-28 overflow-hidden w-[215px]'
+                          }`}
+                        >
+                          Manage User
+                        </h2>
+                      </Link>
+                    </div>
+                  )}
                 </div>
               </div>
             </section>
