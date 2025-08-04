@@ -36,6 +36,7 @@ async function run() {
     const updateCollection = client.db('hospital2').collection('update');
     const contactCollection = client.db('hospital2').collection('contacts');
     const aboutCollection = client.db('hospital2').collection('about');
+    const donnerCollection = client.db('hospital2').collection('donner');
 
     // // // // // // // // // // // //
 
@@ -75,6 +76,20 @@ async function run() {
       const cursor = userCollection.find(query);
       const user = await cursor.toArray();
       res.send(user);
+    });
+    // add admin
+    app.put('/admin/:id', async (req, res) => {
+      const id = req.params.id;
+      const updateAdmin = req.body;
+      const query = { _id: ObjectId(id) };
+      const options = { upsert: true };
+      const updateDoc = {
+        $set: {
+          admin: updateAdmin.admin,
+        },
+      };
+      const result = await userCollection.updateOne(query, updateDoc, options);
+      res.send(result);
     });
 
     // // //  *********  appointments  ********//
@@ -220,7 +235,7 @@ async function run() {
       );
       res.send(result);
     });
-    //  update next date 
+    //  update next date
     app.put('/nextDate/:id', async (req, res) => {
       const id = req.params.id;
       const updateNextDate = req.body;
@@ -282,6 +297,26 @@ async function run() {
       res.send(result);
     });
 
+    // post donnerCollection
+    app.post('/donner', async (req, res) => {
+      const newBooking = req.body;
+      const result = await donnerCollection.insertOne(newBooking);
+      res.send(result);
+    });
+    // get donnerCollection
+    app.get('/donner', async (req, res) => {
+      const query = {};
+      const cursor = donnerCollection.find(query);
+      const users = await cursor.toArray();
+      res.send(users);
+    });
+    // Delete one donnerCollection
+    app.delete('/donner/:id', async (req, res) => {
+      const id = req.params.id;
+      const query = { _id: ObjectId(id) };
+      const result = await donnerCollection.deleteOne(query);
+      res.send(result);
+    });
     // post Contact
     app.post('/contact', async (req, res) => {
       const newBooking = req.body;
@@ -352,39 +387,37 @@ async function run() {
       const users = await cursor.toArray();
       res.send(users);
     });
-// update about
- app.put('/updateAbout/:id', async (req, res) => {
-   const productId = req.params.id;
-   const updateAbout = req.body;
+    // update about
+    app.put('/updateAbout/:id', async (req, res) => {
+      const productId = req.params.id;
+      const updateAbout = req.body;
 
-   try {
-     const filter = { _id: new ObjectId(productId) };
-     const options = { upsert: false }; // Don't create new if not found
+      try {
+        const filter = { _id: new ObjectId(productId) };
+        const options = { upsert: false }; // Don't create new if not found
 
-     const updatedDoc = {
-       $set: updateAbout,
-     };
+        const updatedDoc = {
+          $set: updateAbout,
+        };
 
-     const result = await aboutCollection.updateOne(
-       filter,
-       updatedDoc,
-       options
-     );
+        const result = await aboutCollection.updateOne(
+          filter,
+          updatedDoc,
+          options
+        );
 
-     res.json({
-       success: true,
-       message: 'About section updated successfully',
-       modifiedCount: result.modifiedCount,
-     });
-   } catch (error) {
-     console.error('Error updating About:', error);
-     res.status(500).json({ success: false, message: 'Internal server error' });
-   }
- });
-
-
-
-
+        res.json({
+          success: true,
+          message: 'About section updated successfully',
+          modifiedCount: result.modifiedCount,
+        });
+      } catch (error) {
+        console.error('Error updating About:', error);
+        res
+          .status(500)
+          .json({ success: false, message: 'Internal server error' });
+      }
+    });
   } finally {
   }
 }
