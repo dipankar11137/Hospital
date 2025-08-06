@@ -6,7 +6,9 @@ import { GrUpdate } from 'react-icons/gr';
 import { IoIosPeople } from 'react-icons/io';
 
 import {
+  MdBloodtype,
   MdDashboard,
+  MdManageHistory,
   MdOutlineWifiCalling
 } from 'react-icons/md';
 import { Link, Outlet, useLocation } from 'react-router-dom';
@@ -195,6 +197,70 @@ const Dashboard = () => {
                         }`}
                       >
                         Update
+                      </h2>
+                    </Link>
+                  </div>
+                  {/* Add Donner  */}
+                  <div
+                    onClick={() => setSelectedButton('addDonner')}
+                    className={
+                      selectedButton === 'addDonner'
+                        ? 'bg-white w-[215px] text-black rounded-lg '
+                        : ''
+                    }
+                  >
+                    {' '}
+                    <Link
+                      to="/dashboard/addDonner"
+                      className={`  group flex items-center text-xl w-[215px]  gap-3.5 font-medium p-2 hover:bg-indigo-400 rounded-md`}
+                    >
+                      <div>
+                        {React.createElement(MdBloodtype, {
+                          size: '20',
+                        })}
+                      </div>
+                      <h2
+                        style={{
+                          transitionDelay: `${0 + 3}00ms`,
+                        }}
+                        className={`whitespace-pre duration-500 ${
+                          !open &&
+                          'opacity-0 translate-x-28 overflow-hidden w-[215px]'
+                        }`}
+                      >
+                        Add Donner
+                      </h2>
+                    </Link>
+                  </div>
+                  {/* Manage donner */}
+                  <div
+                    onClick={() => setSelectedButton('manageDonner')}
+                    className={
+                      selectedButton === 'manageDonner'
+                        ? 'bg-white w-[215px] text-black rounded-lg '
+                        : ''
+                    }
+                  >
+                    {' '}
+                    <Link
+                      to="/dashboard/manageDonner"
+                      className={`  group flex items-center text-xl w-[215px]  gap-3.5 font-medium p-2 hover:bg-indigo-400 rounded-md`}
+                    >
+                      <div>
+                        {React.createElement(MdManageHistory, {
+                          size: '20',
+                        })}
+                      </div>
+                      <h2
+                        style={{
+                          transitionDelay: `${0 + 3}00ms`,
+                        }}
+                        className={`whitespace-pre duration-500 ${
+                          !open &&
+                          'opacity-0 translate-x-28 overflow-hidden w-[215px]'
+                        }`}
+                      >
+                        Manage Donner
                       </h2>
                     </Link>
                   </div>

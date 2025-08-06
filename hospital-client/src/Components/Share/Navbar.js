@@ -110,6 +110,14 @@ const Navbar = () => {
             {menuItems}
           </ul>
         </div>
+        <div className=" flex items-center gap-2 mr-10 ">
+          <h1 className="text-xs">{users?.name}</h1>
+          <img
+            className="h-8 w-8 rounded-full"
+            src="https://png.pngtree.com/png-vector/20220813/ourmid/pngtree-vector-icon-with-rounded-edges-in-soft-blue-tones-representing-a-user-vector-png-image_19492744.png"
+            alt=""
+          />
+        </div>
         {user ? (
           <button className=" font-semibold mr-8 text-red-600" onClick={logout}>
             SignOut
@@ -117,7 +125,7 @@ const Navbar = () => {
         ) : (
           <ul className="mr-5 font-semibold text-indigo-900">
             <li>
-              <Link  to="/login">Login</Link>
+              <Link to="/login">Login</Link>
             </li>
           </ul>
         )}
