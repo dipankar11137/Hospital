@@ -11,6 +11,7 @@ import About from "./Components/Pages/About/About";
 import BloodDonner from "./Components/Pages/Blood Donner/BloodDonner";
 import Contact from "./Components/Pages/Contact/Contact";
 import AddDoctor from "./Components/Pages/Dashboard/AddDoctor/AddDoctor";
+import AddDonner from "./Components/Pages/Dashboard/AddDonner/AddDonner";
 import Bookings from "./Components/Pages/Dashboard/Boooking/Bookings";
 import ContactUs from "./Components/Pages/Dashboard/Contact Us/ContactUs";
 import ManageContacts from './Components/Pages/Dashboard/Contact.js/Manage Contact/ManageContacts';
@@ -113,7 +114,7 @@ function App() {
           <Route path="updateAbout" element={<UpdateAbout />} />
           <Route path="contactUs" element={<ContactUs />} />
           <Route path="user" element={<Users />} />
-          {/* <Route path="contact" element={<Contact />} /> */}
+          <Route path="addDonner" element={<AddDonner />} />
         </Route>
         {/* Dashboard End */}
       </Routes>

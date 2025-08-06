@@ -1,9 +1,20 @@
-import React from 'react';
+
+
+import { useEffect, useState } from 'react';
 import Footer from '../../Share/Footer';
 
 const BloodDonner = () => {
+  const [donner, setDonner] = useState([]);
+
+  useEffect(() => {
+fetch('http://localhost:5000/donner')
+      .then((response) => response.json())
+      .then((data) => setDonner(data))
+      .catch((error) => console.error('Error fetching donners:', error));
+   }, [donner]);
+
    const handleCall = () => {
-     window.location.href = 'tel:+1234567890'; 
+     window.location.href = 'tel:+1234567890';
    };
   return (
     <div className="pt-20 ">

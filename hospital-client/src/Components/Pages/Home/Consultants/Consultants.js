@@ -60,27 +60,31 @@ const Consultants = () => {
           className="pb-10"
         >
           {doctors.map(doctor => (
-            <SwiperSlide  key={doctor._id}>
-              <div className="bg-indigo-900  shadow-lg p-5 w-full flex flex-col items-center text-center">
-                <img
-                  className="h-48 w-48 rounded-full object-cover border-4 border-orange-400"
-                  src={doctor?.img}
-                  alt={doctor?.name}
-                />
-                <h1 className="text-xl font-bold mt-3 text-orange-600">
-                  {doctor?.name}
-                </h1>
-                <p className="text-sm uppercase text-gray-700 mb-2">
-                  {doctor?.department}
-                </p>
-                <button
-                  onClick={() => handleDetails(doctor._id)}
-                  className="bg-orange-500 text-white px-4 py-1 text-sm rounded hover:bg-orange-600 transition"
-                >
-                  View Details
-                </button>
+            <SwiperSlide key={doctor._id}>
+              <div className="bg-indigo-900 h-[350px] shadow-lg p-5 w-full flex flex-col justify-between items-center text-center">
+                <div>
+                  <img
+                    className="h-48 w-48 ml-3 rounded-full object-cover border-4 border-orange-400"
+                    src={doctor?.img}
+                    alt={doctor?.name}
+                  />
+                  <h1 className="text-xl font-bold mt-3 text-orange-600">
+                    {doctor?.name}
+                  </h1>
+                </div>
+
+                <div>
+                  <p className="text-sm uppercase text-gray-300 mb-2">
+                    {doctor?.department}
+                  </p>
+                  <button
+                    onClick={() => handleDetails(doctor._id)}
+                    className="bg-orange-500 text-white px-4 py-1 text-sm rounded hover:bg-orange-600 transition"
+                  >
+                    View Details
+                  </button>
+                </div>
               </div>
-              
             </SwiperSlide>
           ))}
         </Swiper>

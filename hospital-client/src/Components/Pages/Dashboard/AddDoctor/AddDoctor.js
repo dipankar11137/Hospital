@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
 
@@ -424,7 +424,7 @@ const [loading,setLoading]=useState(false)
                 <input
                   type="file"
                   className="input input-bordered text-black lg:w-72 sm:w-full max-w-xs pt-1 mt-0   hover:shadow-xl shadow-inner h-[40px]"
-                  {...register('image', {
+                  {...register('image1', {
                     required: {
                       value: true,
                       message: 'Image is Required',
@@ -433,9 +433,9 @@ const [loading,setLoading]=useState(false)
                 />
 
                 <label className="label">
-                  {errors.image?.type === 'required' && (
+                  {errors.image1?.type === 'required' && (
                     <span className="label-text-alt text-red-500">
-                      {errors?.image?.message}
+                      {errors?.image1?.message}
                     </span>
                   )}
                 </label>
@@ -451,7 +451,7 @@ const [loading,setLoading]=useState(false)
                 <input
                   type="file"
                   className="input input-bordered text-black lg:w-72 sm:w-full max-w-xs pt-1    hover:shadow-xl shadow-inner h-[40px]"
-                  {...register('image1', {
+                  {...register('image', {
                     required: {
                       value: true,
                       message: 'Image is Required',
@@ -460,9 +460,9 @@ const [loading,setLoading]=useState(false)
                 />
 
                 <label className="label">
-                  {errors.image1?.type === 'required' && (
+                  {errors.image?.type === 'required' && (
                     <span className="label-text-alt text-red-500">
-                      {errors?.image1?.message}
+                      {errors?.image?.message}
                     </span>
                   )}
                 </label>

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import ManageDoctor from './ManageDoctor';
@@ -31,7 +31,7 @@ const ManageDoctors = () => {
        }
   }
   return (
-    <div className="mx-7">
+    <div className="mx-7 mb-10">
       <div>
         <h1 className='text-3xl m-2 font-semibold text-indigo-900'> All Doctors</h1>
       </div>
@@ -61,7 +61,7 @@ const ManageDoctors = () => {
             </tr>
           </thead>
           <tbody>
-            {doctors.map((doctor, index) => (
+            {doctors.slice().reverse().map((doctor, index) => (
               <ManageDoctor
                 key={doctor._id}
                 doctor={doctor}

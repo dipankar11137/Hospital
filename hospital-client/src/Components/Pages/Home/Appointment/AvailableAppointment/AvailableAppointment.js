@@ -1,5 +1,5 @@
 import { format } from "date-fns";
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useLocation } from "react-router-dom";
 import Footer from "../../../../Share/Footer";
 import BookingModal from '../BookingModal/BookingModal';
@@ -114,7 +114,7 @@ useEffect(() => {
 
         {result && (
           <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-x-6 gap-y-36 mt-32 mx-24">
-            {appointmentOptions.map(option => (
+            {appointmentOptions.slice().reverse().map(option => (
               <AppointmentOption
                 key={option._id}
                 option={option}
