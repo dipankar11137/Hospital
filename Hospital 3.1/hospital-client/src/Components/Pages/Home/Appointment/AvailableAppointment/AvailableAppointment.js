@@ -12,7 +12,6 @@ const AvailableAppointment = ({ selectDate }) => {
 
   const [departments, setDepartments] = useState('');
 
-  
   const date = format(selectDate, 'PP', 'MMMM d');
   const today1 = new Date();
   const today = format(today1, 'PP', 'MMMM d');
@@ -32,28 +31,24 @@ const AvailableAppointment = ({ selectDate }) => {
        .then(res => res.json())
        .then(data => setDepartments(data));
    }, [departments]);
-  
+
 useEffect(() => {
   let url = `http://localhost:5000/appointments?date=${date}`;
   if (department) {
     url += `&department=${department}`;
   }
- 
+
   fetch(url)
     .then(res => res.json())
     .then(data => setAppointmentOptions(data))
     .catch(error => console.error('Error fetching appointments:', error));
 }, [date, department]);
 
- 
-  
   const { pathname } = useLocation();
 
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [pathname]);
-
-
 
   return (
     <div>

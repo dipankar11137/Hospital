@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { DayPicker } from 'react-day-picker';
 import 'react-day-picker/dist/style.css';
 
@@ -23,7 +23,7 @@ const AppointmentBanner = ({ selectDate, setSelectDate }) => {
             <img
               src="https://www.peerlesshospital.com/images/departments/banner-doctor.webp"
               alt=""
-              className="relative z-0"
+              className="relative z-0 "
             />
           </div>
         </div>

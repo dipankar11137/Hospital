@@ -1,5 +1,6 @@
+
+
 import { format } from "date-fns";
-import React from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { toast } from "react-toastify";
 import auth from "../../../../../firebase.init";
@@ -64,18 +65,16 @@ const BookingModal = ({ counseling, selectDate, setCounseling, refetch }) => {
             <h3 className="text-2xl font-semibold pl-1">{name}</h3>
             <h3 className="mr-5">{date}</h3>
           </div>
-          <form onSubmit={handleBooking}>
-            
-            <select
-              name="slot"
-              className="select select-bordered select-primary mt-3 w-full "
-            >
-              {slots.map((slot, i) => (
-                <option value={slot} key={i}>
-                  {slot}
-                </option>
-              ))}
-            </select>
+          <form className="text-black" onSubmit={handleBooking}>
+            <div className="text-black">
+              <select name="slot" className="select select-bordered mt-3 w-full text-black ">
+                {slots.map((slot, i) => (
+                  <option value={slot} key={i}>
+                    <span className="text-black "> {slot}</span>
+                  </option>
+                ))}
+              </select>
+            </div>
 
             <textarea
               name="problem"
@@ -102,7 +101,11 @@ const BookingModal = ({ counseling, selectDate, setCounseling, refetch }) => {
               className="input input-bordered input-primary pt-1 h-20 w-full  mt-2"
             />
 
-            <input className="w-full mt-5 btn btn-primary text-white" type="submit" value="Submit" />
+            <input
+              className="w-full mt-5 btn btn-primary text-white"
+              type="submit"
+              value="Submit"
+            />
           </form>
         </div>
       </div>
