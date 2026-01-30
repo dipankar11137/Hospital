@@ -25,6 +25,7 @@ import ManageDoctors from "./Components/Pages/Dashboard/ManageDoctor/ManageDocto
 import MyBookings from './Components/Pages/Dashboard/MyBookings/MyBookings';
 import Payment from './Components/Pages/Dashboard/MyBookings/Payment';
 import Profile from './Components/Pages/Dashboard/Profile/Profile';
+import ShowSample from "./Components/Pages/Dashboard/Show Sample/ShowSample";
 import UpdateAbout from "./Components/Pages/Dashboard/Update About/UpdateAbout";
 import Update from "./Components/Pages/Dashboard/Update/Update";
 import Users from "./Components/Pages/Dashboard/User/Users";
@@ -34,6 +35,7 @@ import Home from './Components/Pages/Home/Home';
 import Medicine from "./Components/Pages/Medicine/Medicine";
 import EditProfile from "./Components/Pages/Profile/EditProfile";
 import ProfilePage from "./Components/Pages/Profile/ProfilePage";
+import SampleCollection from "./Components/Pages/Sample Collecting/SampleCollection";
 import Header from "./Components/Share/Header";
 import Navbar from "./Components/Share/Navbar";
 import NotFound from './Components/Share/NotFound';
@@ -76,6 +78,7 @@ function App() {
         <Route path="/profile" element={<ProfilePage />} />
         <Route path="/editProfile" element={<EditProfile />} />
         <Route path="/doctorMeting" element={<DoctorMetting />} />
+        <Route path="/sampleCollection" element={<SampleCollection />} />
 
         <Route
           path="/myBooking"
@@ -129,6 +132,7 @@ function App() {
           <Route path="user" element={<Users />} />
           <Route path="addDonner" element={<AddDonner />} />
           <Route path="manageDonner" element={<ManageDonner />} />
+          <Route path="showSample" element={<ShowSample />} />
         </Route>
         {/* Dashboard End */}
       </Routes>

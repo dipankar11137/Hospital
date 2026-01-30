@@ -57,6 +57,9 @@ const Navbar = () => {
             <Link to="/medicine">Medicine</Link>
           </li>
           <li>
+            <Link to="/sampleCollection">Sample Collection</Link>
+          </li>
+          <li>
             <Link to="/contact">Contact</Link>
           </li>
         </>
@@ -123,7 +126,7 @@ const Navbar = () => {
             <Link to="/myBooking" className="relative">
               <IoNotificationsOutline className="text-2xl text-slate-600 hover:text-blue-600" />
               {booking.length > 0 && (
-                <span className="absolute -top-1 -right-1 bg-red-600 text-white text-xs w-5 h-5 flex items-center justify-center rounded-full">
+                <span className="absolute -top-3 -right-2 bg-red-600 text-white text-xs w-5 h-5 flex items-center justify-center rounded-full">
                   {booking.length}
                 </span>
               )}
@@ -136,11 +139,11 @@ const Navbar = () => {
               onClick={() => navigate('/profile')}
               className="flex items-center gap-3 cursor-pointer hover:bg-slate-100 px-3 py-1 rounded-lg"
             >
-              <div className="text-right hidden sm:block">
+              {/* <div className="text-right hidden sm:block">
                 <p className="text-sm font-semibold text-slate-800">
                   {user?.name}
                 </p>
-              </div>
+              </div> */}
 
               {user?.img ? (
                 <img
