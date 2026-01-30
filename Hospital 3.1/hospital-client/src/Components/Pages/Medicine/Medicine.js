@@ -166,11 +166,11 @@ const Medicine = () => {
 
       {/* Medicine Grid */}
       {filteredMedicines.length > 0 ? (
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-6 gap-6 ">
           {filteredMedicines.map(med => (
             <div
               key={med._id} // <-- changed here
-              className="bg-white rounded-xl p-4 shadow-md hover:shadow-xl transition-all duration-300 text-center transform hover:scale-105"
+              className="bg-white rounded-xl p-4 shadow-md hover:shadow-xl transition-all duration-300 text-center transform hover:scale-105 hover:cursor-pointer hover:border-primary border-2"
             >
               <img
                 src={med.image}
@@ -180,14 +180,18 @@ const Medicine = () => {
               <h2 className="text-lg font-semibold text-primary">{med.name}</h2>
               <p className="text-sm text-gray-600">{med.group}</p>
               <p className="text-sm text-gray-500 mb-2">{med.type}</p>
-              <p className="text-primary font-semibold mb-3">৳ {med.price}</p>
 
-              <button
-                className="bg-gradient-to-r from-green-400 to-blue-500 text-white font-semibold px-5 py-2 rounded-full shadow-lg hover:from-blue-500 hover:to-green-400 transform hover:scale-105 transition-all duration-300"
-                onClick={() => handleBuy(med)}
-              >
-                Buy Now
-              </button>
+              <div className="flex justify-between items-center mt-3">
+                <p className="text-primary text-xl font-semibold ">
+                  ৳ {med.price}
+                </p>
+                <button
+                  className="bg-gradient-to-r from-primary text-xs  to-primary text-white font-semibold px-3 py-1 rounded-full shadow-lg hover:from-primary hover:to-secondary transform hover:scale-105 transition-all duration-300"
+                  onClick={() => handleBuy(med)}
+                >
+                  Buy
+                </button>
+              </div>
             </div>
           ))}
         </div>
@@ -281,7 +285,7 @@ const Medicine = () => {
               </div>
               <button
                 type="submit"
-                className="w-full bg-gradient-to-r from-green-400 to-blue-500 text-white font-semibold px-5 py-2 rounded-full shadow-lg hover:from-blue-500 hover:to-green-400 transform hover:scale-105 transition-all duration-300"
+                className="w-full bg-gradient-to-r text-white font-semibold px-5 py-2 rounded-full shadow-lg bg-primary transform hover:scale-105 transition-all duration-300"
               >
                 Confirm Purchase
               </button>

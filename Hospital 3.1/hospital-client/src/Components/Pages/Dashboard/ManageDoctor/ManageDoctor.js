@@ -1,4 +1,3 @@
-import React from 'react';
 import { FaEdit, FaTrashAlt } from 'react-icons/fa';
 
 const ManageDoctor = ({ doctor, index, handleDelete, handleEdit }) => {
@@ -6,9 +5,13 @@ const ManageDoctor = ({ doctor, index, handleDelete, handleEdit }) => {
     <tr className="text-center">
       <th className="">{index}</th>
       <td className=" ">
-        <div className='flex items-center gap-3'>
-          <img className='h-14 w-14 rounded-full' src={doctor?.img} alt={doctor?.name} />
-          <h1 className='font-semibold'>{doctor?.name}</h1>
+        <div className="flex items-center gap-3">
+          <img
+            className="h-14 w-14 rounded-full"
+            src={doctor?.img}
+            alt={doctor?.name}
+          />
+          <h1 className="font-semibold">{doctor?.name}</h1>
         </div>
       </td>
       <td className=" ">{doctor?.department}</td>
@@ -24,9 +27,9 @@ const ManageDoctor = ({ doctor, index, handleDelete, handleEdit }) => {
       <td className=" ">
         <button
           onClick={() => handleDelete(doctor?._id)}
-          className="btn btn-xs btn-secondary rounded-md uppercase text-white font-semibold  "
+          className="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded-md flex items-center gap-1 mx-auto"
         >
-          <FaTrashAlt className="text-xl" />
+          <FaTrashAlt /> Delete
         </button>
       </td>
     </tr>

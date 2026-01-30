@@ -74,7 +74,7 @@ const Banner = () => {
                 <div className="pt-4">
                   <button
                     onClick={() => (window.location.href = 'tel:+880123456789')}
-                    className="bg-indigo-600 hover:bg-indigo-700 px-6 py-3 rounded-lg font-semibold text-white shadow-lg transition-all duration-300"
+                    className="btn btn-primary px-6 py-3 rounded-lg font-semibold text-white shadow-lg transition-all duration-300"
                   >
                     Call Now
                   </button>

@@ -17,6 +17,7 @@ import Bookings from "./Components/Pages/Dashboard/Boooking/Bookings";
 import ContactUs from "./Components/Pages/Dashboard/Contact Us/ContactUs";
 import ManageContacts from './Components/Pages/Dashboard/Contact.js/Manage Contact/ManageContacts';
 import Dashboard from './Components/Pages/Dashboard/Dashboard';
+import DoctorMetting from "./Components/Pages/Dashboard/Doctor Metting/DoctorMetting";
 import AddDonner from "./Components/Pages/Dashboard/Donner/AddDonner";
 import ManageDonner from "./Components/Pages/Dashboard/Donner/ManageDonner";
 import EditDoctor from "./Components/Pages/Dashboard/ManageDoctor/EditDoctor";
@@ -31,6 +32,8 @@ import Appointment from "./Components/Pages/Home/Appointment/Appointment/Appoint
 import DoctorDetails from "./Components/Pages/Home/DoctorDetails/DoctorDetails";
 import Home from './Components/Pages/Home/Home';
 import Medicine from "./Components/Pages/Medicine/Medicine";
+import EditProfile from "./Components/Pages/Profile/EditProfile";
+import ProfilePage from "./Components/Pages/Profile/ProfilePage";
 import Header from "./Components/Share/Header";
 import Navbar from "./Components/Share/Navbar";
 import NotFound from './Components/Share/NotFound';
@@ -52,7 +55,7 @@ function App() {
      };
    }, []);
   return (
-    <div className="font-robot">
+    <div className="font-menuFont">
       <div className="duration-1000">
         <Header />
       </div>
@@ -70,6 +73,9 @@ function App() {
         <Route path="/createAccount" element={<CreateAccount />}></Route>
         <Route path="/payment/:id" element={<Payment />} />
         <Route path="/medicine" element={<Medicine />} />
+        <Route path="/profile" element={<ProfilePage />} />
+        <Route path="/editProfile" element={<EditProfile />} />
+        <Route path="/doctorMeting" element={<DoctorMetting />} />
 
         <Route
           path="/myBooking"

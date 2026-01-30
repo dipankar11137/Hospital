@@ -7,6 +7,21 @@ module.exports = {
         serif: ['Georgia', 'Cambria', 'Times New Roman', 'Times', 'serif'],
         robot: ['Cambria', 'Roboto', 'Arial', 'sans-serif'],
         meStyle: ['Open Sans', 'sans-serif'],
+        arial: [
+          'Arial',
+          'Helvetica',
+          'ui-sans-serif',
+          'system-ui',
+          'sans-serif',
+        ],
+        menuFont: [
+          'Arial',
+          'Open Sans',
+          'Roboto',
+          'Helvetica',
+          'system-ui',
+          'sans-serif',
+        ],
       },
     },
   },
@@ -14,7 +29,8 @@ module.exports = {
     themes: [
       {
         mytheme: {
-          primary: '#193D81',
+          // primary: '#193D81',
+          primary: '#C70216',
           secondary: '#f6d860',
           accent: '#0571F5',
           neutral: '#e84a0c',

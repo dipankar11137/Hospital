@@ -27,7 +27,7 @@ const AddMedicine = () => {
   return (
     <div className="min-h-screen bg-gradient-to-r from-indigo-50 via-purple-50 to-pink-50 flex items-center justify-center py-12 px-4">
       <div className="w-full max-w-lg bg-white rounded-2xl shadow-2xl p-10 border border-gray-200">
-        <h2 className="text-4xl font-extrabold text-center text-gradient bg-clip-text text-transparent bg-gradient-to-r from-green-400 to-blue-500 mb-8">
+        <h2 className="text-4xl font-extrabold text-center text-gradient bg-clip-text text-transparent bg-gradient-to-r from-primary to-blue-500 mb-8">
           Add New Medicine
         </h2>
 
@@ -131,7 +131,7 @@ const AddMedicine = () => {
           {/* Submit Button */}
           <button
             type="submit"
-            className="w-full py-3 bg-gradient-to-r from-green-400 to-blue-500 text-white font-bold text-lg rounded-2xl shadow-lg hover:from-blue-500 hover:to-green-400 transition transform hover:scale-105"
+            className="w-full py-3 bg-primary text-white font-bold text-lg rounded-2xl shadow-lg  transition transform hover:scale-105"
           >
             Add Medicine
           </button>

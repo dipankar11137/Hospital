@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
-import { FaChevronDown } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import auth from '../../../../firebase.init';
@@ -10,8 +9,9 @@ const MyBookings = () => {
   const [bookings, setBooking] = useState([]);
   const navigate = useNavigate();
   const [file, setFile] = useState(null);
-   const imageHostKey = 'c70a5fc10619997bd7315f2bf28d0f3e';
+  const imageHostKey = 'c70a5fc10619997bd7315f2bf28d0f3e';
 
+  // Fetch user's bookings
   useEffect(() => {
     if (users?.email) {
       fetch(`http://localhost:5000/myBookings/${users.email}`)
@@ -21,226 +21,222 @@ const MyBookings = () => {
     }
   }, [users?.email]);
 
+  // Delete booking
   const handleDelete = id => {
     const proceed = window.confirm(
-      'Are you sure you want to delete this booking?'
+      'Are you sure you want to delete this booking?',
     );
-    if (proceed) {
-      fetch(`http://localhost:5000/bookings/${id}`, { method: 'DELETE' })
-        .then(res => res.json())
-        .then(data => {
-          if (data.deletedCount > 0) {
-            const remaining = bookings.filter(booking => booking._id !== id);
-            setBooking(remaining);
-            toast.success('Booking deleted successfully');
-          }
-        })
-        .catch(() => toast.error('Failed to delete booking'));
-    }
+    if (!proceed) return;
+
+    fetch(`http://localhost:5000/bookings/${id}`, { method: 'DELETE' })
+      .then(res => res.json())
+      .then(data => {
+        if (data.deletedCount > 0) {
+          const remaining = bookings.filter(booking => booking._id !== id);
+          setBooking(remaining);
+          toast.success('Booking deleted successfully');
+        }
+      })
+      .catch(() => toast.error('Failed to delete booking'));
   };
 
+  // Payment navigation
   const handlePayment = id => {
     navigate(`/payment/${id}`);
   };
 
-const handleAddFile = async id => {
-  if (!file) return alert('Please select a file first!');
+  // Upload report file
+  const handleAddFile = async id => {
+    if (!file) return alert('Please select a file first!');
 
-  const formData = new FormData();
-  formData.append('image', file); // imgbb expects 'image', not 'file'
+    const formData = new FormData();
+    formData.append('image', file);
 
-  const url = `https://api.imgbb.com/1/upload?expiration=600&key=${imageHostKey}`;
+    const url = `https://api.imgbb.com/1/upload?expiration=600&key=${imageHostKey}`;
 
-  try {
-    const response = await fetch(url, {
-      method: 'POST',
-      body: formData,
-    });
+    try {
+      const response = await fetch(url, { method: 'POST', body: formData });
+      const imageData = await response.json();
 
-    const imageData = await response.json();
+      if (imageData.success) {
+        const imgUrl = imageData.data.url;
 
-    if (imageData.success) {
-      const imgUrl = imageData.data.url;
+        const res = await fetch(`http://localhost:5000/addFile/${id}`, {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ report: imgUrl }),
+        });
 
-      console.log('Uploaded Image URL:', imgUrl);
-
-      // Optional: save this uploaded image URL to your server
-      const res = await fetch(`http://localhost:5000/addFile/${id}`, {
-        method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ report: imgUrl }),
-      });
-
-      const result = await res.json();
-      // console.log('File saved:', result);
-      alert('File uploaded and saved successfully!');
-    } else {
-      alert('Image upload failed!');
-      // console.error(imageData);
+        await res.json();
+        alert('File uploaded and saved successfully!');
+        setFile(null);
+      } else {
+        alert('Image upload failed!');
+      }
+    } catch (error) {
+      console.error(error);
+      alert('Something went wrong while uploading the file.');
     }
-  } catch (error) {
-    console.error('Upload error:', error);
-    alert('Something went wrong while uploading the file.');
-  }
-};
+  };
+
+  // Join meeting
+  const handleJoinMeeting = booking => {
+    if (!booking.meetingLink) return toast.error('No meeting link set!');
+    window.open(booking.meetingLink, '_blank'); // open in new tab
+    toast.info(`Meeting Time: ${booking.meetingTime || 'Not set'}`);
+  };
 
   return (
-    <div className="mx-10">
-      <div className="px-1">
-        <h1 className="text-3xl font-semibold text-center py-5 pr-20">
-          My Bookings
-        </h1>
-        <div className="overflow-x-auto">
-          <table className="table w-full text-white">
-            <thead>
-              <tr className="text-3xl bg-slate-900 text-center">
-                <th className="bg-slate-400 text-xl "></th>
-                <th className="bg-slate-400 text-xl border-r-2">Doctor Name</th>
-                <th className="bg-slate-400 text-xl border-r-2">Department</th>
-                <th className="bg-slate-400 text-xl border-r-2">Date</th>
-                <th className="bg-slate-400 text-xl border-r-2">Slot</th>
-                <th className="bg-slate-400 text-xl border-r-2">Next Meet</th>
-                <th className="bg-slate-400 text-xl border-r-2">Add Report</th>
-                <th className="bg-slate-400 text-xl border-r-2">Payment</th>
-                <th className="bg-slate-400 text-xl border-r-2">Status</th>
-                <th className="bg-slate-400 text-xl border-r-2">Complete</th>
-                <th className="bg-slate-400 text-xl">Remove</th>
-              </tr>
-            </thead>
-            <tbody>
-              {bookings
-                .slice()
-                .reverse()
-                .map((booking, index) => (
-                  <tr key={booking._id} className="text-center text-slate-800">
-                    <th className="bg-slate-300">{index + 1}</th>
-                    <td className="bg-slate-300 border-r-2">
-                      <div className="flex items-center">
-                        <img
-                          className="w-12 h-12 rounded-md"
-                          src={booking?.img}
-                          alt=""
+    <div className="min-h-screen bg-slate-100 p-20 ">
+      <h1 className="text-3xl font-bold text-center mb-6">My Bookings</h1>
+
+      <div className="overflow-x-auto bg-white shadow rounded-xl">
+        <table className="table w-full text-center">
+          <thead className="bg-slate-900 text-white">
+            <tr>
+              <th className="bg-slate-600">#</th>
+              <th className="bg-slate-600">Doctor</th>
+              <th className="bg-slate-600">Department</th>
+              <th className="bg-slate-600">Date</th>
+              <th className="bg-slate-600">Slot</th>
+              <th className="bg-slate-600">Next Meet</th>
+              <th className="bg-slate-600">Add Report</th>
+              <th className="bg-slate-600">Meeting</th>
+              <th className="bg-slate-600">Payment</th>
+              <th className="bg-slate-600">Status</th>
+              <th className="bg-slate-600">Complete</th>
+              <th className="bg-slate-600">Remove</th>
+            </tr>
+          </thead>
+          <tbody>
+            {bookings
+              .slice()
+              .reverse()
+              .map((booking, index) => (
+                <tr key={booking._id} className="text-slate-800">
+                  <td className="bg-slate-50">{index + 1}</td>
+
+                  <td className="bg-slate-50 border-r">
+                    <div className="flex items-center justify-center gap-2">
+                      <img
+                        src={booking.img}
+                        alt={booking.doctorName}
+                        className="w-12 h-12 rounded-md object-cover"
+                      />
+                      <span className="font-semibold">
+                        {booking.doctorName}
+                      </span>
+                    </div>
+                  </td>
+
+                  <td className="bg-slate-50 border-r">{booking.department}</td>
+                  <td className="bg-slate-50 border-r">
+                    {booking.appointmentDate}
+                  </td>
+                  <td className="bg-slate-50 border-r">{booking.slot}</td>
+                  <td className="bg-slate-50 border-r">
+                    {booking.nextDate} Days Later
+                  </td>
+
+                  <td className="bg-slate-50 border-r">
+                    {booking.report ? (
+                      <span className="text-green-600 font-semibold">
+                        Submitted
+                      </span>
+                    ) : (
+                      <div className="flex items-center justify-center gap-2">
+                        <input
+                          type="file"
+                          accept="image/*"
+                          className="file-input file-input-xs file-input-bordered w-[100px]"
+                          onChange={e => setFile(e.target.files[0])}
                         />
-                        <h1 className="font-semibold ml-3 overflow-auto">
-                          {booking?.doctorName}
-                        </h1>
-                      </div>
-                    </td>
-                    <td className="bg-slate-300 border-r-2">
-                      {booking?.department}
-                    </td>
-                    <td className="bg-slate-300 border-r-2">
-                      {booking?.appointmentDate}
-                    </td>
-                    <td className="bg-slate-300 border-r-2">{booking?.slot}</td>
-                    <td className="bg-slate-300 border-r-2">
-                      {booking?.nextDate} Days Later
-                    </td>
-                    <td className="bg-slate-300 border-r-2">
-                      {booking.report ? (
-                        <>
-                          Submitted
-                        </>
-                      ) : (
-                        <div className="flex items-center gap-2 ">
-                          <input
-                            onChange={e => setFile(e.target.files[0])}
-                            type="file"
-                            name="Image"
-                            accept="image/*"
-                            className="file-input file-input-bordered file-input-xs w-[100px] "
-                          />
-                          <button
-                            onClick={() => handleAddFile(booking._id)}
-                            className="btn btn-xs btn-secondary"
-                          >
-                            Add
-                          </button>
-                        </div>
-                      )}
-                    </td>
-
-                    <td className="bg-slate-300 border-r-2">
-                      {booking.payment ? (
-                        <div className="flex justify-center">
-                          <h1 className="text-2xl font-semibold mr-4">Paid</h1>
-                          <label
-                            htmlFor={`modal-${index}`}
-                            className="mt-1 text-2xl flex items-center cursor-pointer"
-                          >
-                            <FaChevronDown className="text-lg" />
-                          </label>
-
-                          <input
-                            type="checkbox"
-                            id={`modal-${index}`}
-                            className="modal-toggle"
-                          />
-                          <div className="modal">
-                            <div className="modal-box bg-white">
-                              <div>
-                                <img
-                                  src="https://img.freepik.com/free-vector/thank-you-placard-concept-illustration_114360-13436.jpg"
-                                  alt="Thank you"
-                                />
-                              </div>
-                              <div className="modal-action">
-                                <label
-                                  htmlFor={`modal-${index}`}
-                                  className="btn"
-                                >
-                                  Close
-                                </label>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      ) : (
                         <button
-                          onClick={() => handlePayment(booking._id)}
-                          className="bg-lime-600 px-3 py-1 rounded-md uppercase text-white font-semibold hover:bg-lime-500"
+                          onClick={() => handleAddFile(booking._id)}
+                          className="btn btn-xs btn-secondary"
                         >
-                          Payment
+                          Add
                         </button>
-                      )}
-                    </td>
+                      </div>
+                    )}
+                  </td>
 
-                    <td className="bg-slate-300 border-r-2">
-                      {booking.accept ? (
-                        <h1 className="text-lg text-green-800 font-semibold">
-                          Accepted
-                        </h1>
-                      ) : (
-                        <h1 className="text-lg text-orange-700 font-semibold">
-                          Pay First
-                        </h1>
-                      )}
-                    </td>
-                    <td className="bg-slate-300 border-r-2">
-                      {booking.complete ? (
-                        <h1 className="text-lg text-green-800 font-semibold">
-                          Complete
-                        </h1>
-                      ) : (
-                        <h1 className="text-lg text-orange-700 font-semibold">
-                          Processing
-                        </h1>
-                      )}
-                    </td>
+                  {/* Meeting link and time */}
+                  <td className="bg-slate-50 border-r">
+                    {booking.meetingLink ? (
+                      <div className="flex flex-col items-center gap-1">
+                        <button
+                          onClick={() => handleJoinMeeting(booking)}
+                          className="btn btn-xs btn-warning text-white flex items-center gap-1"
+                        >
+                          Join Meeting
+                        </button>
+                        <span className="text-sm text-gray-700">
+                          {booking.meetingTime || 'Time not set'}
+                        </span>
+                      </div>
+                    ) : (
+                      <span className="text-gray-500">Not set</span>
+                    )}
+                  </td>
 
-                    <td className="bg-slate-300">
+                  <td className="bg-slate-50 border-r">
+                    {booking.payment ? (
+                      <span className="text-green-600 font-semibold">Paid</span>
+                    ) : (
                       <button
-                        onClick={() => handleDelete(booking._id)}
-                        className="bg-orange-600 px-3 py-1 rounded-md uppercase text-white font-semibold hover:bg-orange-500"
+                        onClick={() => handlePayment(booking._id)}
+                        className="btn btn-xs bg-lime-600 hover:bg-lime-500 text-white"
                       >
-                        Remove
+                        Pay
                       </button>
-                    </td>
-                  </tr>
-                ))}
-            </tbody>
-          </table>
-        </div>
+                    )}
+                  </td>
+
+                  <td className="bg-slate-50 border-r">
+                    {booking.accept ? (
+                      <span className="text-green-800 font-semibold">
+                        Accepted
+                      </span>
+                    ) : (
+                      <span className="text-orange-700 font-semibold">
+                        Pending
+                      </span>
+                    )}
+                  </td>
+
+                  <td className="bg-slate-50 border-r">
+                    {booking.complete ? (
+                      <span className="text-green-800 font-semibold">
+                        Complete
+                      </span>
+                    ) : (
+                      <span className="text-orange-700 font-semibold">
+                        Processing
+                      </span>
+                    )}
+                  </td>
+
+                  <td className="bg-slate-50">
+                    <button
+                      onClick={() => handleDelete(booking._id)}
+                      className="btn btn-xs bg-red-600 hover:bg-red-500 text-white"
+                    >
+                      Remove
+                    </button>
+                  </td>
+                </tr>
+              ))}
+
+            {bookings.length === 0 && (
+              <tr>
+                <td colSpan="12" className="text-center py-6 text-gray-500">
+                  No bookings found.
+                </td>
+              </tr>
+            )}
+          </tbody>
+        </table>
       </div>
     </div>
   );
@@ -250,65 +246,244 @@ export default MyBookings;
 
 // import { useEffect, useState } from 'react';
 // import { useAuthState } from 'react-firebase-hooks/auth';
+// import { FaChevronDown } from 'react-icons/fa';
+// import { useNavigate } from 'react-router-dom';
 // import { toast } from 'react-toastify';
 // import auth from '../../../../firebase.init';
-// import MyBooking from './MyBooking';
 
 // const MyBookings = () => {
 //   const [users] = useAuthState(auth);
 //   const [bookings, setBooking] = useState([]);
+//   const navigate = useNavigate();
+//   const [file, setFile] = useState(null);
+//    const imageHostKey = 'c70a5fc10619997bd7315f2bf28d0f3e';
+
 //   useEffect(() => {
-//     fetch(`http://localhost:5000/myBookings/${users?.email}`)
-//       .then(res => res.json())
-//       .then(data => setBooking(data));
-//   }, [bookings, users?.email]);
+//     if (users?.email) {
+//       fetch(`http://localhost:5000/myBookings/${users.email}`)
+//         .then(res => res.json())
+//         .then(data => setBooking(data))
+//         .catch(() => toast.error('Failed to fetch bookings'));
+//     }
+//   }, [users?.email]);
 
 //   const handleDelete = id => {
-//     const proceed = window.confirm('Are You Sure ?');
+//     const proceed = window.confirm(
+//       'Are you sure you want to delete this booking?'
+//     );
 //     if (proceed) {
-//       const url = `http://localhost:5000/bookings/${id}`;
-//       fetch(url, {
-//         method: 'DELETE',
-//       })
+//       fetch(`http://localhost:5000/bookings/${id}`, { method: 'DELETE' })
 //         .then(res => res.json())
 //         .then(data => {
-//           const remaining = bookings.filter(booking => booking._id !== id);
-//           setBooking(remaining);
-//           toast.success('Successfully Delete ');
-//         });
+//           if (data.deletedCount > 0) {
+//             const remaining = bookings.filter(booking => booking._id !== id);
+//             setBooking(remaining);
+//             toast.success('Booking deleted successfully');
+//           }
+//         })
+//         .catch(() => toast.error('Failed to delete booking'));
 //     }
 //   };
+
+//   const handlePayment = id => {
+//     navigate(`/payment/${id}`);
+//   };
+
+// const handleAddFile = async id => {
+//   if (!file) return alert('Please select a file first!');
+
+//   const formData = new FormData();
+//   formData.append('image', file); // imgbb expects 'image', not 'file'
+
+//   const url = `https://api.imgbb.com/1/upload?expiration=600&key=${imageHostKey}`;
+
+//   try {
+//     const response = await fetch(url, {
+//       method: 'POST',
+//       body: formData,
+//     });
+
+//     const imageData = await response.json();
+
+//     if (imageData.success) {
+//       const imgUrl = imageData.data.url;
+
+//       console.log('Uploaded Image URL:', imgUrl);
+
+//       // Optional: save this uploaded image URL to your server
+//       const res = await fetch(`http://localhost:5000/addFile/${id}`, {
+//         method: 'PUT',
+//         headers: { 'Content-Type': 'application/json' },
+//         body: JSON.stringify({ report: imgUrl }),
+//       });
+
+//       const result = await res.json();
+//       // console.log('File saved:', result);
+//       alert('File uploaded and saved successfully!');
+//     } else {
+//       alert('Image upload failed!');
+//       // console.error(imageData);
+//     }
+//   } catch (error) {
+//     console.error('Upload error:', error);
+//     alert('Something went wrong while uploading the file.');
+//   }
+// };
+
 //   return (
-//     <div className='mx-10'>
+//     <div className="mx-10">
 //       <div className="px-1">
 //         <h1 className="text-3xl font-semibold text-center py-5 pr-20">
-//           My Booking
+//           My Bookings
 //         </h1>
 //         <div className="overflow-x-auto">
-//           <table className="table  w-full text-white">
+//           <table className="table w-full text-white">
 //             <thead>
 //               <tr className="text-3xl bg-slate-900 text-center">
-//                 <th className="bg-slate-400 text-xl "></th>
-//                 <th className="bg-slate-400 text-xl border-r-2">Doctor Name</th>
-//                 <th className="bg-slate-400 text-xl border-r-2">Department</th>
-//                 <th className="bg-slate-400 text-xl border-r-2">Date</th>
-//                 <th className="bg-slate-400 text-xl border-r-2">Slot</th>
-//                 <th className="bg-slate-400 text-xl border-r-2">Next Meet</th>
-//                 <th className="bg-slate-400 text-xl border-r-2">Payment</th>
-//                 <th className="bg-slate-400 text-xl border-r-2">Status</th>
-//                 <th className="bg-slate-400 text-xl border-r-2">Complete</th>
-//                 <th className="bg-slate-400 text-xl">Remove</th>
+//                 <th className="bg-slate-700 text-xl "></th>
+//                 <th className="bg-slate-700 text-xl border-r-2">Doctor Name</th>
+//                 <th className="bg-slate-700 text-xl border-r-2">Department</th>
+//                 <th className="bg-slate-700 text-xl border-r-2">Date</th>
+//                 <th className="bg-slate-700 text-xl border-r-2">Slot</th>
+//                 <th className="bg-slate-700 text-xl border-r-2">Next Meet</th>
+//                 <th className="bg-slate-700 text-xl border-r-2">Add Report</th>
+//                 <th className="bg-slate-700 text-xl border-r-2">Payment</th>
+//                 <th className="bg-slate-700 text-xl border-r-2">Status</th>
+//                 <th className="bg-slate-700 text-xl border-r-2">Complete</th>
+//                 <th className="bg-slate-700 text-xl">Remove</th>
 //               </tr>
 //             </thead>
 //             <tbody>
-//               {bookings.map((booking, index) => (
-//                 <MyBooking
-//                   key={booking._id}
-//                   booking={booking}
-//                   index={index + 1}
-//                   handleDelete={handleDelete}
-//                 ></MyBooking>
-//               ))}
+//               {bookings
+//                 .slice()
+//                 .reverse()
+//                 .map((booking, index) => (
+//                   <tr key={booking._id} className="text-center text-slate-800">
+//                     <th className="bg-slate-50">{index + 1}</th>
+//                     <td className="bg-slate-50 border-r-2">
+//                       <div className="flex items-center">
+//                         <img
+//                           className="w-12 h-12 rounded-md"
+//                           src={booking?.img}
+//                           alt=""
+//                         />
+//                         <h1 className="font-semibold ml-3 overflow-auto">
+//                           {booking?.doctorName}
+//                         </h1>
+//                       </div>
+//                     </td>
+//                     <td className="bg-slate-50 border-r-2">
+//                       {booking?.department}
+//                     </td>
+//                     <td className="bg-slate-50 border-r-2">
+//                       {booking?.appointmentDate}
+//                     </td>
+//                     <td className="bg-slate-50 border-r-2">{booking?.slot}</td>
+//                     <td className="bg-slate-50 border-r-2">
+//                       {booking?.nextDate} Days Later
+//                     </td>
+//                     <td className="bg-slate-50 border-r-2">
+//                       {booking.report ? (
+//                         <>
+//                           Submitted
+//                         </>
+//                       ) : (
+//                         <div className="flex items-center gap-2 ">
+//                           <input
+//                             onChange={e => setFile(e.target.files[0])}
+//                             type="file"
+//                             name="Image"
+//                             accept="image/*"
+//                             className="file-input file-input-bordered file-input-xs w-[100px] "
+//                           />
+//                           <button
+//                             onClick={() => handleAddFile(booking._id)}
+//                             className="btn btn-xs btn-secondary"
+//                           >
+//                             Add
+//                           </button>
+//                         </div>
+//                       )}
+//                     </td>
+
+//                     <td className="bg-slate-50 border-r-2">
+//                       {booking.payment ? (
+//                         <div className="flex justify-center">
+//                           <h1 className="text-2xl font-semibold mr-4">Paid</h1>
+//                           <label
+//                             htmlFor={`modal-${index}`}
+//                             className="mt-1 text-2xl flex items-center cursor-pointer"
+//                           >
+//                             <FaChevronDown className="text-lg" />
+//                           </label>
+
+//                           <input
+//                             type="checkbox"
+//                             id={`modal-${index}`}
+//                             className="modal-toggle"
+//                           />
+//                           <div className="modal">
+//                             <div className="modal-box bg-white">
+//                               <div>
+//                                 <img
+//                                   src="https://img.freepik.com/free-vector/thank-you-placard-concept-illustration_114360-13436.jpg"
+//                                   alt="Thank you"
+//                                 />
+//                               </div>
+//                               <div className="modal-action">
+//                                 <label
+//                                   htmlFor={`modal-${index}`}
+//                                   className="btn"
+//                                 >
+//                                   Close
+//                                 </label>
+//                               </div>
+//                             </div>
+//                           </div>
+//                         </div>
+//                       ) : (
+//                         <button
+//                           onClick={() => handlePayment(booking._id)}
+//                           className="bg-lime-600 px-3 py-1 rounded-md uppercase text-white font-semibold hover:bg-lime-500"
+//                         >
+//                           Payment
+//                         </button>
+//                       )}
+//                     </td>
+
+//                     <td className="bg-slate-50 border-r-2">
+//                       {booking.accept ? (
+//                         <h1 className="text-lg text-green-800 font-semibold">
+//                           Accepted
+//                         </h1>
+//                       ) : (
+//                         <h1 className="text-lg text-orange-700 font-semibold">
+//                           Pay First
+//                         </h1>
+//                       )}
+//                     </td>
+//                     <td className="bg-slate-50 border-r-2">
+//                       {booking.complete ? (
+//                         <h1 className="text-lg text-green-800 font-semibold">
+//                           Complete
+//                         </h1>
+//                       ) : (
+//                         <h1 className="text-lg text-orange-700 font-semibold">
+//                           Processing
+//                         </h1>
+//                       )}
+//                     </td>
+
+//                     <td className="bg-slate-50">
+//                       <button
+//                         onClick={() => handleDelete(booking._id)}
+//                         className="bg-orange-600 px-3 py-1 rounded-md uppercase text-white font-semibold hover:bg-orange-500"
+//                       >
+//                         Remove
+//                       </button>
+//                     </td>
+//                   </tr>
+//                 ))}
 //             </tbody>
 //           </table>
 //         </div>

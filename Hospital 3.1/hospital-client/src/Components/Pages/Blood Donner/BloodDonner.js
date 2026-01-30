@@ -1,3 +1,5 @@
+
+
 import { useEffect, useState } from 'react';
 import Footer from '../../Share/Footer';
 
@@ -184,44 +186,44 @@ const BloodDonner = () => {
       </div>
 
       {/* Donor Cards */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 mb-20">
+      <div className="grid grid-cols-1  sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-8 mb-20">
         {filteredData
           .slice()
           .reverse()
           .map((donor, index) => (
             <div
               key={donor._id}
-              className="
-    rounded-2xl shadow-xl bg-white/70 backdrop-blur-md border border-white 
-    p-6 text-center 
-    transition-all duration-300 
-    hover:shadow-2xl hover:-translate-y-1 
+              className="h-[340px] 
+    rounded-2xl shadow-xl bg-white/70 backdrop-blur-md border border-white
+    p-6 text-center
+    transition-all duration-300
+    hover:shadow-2xl hover:-translate-y-1
     hover:border-red-500 cursor-pointer
-  "
+    flex flex-col"
             >
               <img
-                className="w-28 h-28 mx-auto mb-4 rounded-full ring-4 ring-red-300 shadow"
-                src="https://png.pngtree.com/png-vector/20250506/ourmid/pngtree-happy-red-blood-drop-character-shows-a-peace-gesture-connected-to-png-image_16185865.png"
+                className="w-14 h-14 mx-auto mb-4 rounded-full ring-4 ring-red-300 shadow"
+                src="https://st2.depositphotos.com/5266903/9158/i/450/depositphotos_91586400-stock-photo-blood-donation-icon.jpg"
                 alt="donor"
               />
 
-              <h1 className="text-3xl font-bold text-red-600 mb-3">
+              <h1 className="text-xl font-bold text-red-600 mb-1">
                 {donor.bloodGroup}
               </h1>
 
               <p className="text-lg font-semibold">👤 {donor.name}</p>
-              <p className="text-base mt-1 text-gray-700">
-                📍 Division: {donor.division}
-              </p>
-              <p className="text-base text-gray-700">
-                🏙 District: {donor.district}
-              </p>
-              <p className="text-base text-gray-700">📞 {donor.phone}</p>
-              <p className="text-base text-gray-700">✉️ {donor.email}</p>
 
+              <div className="text-sm mt-2">
+                <p className="text-gray-700">📍 Division: {donor.division}</p>
+                <p className="text-gray-700">🏙 District: {donor.district}</p>
+                <p className="text-gray-700">📞 {donor.phone}</p>
+                <p className="text-gray-700">✉️ {donor.email}</p>
+              </div>
+
+              {/* Push button to bottom */}
               <button
                 onClick={() => handleCall(donor.phone)}
-                className="bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-5 rounded-xl mt-5 shadow-lg transition"
+                className="bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-5 rounded-xl mt-auto shadow-lg transition"
               >
                 📱 Call Now
               </button>
@@ -235,4 +237,3 @@ const BloodDonner = () => {
 };
 
 export default BloodDonner;
-

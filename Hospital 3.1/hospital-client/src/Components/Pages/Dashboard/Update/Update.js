@@ -61,7 +61,7 @@ const handleUpdate = async () => {
 
         <button
           onClick={handleUpdate}
-          className="mt-4 w-full bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition"
+          className="mt-4 w-full bg-primary text-white py-2 px-4 rounded-lg hover:bg-red-900 transition"
         >
           Update Description
         </button>

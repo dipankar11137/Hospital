@@ -12,20 +12,22 @@ const Welcome = () => {
           <h1 className="text-3xl font-semibold text-indigo-900 text-start">
             16+ Years of Experience in Serving Mankind
           </h1>
-          <a href="http://localhost:3000/about"
+          <a
+            href="http://localhost:3000/about"
             target="_blank"
             rel="noreferrer"
-            className="btn btn-sm mt-3 btn-info">Read More</a>
+            className="btn btn-sm btn-primary mt-3 text-white"
+          >
+            Read More
+          </a>
         </div>
-        <div className='col-span-7 font-meStyle text-lg -mt-7'>
+        <div className="col-span-7 font-arial text-lg -mt-7">
           <p>
             For close to a hundred years now the Smart Health Care name has been
-            synonymous with trust. Trust that has been won and retained by
-            successive generations of Smart Health Care people, who have made it their
-            mission to give back to the society more than what it draws from it
-            for sustenance.
+            synonymous with trust. Trust that has been won and retained by successive generations of Smart Health Care people, who have made ittheir mission to give back to the society more than what it draws
+            from it for sustenance.
           </p>
-          <p className='mt-3'>
+          <p className="mt-3">
             Smart Health Care Hospital & B.K. Roy Research Centre, the 500 bed
             Multi-Specialty Corporate Hospital is built around the core
             principle of selfless, single-minded, and sustainable service with

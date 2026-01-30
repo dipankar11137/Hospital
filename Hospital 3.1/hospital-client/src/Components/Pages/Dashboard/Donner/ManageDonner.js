@@ -49,8 +49,8 @@ const ManageDonor = () => {
 
       <div className="overflow-x-auto shadow-lg rounded-lg border border-gray-700">
         {donors.length > 0 ? (
-          <table className="w-full text-sm text-white">
-            <thead className="bg-slate-900 text-sm uppercase text-center">
+          <table className="w-full text-sm text-slate-800">
+            <thead className="text-sm uppercase text-center">
               <tr>
                 <th className="py-3 px-4">#</th>
                 <th className="py-3 px-4 border-r">Name</th>
@@ -66,20 +66,20 @@ const ManageDonor = () => {
                   key={donor._id}
                   className="text-center border-t border-gray-600"
                 >
-                  <td className="py-3 px-4 bg-slate-800">{index + 1}</td>
-                  <td className="py-3 px-4 bg-slate-800 border-r">
+                  <td className="py-3 px-4 ">{index + 1}</td>
+                  <td className="py-3 px-4  border-r">
                     {donor.name}
                   </td>
-                  <td className="py-3 px-4 bg-slate-800 border-r">
+                  <td className="py-3 px-4  border-r">
                     {donor.email}
                   </td>
-                  <td className="py-3 px-4 bg-slate-800 border-r">
+                  <td className="py-3 px-4  border-r">
                     {donor.phone}
                   </td>
-                  <td className="py-3 px-4 bg-slate-800 border-r">
+                  <td className="py-3 px-4  border-r">
                     {donor.bloodGroup}
                   </td>
-                  <td className="py-3 px-4 bg-slate-800">
+                  <td className="py-3 px-4 ">
                     <button
                       onClick={() => handleDelete(donor._id)}
                       className="bg-red-600 hover:bg-red-700 text-white px-4 py-1 rounded text-sm font-semibold transition"
