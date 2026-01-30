@@ -37,6 +37,7 @@ async function run() {
     const contactCollection = client.db('hospital2').collection('contacts');
     const aboutCollection = client.db('hospital2').collection('about');
     const donnerCollection = client.db('hospital2').collection('donner');
+    const homeSampleCollection = client.db('hospital2').collection('homeSample');
     const medicineBookingCollection = client
       .db('hospital2')
       .collection('medicineBooking');
@@ -535,6 +536,60 @@ async function run() {
           .json({ success: false, message: 'Internal server error' });
       }
     });
+
+    // sample collection
+
+    app.get('/samples', async (req, res) => {
+      const samples = await homeSampleCollection
+        .find({ isActive: true })
+        .toArray();
+      res.send(samples);
+    });
+
+    app.post('/home-sample', async (req, res) => {
+      const data = req.body;
+
+      const request = {
+        ...data,
+        status: 'Pending',
+        createdAt: new Date(),
+      };
+
+      const result = await homeSampleCollection.insertOne(request);
+      res.send(result);
+    });
+
+    app.get('/sampleOrders', async (req, res) => {
+      const result = await homeSampleCollection
+        .find()
+        .sort({ createdAt: -1 })
+        .toArray();
+      res.send(result);
+    });
+
+    app.get('/home-sample/:email', async (req, res) => {
+      const email = req.params.email;
+      const result = await homeSampleCollection
+        .find({ userEmail: email })
+        .sort({ createdAt: -1 })
+        .toArray();
+
+      res.send(result);
+    });
+    app.put('/home-sample/status/:id', async (req, res) => {
+      const id = req.params.id;
+      const { status } = req.body;
+
+      const result = await homeSampleCollection.updateOne(
+        { _id: ObjectId(id) },
+        { $set: { status } },
+      );
+
+      res.send(result);
+    });
+
+
+
   } finally {
   }
 }
