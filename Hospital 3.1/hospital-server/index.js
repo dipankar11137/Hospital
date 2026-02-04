@@ -37,10 +37,15 @@ async function run() {
     const contactCollection = client.db('hospital2').collection('contacts');
     const aboutCollection = client.db('hospital2').collection('about');
     const donnerCollection = client.db('hospital2').collection('donner');
-    const homeSampleCollection = client.db('hospital2').collection('homeSample');
+    const homeSampleCollection = client
+      .db('hospital2')
+      .collection('homeSample');
     const medicineBookingCollection = client
       .db('hospital2')
       .collection('medicineBooking');
+    const emergencyBookingCollection = client
+      .db('hospital2')
+      .collection('emergencyBooking');
 
     // // // // // // // // // // // //
 
@@ -61,7 +66,7 @@ async function run() {
       const result = await userCollection.updateOne(
         filter,
         updatedDoc,
-        options
+        options,
       );
       res.send(result);
     });
@@ -71,6 +76,22 @@ async function run() {
       const cursor = userCollection.find(query);
       const users = await cursor.toArray();
       res.send(users);
+    });
+
+    // blood donner
+    app.patch('/blood-donner/:id', async (req, res) => {
+      const { id } = req.params;
+      const { bloodDonner } = req.body;
+
+      const filter = { _id: new ObjectId(id) };
+      const updateDoc = {
+        $set: {
+          bloodDonner: bloodDonner,
+        },
+      };
+
+      const result = await userCollection.updateOne(filter, updateDoc);
+      res.send(result);
     });
 
     // all User filter by email category
@@ -112,7 +133,20 @@ async function run() {
       const result = await userCollection.updateOne(query, updateDoc, options);
       res.send(result);
     });
-
+    //  update payment fonner
+    app.put('/donnerPayment/:id', async (req, res) => {
+      const id = req.params.id;
+      const updatePayment = req.body;
+      const query = { _id: ObjectId(id) };
+      const options = { upsert: true };
+      const updateDoc = {
+        $set: {
+          payment: updatePayment.payment,
+        },
+      };
+      const result = await userCollection.updateOne(query, updateDoc, options);
+      res.send(result);
+    });
     // // //  *********  appointments  ********//
 
     // // get appointments to query multiple collection  and them marge data
@@ -132,11 +166,11 @@ async function run() {
 
       options.forEach(option => {
         const optionBooked = alreadyBooked.filter(
-          book => book.doctorName === option.name
+          book => book.doctorName === option.name,
         );
         const bookedSlots = optionBooked.map(book => book.slot);
         const remainingSlots = option.slots.filter(
-          slot => !bookedSlots.includes(slot)
+          slot => !bookedSlots.includes(slot),
         );
         option.slots = remainingSlots;
       });
@@ -180,7 +214,7 @@ async function run() {
         const result = await appointmentCollection.updateOne(
           filter,
           updatedDoc,
-          options
+          options,
         );
         res.json({
           success: true,
@@ -252,7 +286,7 @@ async function run() {
       const result = await bookingCollection.updateOne(
         query,
         updateDoc,
-        options
+        options,
       );
       res.send(result);
     });
@@ -270,7 +304,7 @@ async function run() {
       const result = await bookingCollection.updateOne(
         query,
         updateDoc,
-        options
+        options,
       );
       res.send(result);
     });
@@ -298,7 +332,7 @@ async function run() {
         const result = await bookingCollection.updateOne(
           query,
           updateDoc,
-          options
+          options,
         );
         if (result.matchedCount === 0) {
           return res.status(404).send({ message: 'Booking not found' });
@@ -333,7 +367,7 @@ async function run() {
         const result = await bookingCollection.updateOne(
           query,
           updateDoc,
-          options
+          options,
         );
 
         if (result.modifiedCount > 0) {
@@ -360,7 +394,7 @@ async function run() {
       const result = await bookingCollection.updateOne(
         query,
         updateDoc,
-        options
+        options,
       );
       res.send(result);
     });
@@ -378,7 +412,7 @@ async function run() {
       const result = await bookingCollection.updateOne(
         query,
         updateDoc,
-        options
+        options,
       );
       res.send(result);
     });
@@ -481,7 +515,7 @@ async function run() {
         const result = await updateCollection.updateOne(
           filter,
           updatedDoc,
-          options
+          options,
         );
         res.json({
           success: true,
@@ -521,7 +555,7 @@ async function run() {
         const result = await aboutCollection.updateOne(
           filter,
           updatedDoc,
-          options
+          options,
         );
 
         res.json({
@@ -588,6 +622,34 @@ async function run() {
       res.send(result);
     });
 
+
+
+    // emergency booking
+     app.post('/emergencyBooking', async (req, res) => {
+       const appointmentsBook = req.body;
+       const result =
+         await emergencyBookingCollection.insertOne(appointmentsBook);
+       res.send(result);
+     });
+     // get doctor
+     app.get('/emergencyBooking', async (req, res) => {
+       const query = {};
+       const cursor = emergencyBookingCollection.find(query);
+       const users = await cursor.toArray();
+       res.send(users);
+     });
+    app.delete('/emergencyBooking/:id', async (req, res) => {
+      try {
+        const id = req.params.id;
+        const result = await emergencyBookingCollection.deleteOne({
+          _id: new ObjectId(id),
+        });
+
+        res.send(result);
+      } catch (error) {
+        res.status(500).send({ message: 'Failed to cancel booking' });
+      }
+    });
 
 
   } finally {
