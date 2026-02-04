@@ -165,7 +165,7 @@ const Navbar = () => {
               onClick={logout}
               className="text-red-600 font-semibold hover:text-red-700"
             >
-              Log Out
+              LogOut
             </button>
           ) : (
             <Link

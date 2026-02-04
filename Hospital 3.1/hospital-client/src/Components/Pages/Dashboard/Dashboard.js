@@ -1,16 +1,16 @@
 import { useEffect, useState } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { AiTwotoneMedicineBox } from 'react-icons/ai';
-import { FaUserMd, FaUserPlus } from 'react-icons/fa';
+import { FaFileMedicalAlt, FaUserMd, FaUserPlus } from 'react-icons/fa';
 import { FcAbout } from 'react-icons/fc';
 import { GrUpdate } from 'react-icons/gr';
 import { IoIosPeople } from 'react-icons/io';
+import { PiEyedropperSampleDuotone } from 'react-icons/pi';
+
 import {
-  MdBloodtype,
   MdDashboard,
   MdLocalPharmacy,
-  MdManageHistory,
-  MdOutlineWifiCalling,
+  MdOutlineWifiCalling
 } from 'react-icons/md';
 import { Link, Outlet, useLocation } from 'react-router-dom';
 import auth from '../../../firebase.init';
@@ -220,7 +220,7 @@ const Dashboard = () => {
                   </div>
 
                   {/* Add Donor */}
-                  <div
+                  {/* <div
                     onClick={() => setSelectedButton('addDonner')}
                     className={`${
                       selectedButton === 'addDonner'
@@ -241,10 +241,10 @@ const Dashboard = () => {
                         Add Donor
                       </h2>
                     </Link>
-                  </div>
+                  </div> */}
 
                   {/* Manage Donor */}
-                  <div
+                  {/* <div
                     onClick={() => setSelectedButton('manageDonner')}
                     className={`${
                       selectedButton === 'manageDonner'
@@ -265,8 +265,55 @@ const Dashboard = () => {
                         Manage Donor
                       </h2>
                     </Link>
+                  </div> */}
+
+                  {/* Manage Sample */}
+                  <div
+                    onClick={() => setSelectedButton('manageSample')}
+                    className={`${
+                      selectedButton === 'manageSample'
+                        ? 'bg-white text-indigo-700 w-[215px] rounded-lg shadow-md'
+                        : 'hover:bg-indigo-500/40'
+                    }`}
+                  >
+                    <Link
+                      to="/dashboard/showSample"
+                      className="group flex items-center text-[17px] w-[215px] gap-3.5 font-medium p-2 rounded-md"
+                    >
+                      <PiEyedropperSampleDuotone size={20} />
+                      <h2
+                        className={`whitespace-pre duration-500 ${
+                          !open && 'opacity-0 translate-x-28 overflow-hidden'
+                        }`}
+                      >
+                        Manage Sample
+                      </h2>
+                    </Link>
                   </div>
 
+                  {/* Emergency Booking */}
+                  <div
+                    onClick={() => setSelectedButton('EmergencyBooking')}
+                    className={`${
+                      selectedButton === 'EmergencyBooking'
+                        ? 'bg-white text-indigo-700 w-[215px] rounded-lg shadow-md'
+                        : 'hover:bg-indigo-500/40'
+                    }`}
+                  >
+                    <Link
+                      to="/dashboard/emergencyBooking"
+                      className="group flex items-center text-[17px] w-[215px] gap-3.5 font-medium p-2 rounded-md"
+                    >
+                      <FaFileMedicalAlt size={20} />
+                      <h2
+                        className={`whitespace-pre duration-500 ${
+                          !open && 'opacity-0 translate-x-28 overflow-hidden'
+                        }`}
+                      >
+                        Emergency Booking
+                      </h2>
+                    </Link>
+                  </div>
                   {/* About */}
                   <div
                     onClick={() => setSelectedButton('about')}

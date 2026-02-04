@@ -116,7 +116,7 @@ const Footer = () => {
           </svg>
           <p>
             Smart Health Care. <br />
-            Design and Development 2025
+            Design and Development 2026
           </p>
         </aside>
         <nav className="md:place-self-center md:justify-self-end">

@@ -20,19 +20,23 @@ import Dashboard from './Components/Pages/Dashboard/Dashboard';
 import DoctorMetting from "./Components/Pages/Dashboard/Doctor Metting/DoctorMetting";
 import AddDonner from "./Components/Pages/Dashboard/Donner/AddDonner";
 import ManageDonner from "./Components/Pages/Dashboard/Donner/ManageDonner";
+import ShowEmergencyBooking from "./Components/Pages/Dashboard/EmergencyBooking/ShowEmergencyBooking ";
 import EditDoctor from "./Components/Pages/Dashboard/ManageDoctor/EditDoctor";
 import ManageDoctors from "./Components/Pages/Dashboard/ManageDoctor/ManageDoctors";
 import MyBookings from './Components/Pages/Dashboard/MyBookings/MyBookings';
 import Payment from './Components/Pages/Dashboard/MyBookings/Payment';
+import PaymentDonner from "./Components/Pages/Dashboard/MyBookings/PaymentDonner";
 import Profile from './Components/Pages/Dashboard/Profile/Profile';
 import ShowSample from "./Components/Pages/Dashboard/Show Sample/ShowSample";
 import UpdateAbout from "./Components/Pages/Dashboard/Update About/UpdateAbout";
 import Update from "./Components/Pages/Dashboard/Update/Update";
 import Users from "./Components/Pages/Dashboard/User/Users";
+import { EmergencyMedicalBooking } from "./Components/Pages/EmergencyMedicalBooking/EmergencyMedicalBooking";
 import Appointment from "./Components/Pages/Home/Appointment/Appointment/Appointment";
 import DoctorDetails from "./Components/Pages/Home/DoctorDetails/DoctorDetails";
 import Home from './Components/Pages/Home/Home';
 import Medicine from "./Components/Pages/Medicine/Medicine";
+import BloodDonnerProfile from "./Components/Pages/Profile/Blood Donner/BloodDonnerProfile";
 import EditProfile from "./Components/Pages/Profile/EditProfile";
 import ProfilePage from "./Components/Pages/Profile/ProfilePage";
 import SampleCollection from "./Components/Pages/Sample Collecting/SampleCollection";
@@ -74,6 +78,7 @@ function App() {
         <Route path="/contact" element={<Contact />}></Route>
         <Route path="/createAccount" element={<CreateAccount />}></Route>
         <Route path="/payment/:id" element={<Payment />} />
+        <Route path="/paymentDonner/:id" element={<PaymentDonner />} />
         <Route path="/medicine" element={<Medicine />} />
         <Route path="/profile" element={<ProfilePage />} />
         <Route path="/editProfile" element={<EditProfile />} />
@@ -106,6 +111,18 @@ function App() {
         />
         <Route path="/doctorDetails/:id" element={<DoctorDetails />} />
         <Route path="/login" element={<Login />}></Route>
+        <Route
+          path="/bloodDonnerProfile"
+          element={<BloodDonnerProfile />}
+        ></Route>
+        <Route
+          path="/emergencyMedicalBooking"
+          element={
+            <RequireAuth>
+              <EmergencyMedicalBooking />
+            </RequireAuth>
+          }
+        ></Route>
         <Route path="/*" element={<NotFound />}></Route>
 
         {/* Dashboard Start */}
@@ -133,6 +150,7 @@ function App() {
           <Route path="addDonner" element={<AddDonner />} />
           <Route path="manageDonner" element={<ManageDonner />} />
           <Route path="showSample" element={<ShowSample />} />
+          <Route path="emergencyBooking" element={<ShowEmergencyBooking />} />
         </Route>
         {/* Dashboard End */}
       </Routes>

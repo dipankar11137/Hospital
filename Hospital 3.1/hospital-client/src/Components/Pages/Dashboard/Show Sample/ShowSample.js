@@ -89,17 +89,17 @@ const ShowSample = () => {
         <table className="table w-full text-center">
           <thead className="bg-slate-800 text-white">
             <tr>
-              <th>#</th>
-              <th>User</th>
-              <th>Phone</th>
-              <th>Address</th>
-              <th>Samples</th>
-              <th>Total (৳)</th>
-              <th>Pending</th>
-              <th>Collection Done</th>
-              <th>Payment Done</th>
-              <th>Report Done</th>
-              <th>Delete</th>
+              <th className='bg-slate-600'>#</th>
+              <th className='bg-slate-600'>User</th>
+              <th className='bg-slate-600'>Phone</th>
+              <th className='bg-slate-600'>Address</th>
+              <th className='bg-slate-600'>Samples</th>
+              <th className='bg-slate-600'>Total (৳)</th>
+              <th className='bg-slate-600'>Pending</th>
+              <th className='bg-slate-600'>Collection Done</th>
+              <th className='bg-slate-600'>Payment Done</th>
+              <th className='bg-slate-600'>Report Done</th>
+              <th className='bg-slate-600'>Delete</th>
             </tr>
           </thead>
 
@@ -143,7 +143,7 @@ const ShowSample = () => {
                     onClick={() => updateStatus(order._id, 'Collection Done')}
                     className={`btn btn-xs ${
                       order.status === 'Pending'
-                        ? 'bg-blue-600 hover:bg-blue-500 text-white'
+                        ? 'btn-accent text-white'
                         : 'btn-disabled'
                     }`}
                   >
