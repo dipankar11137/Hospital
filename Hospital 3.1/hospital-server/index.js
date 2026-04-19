@@ -133,20 +133,20 @@ async function run() {
       const result = await userCollection.updateOne(query, updateDoc, options);
       res.send(result);
     });
-    //  update payment fonner
-    app.put('/donnerPayment/:id', async (req, res) => {
-      const id = req.params.id;
-      const updatePayment = req.body;
-      const query = { _id: ObjectId(id) };
-      const options = { upsert: true };
-      const updateDoc = {
-        $set: {
-          payment: updatePayment.payment,
-        },
-      };
-      const result = await userCollection.updateOne(query, updateDoc, options);
-      res.send(result);
-    });
+    // //  update payment fonner
+    // app.put('/donnerPayment/:id', async (req, res) => {
+    //   const id = req.params.id;
+    //   const updatePayment = req.body;
+    //   const query = { _id: ObjectId(id) };
+    //   const options = { upsert: true };
+    //   const updateDoc = {
+    //     $set: {
+    //       payment: updatePayment.payment,
+    //     },
+    //   };
+    //   const result = await userCollection.updateOne(query, updateDoc, options);
+    //   res.send(result);
+    // });
     // // //  *********  appointments  ********//
 
     // // get appointments to query multiple collection  and them marge data
@@ -270,6 +270,23 @@ async function run() {
       const query = { date };
       const cursor = bookingCollection.find(query);
       const result = await cursor.toArray();
+      res.send(result);
+    });
+    // update booking report and prescription
+    app.put('/bookingReport/:id', async (req, res) => {
+      const id = req.params.id;
+      const { report, prescription } = req.body;
+
+      const filter = { _id: new ObjectId(id) };
+
+      const updateDoc = {
+        $set: {
+          report: report || false,
+          prescription: prescription || '',
+        },
+      };
+
+      const result = await bookingCollection.updateOne(filter, updateDoc);
       res.send(result);
     });
     //  update payment buy
@@ -462,11 +479,53 @@ async function run() {
       const users = await cursor.toArray();
       res.send(users);
     });
+
+    // UPDATE last donation date
+    app.put('/donner/:id', async (req, res) => {
+      try {
+        const id = req.params.id;
+        const { lastDonationDate } = req.body;
+
+        const filter = { _id: new ObjectId(id) };
+
+        const updateDoc = {
+          $set: {
+            lastDonationDate,
+          },
+        };
+
+        const result = await donnerCollection.updateOne(filter, updateDoc);
+
+        res.send(result);
+      } catch (error) {
+        console.error(error);
+        res.status(500).send({ error: 'Failed to update donor' });
+      }
+    });
     // Delete one donnerCollection
     app.delete('/donner/:id', async (req, res) => {
       const id = req.params.id;
       const query = { _id: ObjectId(id) };
       const result = await donnerCollection.deleteOne(query);
+      res.send(result);
+    });
+
+    //  update payment fonner
+    app.put('/donnerPayment/:id', async (req, res) => {
+      const id = req.params.id;
+      const updatePayment = req.body;
+      const query = { _id: ObjectId(id) };
+      const options = { upsert: true };
+      const updateDoc = {
+        $set: {
+          payment: updatePayment.payment,
+        },
+      };
+      const result = await donnerCollection.updateOne(
+        query,
+        updateDoc,
+        options,
+      );
       res.send(result);
     });
     // post Contact
@@ -622,22 +681,20 @@ async function run() {
       res.send(result);
     });
 
-
-
     // emergency booking
-     app.post('/emergencyBooking', async (req, res) => {
-       const appointmentsBook = req.body;
-       const result =
-         await emergencyBookingCollection.insertOne(appointmentsBook);
-       res.send(result);
-     });
-     // get doctor
-     app.get('/emergencyBooking', async (req, res) => {
-       const query = {};
-       const cursor = emergencyBookingCollection.find(query);
-       const users = await cursor.toArray();
-       res.send(users);
-     });
+    app.post('/emergencyBooking', async (req, res) => {
+      const appointmentsBook = req.body;
+      const result =
+        await emergencyBookingCollection.insertOne(appointmentsBook);
+      res.send(result);
+    });
+    // get doctor
+    app.get('/emergencyBooking', async (req, res) => {
+      const query = {};
+      const cursor = emergencyBookingCollection.find(query);
+      const users = await cursor.toArray();
+      res.send(users);
+    });
     app.delete('/emergencyBooking/:id', async (req, res) => {
       try {
         const id = req.params.id;
@@ -650,8 +707,6 @@ async function run() {
         res.status(500).send({ message: 'Failed to cancel booking' });
       }
     });
-
-
   } finally {
   }
 }
