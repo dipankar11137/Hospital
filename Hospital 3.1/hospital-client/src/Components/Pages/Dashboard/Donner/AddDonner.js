@@ -243,6 +243,20 @@ const AddDonner = () => {
               <p className="text-red-500">{errors.district.message}</p>
             )}
           </div>
+          {/* Date */}
+          <div>
+            <label className="label">
+              <span className="label-text">Last Donated Date</span>
+            </label>
+            <input
+              type="date"
+              className="input input-bordered w-full"
+              {...register('lastDonationDate', { required: 'Date is required' })}
+            />
+            {errors.lastDonationDate && (
+              <p className="text-red-500">{errors.lastDonationDate.message}</p>
+            )}
+          </div>
         </div>
 
         <button type="submit" className="btn btn-primary w-full mt-3">
@@ -254,6 +268,34 @@ const AddDonner = () => {
 };
 
 export default AddDonner;
+
+//               className="select select-bordered w-full"
+//               {...register('district', { required: 'District is required' })}
+//               disabled={!selectedDivision}
+//             >
+//               <option value="">Select District</option>
+//               {selectedDivision &&
+//                 divisions[selectedDivision].map(dis => (
+//                   <option key={dis} value={dis}>
+//                     {dis}
+//                   </option>
+//                 ))}
+//             </select>
+//             {errors.district && (
+//               <p className="text-red-500">{errors.district.message}</p>
+//             )}
+//           </div>
+//         </div>
+
+//         <button type="submit" className="btn btn-primary w-full mt-3">
+//           Add Donor
+//         </button>
+//       </form>
+//     </div>
+//   );
+// };
+
+// export default AddDonner;
 
 // import { useForm } from 'react-hook-form';
 // import { toast } from 'react-toastify';

@@ -98,7 +98,7 @@ const Navbar = () => {
             </label>
             <ul
               tabIndex={0}
-              className="menu menu-sm dropdown-content mt-3 p-3 shadow-lg bg-white rounded-xl w-52"
+              className="menu menu-sm dropdown-content mt-3 p-3 shadow-lg bg-white rounded-xl w-52 "
             >
               {menuItems}
             </ul>
@@ -106,7 +106,7 @@ const Navbar = () => {
 
           <Link
             to="/"
-            className="text-2xl font-bold text-blue-700 tracking-wide"
+            className="text-xl font-bold text-blue-700 tracking-wide"
           >
             Smart Healthcare
           </Link>
@@ -114,7 +114,7 @@ const Navbar = () => {
 
         {/* ================= CENTER (Desktop) ================= */}
         <div className="navbar-center hidden lg:flex">
-          <ul className="menu menu-horizontal gap-1 font-medium text-slate-700">
+          <ul className="menu menu-horizontal gap-1 font-medium text-slate-700 rounded-lg">
             {menuItems}
           </ul>
         </div>
