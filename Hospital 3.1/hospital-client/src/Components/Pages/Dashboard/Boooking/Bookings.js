@@ -213,17 +213,16 @@ const Bookings = () => {
         </div>
 
         {/* TABLE */}
-        <div className="overflow-x-auto h-[350px] overflow-y-auto">
-          <table className="w-full text-sm border rounded-lg overflow-x-scroll">
-            <thead className="bg-gray-100">
+        <div className="overflow-x-auto h-[350px] gap-3 overflow-y-auto">
+          <table className="w-full text-sm border gap-3 rounded-lg overflow-x-scroll">
+            <thead className="bg-gray-100 gap-3">
               <tr>
-                <th>#</th>
+                <th className="py-2">#</th>
                 <th>Doctor</th>
                 <th>Patient</th>
                 <th>Date</th>
                 <th>Status</th>
                 <th>Prescription</th>
-                <th>Upload</th>
                 <th>Report</th>
                 <th>Next</th>
                 <th>Meeting</th>
@@ -233,209 +232,206 @@ const Bookings = () => {
             </thead>
 
             <tbody>
-              {filteredBookings.slice().reverse().map((b, i) => (
-                <tr key={b._id} className="border-t hover:bg-gray-50">
-                  <td>{i + 1}</td>
-                  <td>{b.doctorName}</td>
-                  <td>{b.patientName}</td>
-                  <td>{b.appointmentDate}</td>
+              {filteredBookings
+                .slice()
+                .reverse()
+                .map((b, i) => (
+                  <tr key={b._id} className="border-t hover:bg-gray-50">
+                    <td>{i + 1}</td>
+                    <td className='pl-2 text-start'>{b.doctorName}</td>
+                    <td>{b.patientName}</td>
+                    <td>{b.appointmentDate}</td>
 
-                  {/* STATUS */}
-                  <td>
-                    <span
-                      className={`px-2 py-1 rounded text-white text-xs 
+                    {/* STATUS */}
+                    <td>
+                      <span
+                        className={`px-2 py-1 rounded text-white text-xs 
                       ${b.accept ? 'bg-green-500' : 'bg-yellow-500'}`}
-                    >
-                      {b.accept ? 'Accepted' : 'Pending'}
-                    </span>
-                  </td>
+                      >
+                        {b.accept ? 'Accepted' : 'Pending'}
+                      </span>
+                    </td>
 
-                  {/* IMAGE */}
-                  <td>
-                    {b.prescription && (
-                      <img
-                        src={b.prescription}
-                        alt="prescription"
-                        className="w-14 h-14 object-cover rounded cursor-pointer"
-                        onClick={() => setOpenImage(b.prescription)}
+                    {/* IMAGE */}
+                    <td>
+                      {b.prescription ? (
+                        <div className="flex flex-col items-center gap-1">
+                          {/* Thumbnail */}
+                          <img
+                            src={b.prescription}
+                            alt="prescription"
+                            className="w-14 h-14 object-cover rounded cursor-pointer hover:scale-105 transition"
+                            onClick={() => setOpenImage(b.prescription)}
+                          />
+
+                          {/* View Button */}
+                          <button
+                            onClick={() => setOpenImage(b.prescription)}
+                            className="btn btn-xs btn-accent text-white"
+                          >
+                            View
+                          </button>
+                        </div>
+                      ) : (
+                        <span className="text-gray-400 text-sm">No file</span>
+                      )}
+                    </td>
+                    {openImage && (
+                      <div
+                        className="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-50"
+                        onClick={() => setOpenImage(null)}
+                      >
+                        <div className="relative">
+                          <img
+                            src={openImage}
+                            alt="Large prescription"
+                            className="max-w-[90vw] max-h-[90vh] rounded"
+                          />
+
+                          <button
+                            className="absolute -top-3 -right-3 bg-white text-black rounded-full w-8 h-8 flex items-center justify-center"
+                            onClick={() => setOpenImage(null)}
+                          >
+                            ✕
+                          </button>
+                        </div>
+                      </div>
+                    )}
+
+                    {/* Report  */}
+                    <td className="text-center">
+                      {b.report && b.report ? (
+                        <>
+                          <img
+                            src={b.report}
+                            alt="prescription"
+                            onClick={() => setPreviewImg(b.report)}
+                            className="w-14 h-14 object-cover rounded mx-auto mb-1 cursor-pointer hover:scale-105 transition"
+                          />
+
+                          <span className="text-green-600 font-semibold">
+                            Submitted
+                          </span>
+                        </>
+                      ) : (
+                        <span className="text-gray-500">Not Given</span>
+                      )}
+                    </td>
+                    {previewImg && (
+                      <div
+                        className="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-50"
+                        onClick={() => setPreviewImg(null)}
+                      >
+                        <div className="relative">
+                          <img
+                            src={previewImg}
+                            alt="Full Preview"
+                            className="max-w-[90vw] max-h-[90vh] rounded-lg shadow-2xl"
+                          />
+
+                          <button
+                            onClick={() => setPreviewImg(null)}
+                            className="absolute -top-3 -right-3 bg-red-600 text-white w-8 h-8 rounded-full"
+                          >
+                            ✕
+                          </button>
+                        </div>
+                      </div>
+                    )}
+                    {/* NEXT DATE */}
+                    <td>
+                      <input
+                        type="number"
+                        placeholder="Days"
+                        className="border w-16 p-1 rounded"
+                        onChange={e =>
+                          setNextDates(prev => ({
+                            ...prev,
+                            [b._id]: e.target.value,
+                          }))
+                        }
                       />
-                    )}
-                  </td>
-                  {openImage && (
-                    <div
-                      className="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-50"
-                      onClick={() => setOpenImage(null)}
-                    >
-                      <div className="relative">
-                        <img
-                          src={openImage}
-                          alt="Large prescription"
-                          className="max-w-[90vw] max-h-[90vh] rounded"
-                        />
+                      <button onClick={() => handleNextDate(b._id)}>
+                        <IoCheckbox />
+                      </button>
+                    </td>
 
-                        <button
-                          className="absolute -top-3 -right-3 bg-white text-black rounded-full w-8 h-8 flex items-center justify-center"
-                          onClick={() => setOpenImage(null)}
-                        >
-                          ✕
-                        </button>
-                      </div>
-                    </div>
-                  )}
-                  {/* UPLOAD */}
-                  <td>
-                    <input
-                      placeholder="Image URL"
-                      className="border p-1 rounded w-32"
-                      onChange={e =>
-                        setReportData(prev => ({
-                          ...prev,
-                          [b._id]: {
-                            report: true,
-                            prescription: e.target.value,
-                          },
-                        }))
-                      }
-                    />
-                    <button
-                      onClick={() => handleReportUpdate(b._id)}
-                      className="bg-green-500 text-white px-2 py-1 ml-1 rounded"
-                    >
-                      Save
-                    </button>
-                  </td>
-
-                  {/* Report  */}
-                  <td className="text-center">
-                    {b.report && b.img ? (
-                      <>
-                        <img
-                          src={b.img}
-                          alt="prescription"
-                          onClick={() => setPreviewImg(b.img)}
-                          className="w-14 h-14 object-cover rounded mx-auto mb-1 cursor-pointer hover:scale-105 transition"
-                        />
-
-                        <span className="text-green-600 font-semibold">
-                          Submitted
-                        </span>
-                      </>
-                    ) : (
-                      <span className="text-gray-500">Not Given</span>
-                    )}
-                  </td>
-                  {previewImg && (
-                    <div
-                      className="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-50"
-                      onClick={() => setPreviewImg(null)}
-                    >
-                      <div className="relative">
-                        <img
-                          src={previewImg}
-                          alt="Full Preview"
-                          className="max-w-[90vw] max-h-[90vh] rounded-lg shadow-2xl"
-                        />
-
-                        <button
-                          onClick={() => setPreviewImg(null)}
-                          className="absolute -top-3 -right-3 bg-red-600 text-white w-8 h-8 rounded-full"
-                        >
-                          ✕
-                        </button>
-                      </div>
-                    </div>
-                  )}
-                  {/* NEXT DATE */}
-                  <td>
-                    <input
-                      type="number"
-                      placeholder="Days"
-                      className="border w-16 p-1 rounded"
-                      onChange={e =>
-                        setNextDates(prev => ({
-                          ...prev,
-                          [b._id]: e.target.value,
-                        }))
-                      }
-                    />
-                    <button onClick={() => handleNextDate(b._id)}>
-                      <IoCheckbox />
-                    </button>
-                  </td>
-
-                  {/* MEETING */}
-                  <td>
-                    <input
-                      placeholder="Link"
-                      className="border p-1 w-28 rounded"
-                      onChange={e =>
-                        setMeetingData(prev => ({
-                          ...prev,
-                          [b._id]: {
-                            ...prev[b._id],
-                            meetingLink: e.target.value,
-                          },
-                        }))
-                      }
-                    />
-                    <input
-                      type="time"
-                      className="border p-1 rounded"
-                      onChange={e =>
-                        setMeetingData(prev => ({
-                          ...prev,
-                          [b._id]: {
-                            ...prev[b._id],
-                            meetingTime: e.target.value,
-                          },
-                        }))
-                      }
-                    />
-                    <button
-                      onClick={() => handleMeetingUpdate(b._id)}
-                      className="bg-blue-500 text-white px-2 py-1 rounded"
-                    >
-                      Save
-                    </button>
-                  </td>
-                  <td>
-                    {b.payment ? (
-                      <span className="text-green-600 font-semibold">Paid</span>
-                    ) : (
-                      <span className="text-red-500 font-semibold">Not Paid</span>
-                    )}
-                  </td>
-
-
-                  {/* ACTION */}
-                  <td className="space-x-1">
-                    {!b.accept && (
+                    {/* MEETING */}
+                    <td>
+                      <input
+                        placeholder="Link"
+                        className="border p-1 w-28 rounded"
+                        onChange={e =>
+                          setMeetingData(prev => ({
+                            ...prev,
+                            [b._id]: {
+                              ...prev[b._id],
+                              meetingLink: e.target.value,
+                            },
+                          }))
+                        }
+                      />
+                      <input
+                        type="time"
+                        className="border p-1 rounded"
+                        onChange={e =>
+                          setMeetingData(prev => ({
+                            ...prev,
+                            [b._id]: {
+                              ...prev[b._id],
+                              meetingTime: e.target.value,
+                            },
+                          }))
+                        }
+                      />
                       <button
-                        onClick={() => handleAccept(b._id)}
+                        onClick={() => handleMeetingUpdate(b._id)}
                         className="bg-blue-500 text-white px-2 py-1 rounded"
                       >
-                        Accept
+                        Save
                       </button>
-                    )}
+                    </td>
+                    <td>
+                      {b.payment ? (
+                        <span className="text-green-600 font-semibold">
+                          Paid
+                        </span>
+                      ) : (
+                        <span className="text-red-500 font-semibold">
+                          Not Paid
+                        </span>
+                      )}
+                    </td>
 
-                    {!b.complete && (
+                    {/* ACTION */}
+                    <td className="space-x-1">
+                      {!b.accept && (
+                        <button
+                          onClick={() => handleAccept(b._id)}
+                          className="bg-blue-500 text-white px-2 py-1 rounded"
+                        >
+                          Accept
+                        </button>
+                      )}
+
+                      {!b.complete && (
+                        <button
+                          onClick={() => handleComplete(b._id)}
+                          className="bg-purple-500 text-white px-2 py-1 rounded"
+                        >
+                          Complete
+                        </button>
+                      )}
+
                       <button
-                        onClick={() => handleComplete(b._id)}
-                        className="bg-purple-500 text-white px-2 py-1 rounded"
+                        onClick={() => handleDelete(b._id)}
+                        className="bg-red-500 text-white px-2 py-1 rounded"
                       >
-                        Complete
+                        Delete
                       </button>
-                    )}
-
-                    <button
-                      onClick={() => handleDelete(b._id)}
-                      className="bg-red-500 text-white px-2 py-1 rounded"
-                    >
-                      Delete
-                    </button>
-                  </td>
-                </tr>
-              ))}
+                    </td>
+                  </tr>
+                ))}
             </tbody>
           </table>
 

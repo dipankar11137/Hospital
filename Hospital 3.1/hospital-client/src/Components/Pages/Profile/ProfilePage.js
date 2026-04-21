@@ -111,20 +111,14 @@ const ProfilePage = () => {
 
               <br />
 
-              <button
-                disabled={updating}
-                onClick={handleAddToBloodDonner}
-                className={`px-5 py-2 rounded-lg font-semibold text-white transition
-                  ${
-                    isBloodDonner
-                      ? 'bg-red-600 hover:bg-red-700'
-                      : 'bg-green-600 hover:bg-green-700'
-                  }
-                  ${updating && 'opacity-60 cursor-not-allowed'}
-                `}
+               <button
+                onClick={() => navigate('/myPatients')}
+                className="bg-red-600 hover:bg-red-700 text-white px-5 py-2 rounded-lg font-semibold mb-3"
               >
-                {isBloodDonner ? 'Remove Donor' : 'Add to Blood Donor'}
+                My Patients
               </button>
+
+              
             </div>
           </div>
         </div>

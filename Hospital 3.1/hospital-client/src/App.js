@@ -38,6 +38,7 @@ import Home from './Components/Pages/Home/Home';
 import Medicine from "./Components/Pages/Medicine/Medicine";
 import BloodDonnerProfile from "./Components/Pages/Profile/Blood Donner/BloodDonnerProfile";
 import EditProfile from "./Components/Pages/Profile/EditProfile";
+import MyPatients from "./Components/Pages/Profile/MyPatients";
 import ProfilePage from "./Components/Pages/Profile/ProfilePage";
 import SampleCollection from "./Components/Pages/Sample Collecting/SampleCollection";
 import Header from "./Components/Share/Header";
@@ -82,6 +83,7 @@ function App() {
         <Route path="/medicine" element={<Medicine />} />
         <Route path="/profile" element={<ProfilePage />} />
         <Route path="/editProfile" element={<EditProfile />} />
+        <Route path="/myPatients" element={<MyPatients />} />
         <Route path="/doctorMeting" element={<DoctorMetting />} />
         <Route path="/sampleCollection" element={<SampleCollection />} />
 

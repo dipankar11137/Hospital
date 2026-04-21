@@ -15,7 +15,7 @@ const MyBooking = ({ booking, index, handleDelete }) => {
     <tr className="text-center text-slate-800">
       <th className="bg-slate-300">{index}</th>
       <td className="bg-slate-300 border-r-2">
-        <div className="flex items-center">
+        <div className="flex items-start">
           <img className="w-14 h-14 rounded-md" src={booking?.img} alt="" />
           <h1 className="font-semibold ml-3">{booking?.doctorName}</h1>
         </div>
