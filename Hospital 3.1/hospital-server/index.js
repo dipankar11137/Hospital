@@ -272,6 +272,24 @@ async function run() {
       const result = await cursor.toArray();
       res.send(result);
     });
+  app.put('/bookingsId/:id', async (req, res) => {
+    const id = req.params.id;
+    const update = req.body;
+
+    const result = await bookingCollection.updateOne(
+      { _id: new ObjectId(id) },
+      {
+        $set: {
+          prescription: update.prescription,
+          medicines: update.medicines,
+          notes: update.notes,
+          date: update.date,
+        },
+      },
+    );
+
+    res.send(result);
+  });
     // update booking report and prescription
     app.put('/bookingReport/:id', async (req, res) => {
       const id = req.params.id;
